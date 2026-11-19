@@ -111,7 +111,8 @@
       ['3', '¿Qué hacen otros países frente a problemas similares?', r3, '#mundial', 'Ver comparación mundial'],
       ['4', '¿Qué acciones sugiere la aplicación y cómo se mediría su avance?', r4, '#estrategia', 'Ver estrategia completa']
     ];
-    $('#preguntas').innerHTML = items.map(([n, q, r, h, t]) => `<li class="pregunta"><span class="pregunta__num" aria-hidden="true">${n}</span><h3>${q}</h3><p class="pregunta__resp">${r}</p><a href="${h}" data-ir="${h.slice(1)}">${t}</a></li>`).join('');
+    const ICONOS = { 1: 'mexico', 2: 'lupa', 3: 'mundial', 4: 'estrategia' };
+    $('#preguntas').innerHTML = items.map(([n, q, r, h, t]) => `<li class="pregunta pregunta--${n}"><span class="pregunta__ico">${U.ico(ICONOS[n])}</span><h3>${n}. ${q}</h3><p class="pregunta__resp">${r}</p><a href="${h}" data-ir="${h.slice(1)}">${t}</a></li>`).join('');
   }
 
   // ---------- Gráfica 1 ----------
@@ -360,7 +361,7 @@
       claseFila: (a) => (pri.tipo === 'brecha' && a.id === pri.aspecto.id ? 'fila--sel' : ''),
       caption: `${U.esc(e.nombre)}, ${U.esc(i.corto)}, ${est.anio}. Porcentaje de personas usuarias que reportan cada característica; mayor es mejor. Fuente: ${etiquetaFuenteEncig(est.anio, i.cuadro)}.`,
       columnas: [
-        { id: 'etiqueta', titulo: 'Aspecto', sinOrden: true, valor: (a) => a.etiqueta, html: (a) => `${U.esc(a.etiqueta)}${pri.tipo === 'brecha' && a.id === pri.aspecto.id ? ' <span class="chip chip--aviso">Prioridad</span>' : ''}<br><small>INEGI: ${U.esc(a.etiqueta_inegi)}</small>` },
+        { id: 'etiqueta', titulo: 'Aspecto', sinOrden: true, valor: (a) => a.etiqueta, html: (a) => `${U.iconoAspecto(a.id)} ${U.esc(a.etiqueta)}${pri.tipo === 'brecha' && a.id === pri.aspecto.id ? ' <span class="chip chip--aviso">Prioridad</span>' : ''}<br><small>INEGI: ${U.esc(a.etiqueta_inegi)}</small>` },
         { id: 'obs', titulo: 'Estado', num: true, sinOrden: true, valor: (a) => a.obs, html: (a) => U.pct(a.obs) },
         { id: 'ref', titulo: 'Nacional', num: true, sinOrden: true, valor: (a) => a.ref, html: (a) => U.pct(a.ref) },
         { id: 'dif', titulo: 'Brecha', num: true, sinOrden: true, valor: (a) => a.dif, html: (a) => U.pp(a.dif) },
@@ -401,6 +402,7 @@
 
     pintarContexto();
     pintarCasoImss();
+    pintarPensiones();
   }
 
   function pintarCasoImss() {
@@ -480,7 +482,7 @@
     }
     const a = es.aspecto, r = es.regla;
     h += `<div class="tarjeta"><div class="paso"><span class="paso__n" aria-hidden="true">1</span><div><h3>Qué problema detectó y con qué datos</h3><p><strong>${U.esc(r.problema)}</strong></p>
-      <dl class="datos"><dt>Aspecto priorizado</dt><dd>${U.esc(a.etiqueta)}</dd><dt>Institución y año</dt><dd>${U.esc(i.nombre)}, ${est.anio}</dd><dt>Dato observado</dt><dd>${U.pct(a.obs)} en ${U.esc(e.nombre)} (precisión ${a.precision}, CV ${U.n1(a.cv)}%)</dd><dt>Referencia</dt><dd>${U.pct(a.ref)} nacional, misma institución, indicador y año</dd><dt>Diferencia</dt><dd>${U.pp(a.dif)} (brecha descriptiva)</dd><dt>Fuente</dt><dd>${etiquetaFuenteEncig(est.anio, i.cuadro)}</dd></dl>
+      <dl class="datos"><dt>Aspecto priorizado</dt><dd>${U.iconoAspecto(a.id)} ${U.esc(a.etiqueta)}</dd><dt>Institución y año</dt><dd>${U.esc(i.nombre)}, ${est.anio}</dd><dt>Dato observado</dt><dd>${U.pct(a.obs)} en ${U.esc(e.nombre)} (precisión ${a.precision}, CV ${U.n1(a.cv)}%)</dd><dt>Referencia</dt><dd>${U.pct(a.ref)} nacional, misma institución, indicador y año</dd><dt>Diferencia</dt><dd>${U.pp(a.dif)} (brecha descriptiva)</dd><dt>Fuente</dt><dd>${etiquetaFuenteEncig(est.anio, i.cuadro)}</dd></dl>
       ${es.prioridad.otros.length ? `<p class="fuente-nota">Otros aspectos por debajo de la referencia: ${es.prioridad.otros.map((x) => `${U.esc(x.etiqueta)} (${U.pp(x.dif)})`).join('; ')}.</p>` : ''}</div></div></div>`;
     h += `<div class="tarjeta"><div class="paso"><span class="paso__n" aria-hidden="true">2</span><div><h3>Qué práctica sirve de referencia</h3>${r.nivel_respaldo === 'general' ? `<p class="aviso">${U.esc(r.nota_respaldo)}</p>` : ''}<ul class="lista-limpia">${es.practicas.map((p) => `<li><strong>${U.esc(p.pais)}:</strong> ${U.esc(p.nombre)}. ${p.fuentes.map((f) => U.fuente(f, 'Fuente: ' + D.fuentes.fuentes[f].institucion)).join(' · ')} · <a href="#mundial" data-ir="mundial" data-practica="${p.id}">Ver ficha</a></li>`).join('')}</ul></div></div></div>`;
     h += `<div class="tarjeta"><div class="paso"><span class="paso__n" aria-hidden="true">3</span><div><h3>Qué hacer primero, qué sigue y quién podría participar</h3><dl class="datos"><dt>Primero</dt><dd>${U.esc(r.primero)}</dd><dt>Después</dt><dd>${U.esc(r.despues)}</dd><dt>Áreas</dt><dd>${es.areas.map(U.esc).join('; ')}</dd></dl></div></div></div>`;
@@ -582,7 +584,7 @@
     const reg = A.registro(est.inst, est.anio, est.ent);
     const es = A.estrategia(est.inst, est.anio, est.ent);
     let prioridad = 'Sin datos comparables para priorizar.';
-    if (es.tipo === 'brecha') prioridad = `<strong>${U.esc(es.aspecto.etiqueta)}</strong>: ${U.pct(es.aspecto.obs)} contra ${U.pct(es.aspecto.ref)} nacional (${U.pp(es.aspecto.dif)}).`;
+    if (es.tipo === 'brecha') prioridad = `${U.iconoAspecto(es.aspecto.id)} <strong>${U.esc(es.aspecto.etiqueta)}</strong>: ${U.pct(es.aspecto.obs)} contra ${U.pct(es.aspecto.ref)} nacional (${U.pp(es.aspecto.dif)}).`;
     else if (es.tipo === 'sin_brecha') prioridad = 'Ningún aspecto comparable está por debajo de la referencia.';
     $('#m1-ficha').innerHTML = `
       <div><p class="ficha__estado">${U.esc(e.nombre)}</p><p class="ficha__inst">${U.esc(i.corto)} · ${est.anio} · personas usuarias en áreas urbanas</p></div>
@@ -663,6 +665,69 @@
     $('#contexto').innerHTML = `<div class="contexto">${filas}</div><p class="fuente-nota">Punto grande: ${U.esc(e.nombre)}. Línea punteada: nacional. Puntos claros: los 32 estados. ${U.esc(C.nota)}</p>`;
   }
 
+  // ---------- Portada y frases destacadas ----------
+  function pintarPortada() {
+    const i = inst(), e = ent();
+    const nac = U.r1(A.nacional(est.inst, est.anio).satisfaccion.v);
+    const fmt = (v) => U.n1(v);
+    U.contar($('#portada-num'), nac, fmt, 1100);
+    const DE = { imss: 'del IMSS', issste: 'del ISSSTE', estatal: 'de los servicios estatales de salud', imssb: 'de IMSS-Bienestar' };
+    let pie = `de las personas usuarias ${DE[est.inst]} se declaró satisfecha o muy satisfecha en ${est.anio}, a nivel nacional (${U.fuente(fuenteEncig(est.anio), 'ENCIG ' + est.anio + ', INEGI')}).`;
+    const c = A.cambio(est.inst, null);
+    if (c.comparable && est.anio === 2025) pie += ` En 2023 era ${U.pct(c.nac23)}: ${U.pp(c.difNac)}${c.sig.significativo ? ', un cambio que INEGI considera estadísticamente significativo' : ', sin cambio significativo según INEGI'}.`;
+    $('#portada-pie').innerHTML = pie;
+    if (i.nivel === 'region') {
+      $('#portada-datos').innerHTML = `<div><dt>Estados con dato</dt><dd>0 de 32</dd><dd class="portada__sub">INEGI lo publica solo por región</dd></div>`;
+    } else {
+      const rk = A.ranking(est.inst, est.anio).filter((f) => f.estado !== 'sin').sort((a, b) => a.obs - b.obs);
+      const debajo = rk.filter((f) => f.estado === 'debajo').length;
+      $('#portada-datos').innerHTML = `<div><dt>Estados por debajo</dt><dd><span data-contar="${debajo}">${debajo}</span> de ${rk.length}</dd></div>
+        <div><dt>Menor satisfacción</dt><dd>${U.pct(rk[0].obs)}</dd><dd class="portada__sub">${U.esc(rk[0].nombre)}</dd></div>
+        <div><dt>Mayor satisfacción</dt><dd>${U.pct(rk[rk.length - 1].obs)}</dd><dd class="portada__sub">${U.esc(rk[rk.length - 1].nombre)}</dd></div>`;
+      U.$$('#portada-datos [data-contar]').forEach((el) => U.contar(el, +el.dataset.contar, (v) => String(Math.round(v)), 900));
+    }
+    // Frases destacadas de cada sección
+    const s = A.satisfaccion(est.inst, est.anio, est.ent), es = A.estrategia(est.inst, est.anio, est.ent);
+    $('#mexico-destacado').innerHTML = s.estado === 'sin'
+      ? `${U.esc(e.nombre)}: sin datos comparables para ${U.esc(i.corto)}. ${U.esc(s.motivo || '')}`
+      : `${U.esc(e.nombre)}: ${U.pct(s.obs)} de satisfacción con ${U.esc(i.corto)}, ${U.pp(s.dif)} frente al nacional.${es.tipo === 'brecha' ? ` El aspecto más rezagado es ${U.esc(es.aspecto.etiqueta.toLowerCase())}.` : ''}`;
+    $('#estrategia-destacado').innerHTML = es.tipo === 'brecha'
+      ? `Prioridad para ${U.esc(e.nombre)} con ${U.esc(i.corto)}: ${U.esc(es.aspecto.etiqueta.toLowerCase())}, ${U.pct(es.aspecto.obs)} contra ${U.pct(es.aspecto.ref)} nacional.`
+      : es.tipo === 'sin_brecha' ? `${U.esc(e.nombre)} no tiene aspectos por debajo de la referencia con ${U.esc(i.corto)}.` : `Primero hacen falta datos estatales de ${U.esc(i.corto)} para ${U.esc(e.nombre)}.`;
+    if (A.mundialDisponible()) {
+      const m = A.mexico();
+      $('#mundial-destacado').innerHTML = `México cubre ${U.n0(m.uhc)} de 100 puntos de servicios esenciales con ${U.dolares(m.gasto)} por persona, y ${U.n1(m.bolsillo)}% del gasto en salud sale directamente del bolsillo de los hogares (2023).`;
+    }
+  }
+
+  // ---------- Pensiones y servicio médico (relación indirecta) ----------
+  function enlacePagina(it) {
+    const f = D.fuentes.fuentes[it.fuente];
+    const url = it.capitulo && f.capitulos ? `${f.capitulos[it.capitulo]}#page=${it.pdf_pagina}` : (f.archivo || f.url);
+    return `<a class="cita" href="${U.esc(url)}" target="_blank" rel="noopener" data-fuente="${U.esc(it.fuente)}">${U.esc(f.institucion.replace(/ \(.*\)$/, ''))}, p. ${it.pagina}${it.cita ? ', ' + U.esc(it.cita) : ''}</a>`;
+  }
+  function pintarPensiones() {
+    const P = D.pensiones, e = ent();
+    const asp = A.aspectos('imss', 2025, est.ent);
+    const filas = P.trato.aspectos.map((id) => asp.find((a) => a.id === id));
+    let h = `<p class="destacado">El servicio médico del IMSS no se paga con la Modalidad 40, pero sí comparte presupuesto con las pensiones de su propio personal.</p>`;
+    h += `<div class="aviso aviso--info afirmacion"><p><strong>Qué es y qué no es la Modalidad 40.</strong> ${U.esc(P.aclaracion.texto)} <span class="fuente-cita">Fuente: ${enlacePagina(P.aclaracion)}.</span></p></div>`;
+    h += `<h3 class="bloque">Lo que dice el informe financiero del IMSS</h3><ol class="cadena">` +
+      P.cadena.map((c) => `<li class="afirmacion"><h4>${U.esc(c.afirmacion)}</h4><p>${U.esc(c.dato)}</p><p class="fuente-cita">Fuente: ${enlacePagina(c)}.</p></li>`).join('') + '</ol>';
+    h += `<div class="aviso"><p><strong>Lo que el informe no permite afirmar.</strong></p><ul>${P.limites.map((x) => `<li>${U.esc(x)}</li>`).join('')}</ul><p class="fuente-cita">Fuentes: ${U.fuente('imss_informe_2025_2026', 'IMSS, Informe financiero 2025-2026')} y ${U.fuente('dof_5801708', 'DOF, 21 de octubre de 2026')}.</p></div>`;
+    h += `<h3 class="bloque">El trato del personal: lo que reportan las personas usuarias</h3>
+      <p class="seccion__intro">Porcentaje de personas usuarias del IMSS que reportan cada característica en ${U.esc(e.nombre)} y a nivel nacional, 2025. Mayor es mejor.</p>
+      <div class="tabla-cont afirmacion" tabindex="0" role="region" aria-label="Trato del personal en la ENCIG"><table><caption>IMSS, 2025. ${U.esc(E.alcance)} Fuente: ${U.fuente('encig_2025', 'INEGI, ENCIG 2025, cuadro 2.3')}.</caption>
+      <thead><tr><th scope="col">Aspecto</th><th scope="col" class="num">${U.esc(e.nombre)}</th><th scope="col" class="num">Nacional</th><th scope="col" class="num">Brecha</th><th scope="col">Resultado</th></tr></thead><tbody>
+      ${filas.map((a) => `<tr><th scope="row">${U.iconoAspecto(a.id)} ${U.esc(a.etiqueta)}</th><td class="num">${U.pct(a.obs)}</td><td class="num">${U.pct(a.ref)}</td><td class="num">${U.pp(a.dif)}</td><td>${U.estadoHTML(a.estado)}</td></tr>`).join('')}
+      </tbody></table></div>`;
+    const nac = A.nacional('imss', 2025);
+    h += `<p class="hallazgo-linea">A nivel nacional, ${U.pct(U.r1(nac.aspectos.trato_respetuoso.v))} de las personas usuarias del IMSS reporta trato respetuoso, pero solo ${U.pct(U.r1(nac.aspectos.atencion_inmediata.v))} reporta atención inmediata (ENCIG 2025).</p>`;
+    h += `<h4 class="bloque">Inconformidades ante la CONAMED (contexto)</h4><ul class="lista-limpia">${P.trato.conamed.map((c) => `<li class="afirmacion">${U.esc(c.dato)} <span class="fuente-cita">Fuente: ${enlacePagina(c)}.</span></li>`).join('')}<li>${U.esc(P.trato.sin_datos)}</li></ul>`;
+    h += `<div class="postura" role="note" aria-labelledby="postura-t"><p class="postura__rotulo" id="postura-t">${U.esc(P.postura.rotulo)}</p><blockquote><p>${U.esc(P.postura.texto)}</p></blockquote><p class="postura__autor">${U.esc(P.postura.autoria)}. Esta opinión no forma parte del cálculo de brechas ni de las estrategias.</p></div>`;
+    $('#pensiones').innerHTML = h;
+  }
+
   // ---------- Tema ----------
   function pintarTema() {
     const oscuro = U.tema.actual() === 'dark';
@@ -674,6 +739,7 @@
   // ---------- Ciclo ----------
   function actualizar() {
     pintarSeleccion();
+    pintarPortada();
     pintarPreguntas();
     pintarM1();
     pintarG1(); pintarG2();
@@ -732,10 +798,25 @@
     }, 150));
   }
 
+  // Las barras crecen cuando su gráfica entra en pantalla (solo si hay movimiento permitido)
+  function observarGraficas() {
+    if (!('IntersectionObserver' in window) || !U.movimiento()) return;
+    document.documentElement.classList.add('mov');
+    const io = new IntersectionObserver((ents) => ents.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add('visto'); io.unobserve(en.target); }
+    }), { threshold: 0.15 });
+    U.$$('.grafica__lienzo').forEach((el) => io.observe(el));
+    // Seguridad: si algo impide la observación, nada queda oculto
+    const mostrarTodo = () => U.$$('.grafica__lienzo').forEach((el) => el.classList.add('visto'));
+    setTimeout(mostrarTodo, 4000);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') mostrarTodo(); });
+  }
+
   estadoInicial();
   leerHash();
   eventos();
   pintarTodo();
   graficasListas = true;
+  observarGraficas();
   $('#pie-generado').textContent = `Datos procesados el ${new Date(D.generado).toLocaleDateString('es-MX')}.`;
 })();

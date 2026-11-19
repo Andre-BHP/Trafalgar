@@ -372,7 +372,8 @@ const resultado = {
   geo: await geometrias(),
   practicas: leerJSON('practicas.json'),
   reglas: leerJSON('reglas.json'),
-  imss: leerJSON('imss_2026.json')
+  imss: leerJSON('imss_2026.json'),
+  pensiones: leerJSON('pensiones_salud.json')
 };
 fs.mkdirSync(SALIDA, { recursive: true });
 for (const k of ['encig', 'mundial', 'contexto']) fs.writeFileSync(path.join(SALIDA, k + '.json'), JSON.stringify(resultado[k], null, 1));

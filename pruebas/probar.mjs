@@ -162,6 +162,24 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   ok(`[${nombre}] México por estado incluye el caso IMSS con periodo`, (await texto(page, '#caso-imss')).includes('12 de octubre de 2026'));
   ok(`[${nombre}] Modalidad 40 identificada como esquema de retiro`, (await texto(page, '#caso-imss')).includes('cotización voluntaria para el retiro'));
   ok(`[${nombre}] Contexto del estado con 5 indicadores y fuente`, (await page.$$eval('#contexto .contexto__fila', (l) => l.length)) === 5 && (await page.$$eval('#contexto a[href^="http"]', (l) => l.length)) >= 5);
+  // Pensiones y servicio médico: sección, fuentes por afirmación y postura rotulada
+  const pens = await page.evaluate(() => {
+    const sec = document.querySelector('#pensiones');
+    if (!sec || !sec.textContent.trim()) return { existe: false };
+    const afirm = [...sec.querySelectorAll('.afirmacion')];
+    const sinFuente = afirm.filter((x) => !x.querySelector('a[href^="http"]')).map((x) => x.textContent.trim().slice(0, 60));
+    const post = sec.querySelector('.postura');
+    return {
+      existe: !!document.querySelector('#t-pensiones') && /relación indirecta/i.test(document.querySelector('#t-pensiones').textContent),
+      afirmaciones: afirm.length, sinFuente,
+      postura: !!post && /opinión/i.test(post.querySelector('.postura__rotulo')?.textContent || '') && post.getAttribute('role') === 'note',
+      mod40: /Invalidez y Vida/.test(sec.textContent) && /no incluye el Seguro de Enfermedades y Maternidad/i.test(sec.textContent)
+    };
+  });
+  ok(`[${nombre}] Sección «Pensiones y servicio médico: relación indirecta» presente`, pens.existe);
+  ok(`[${nombre}] Cada afirmación de la sección de pensiones enlaza a su fuente`, pens.existe && pens.afirmaciones >= 10 && pens.sinFuente.length === 0, `${pens.afirmaciones} afirmaciones; sin fuente: ${(pens.sinFuente || []).join(' / ') || 'ninguna'}`);
+  ok(`[${nombre}] Recuadro de postura rotulado como opinión`, pens.postura);
+  ok(`[${nombre}] Se aclara que la Modalidad 40 no cubre el servicio médico`, pens.mod40);
   await page.screenshot({ path: path.join(CAPT, `${nombre}-mexico.png`), fullPage: true });
   await axe(page, `${nombre} México por estado`);
 

@@ -52,11 +52,18 @@ Escala de 4 px (4, 8, 12, 16, 24, 32, 48). Radio de 6 px. Sombras suaves con des
 - **Renglones de la cartilla**: las cuatro preguntas y las cifras van en una sola banda con divisiones finas, no en tarjetas idénticas.
 - **Registro de acciones** en la estrategia: tabla Paso, Acción, Indicador, Dato de partida y Próxima medición.
 - **Contexto del estado**: fila por indicador con valor, nacional y una tira con los 32 estados.
+- **Portada de Resumen**: título grande, cifra protagonista (conformidad nacional de la institución elegida, de 4.5 a 8.5 rem) que se cuenta sola, tres datos de apoyo e ilustración de una cartilla con renglones, marcas y sello. Fondo con renglones tenues de cartilla.
+- **Tarjetas de preguntas** con ícono y color propio (verde, rojo, azul y ámbar), barra superior de 4 px; se elevan 3 px al pasar el cursor.
+- **Íconos de línea** (`<symbol>` en `index.html`, trazo 1.8, extremos redondeados) para las cinco secciones y los 11 aspectos del servicio; aparecen en la navegación, la gráfica de aspectos, las tablas y la estrategia.
+- **Frase destacada** al inicio de cada sección, con filete de 1 px en el acento.
+- **Bandas alternas** (`.banda--alt`) de ancho completo para dar ritmo entre bloques.
+- **Cadena de afirmaciones** (pensiones y servicio médico): pasos numerados unidos por línea punteada, cada uno con su cita de página.
+- **Recuadro de postura**: borde punteado ámbar, rótulo «Postura del equipo (opinión, no es un dato)» y texto en cursiva; nunca se confunde con un dato.
 - **Selector de tema** en el encabezado; respeta el sistema y guarda la elección solo en el navegador.
 
 ## Movimiento
 
-Hay un solo momento coreografiado. Al cambiar de estado, institución o filtro, los colores de los mapas transicionan en 450 ms y las barras crecen desde su base en 500 ms, ambos con salida exponencial (`cubic-bezier(.16, 1, .3, 1)`). El sello aparece con una impresión breve y las secciones entran con un desplazamiento de 6 px. Con `prefers-reduced-motion` no hay animación.
+Hay un solo momento coreografiado. Al cambiar de estado, institución o filtro, los colores de los mapas transicionan en 450 ms y las barras crecen desde su base en 700 ms cuando su gráfica entra en pantalla (IntersectionObserver; nada queda oculto si no se observa), ambos con salida exponencial (`cubic-bezier(.16, 1, .3, 1)`). El sello aparece con una impresión breve y las secciones entran con un desplazamiento de 6 px. Con `prefers-reduced-motion` no hay animación.
 
 ## Celular
 

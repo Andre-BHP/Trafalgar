@@ -1,3 +1,6 @@
 node_modules/
 .claude/
 .impeccable/
+datos/fuentes/imss/informe_2025_2026/*.pdf
+datos/fuentes/conamed/anuario.txt
+.taste-skill/

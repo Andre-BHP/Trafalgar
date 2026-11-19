@@ -1,8 +1,8 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 5:57:45 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 6:18:59 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
-Total: 129 pruebas, 129 correctas, 0 fallas.
+Total: 137 pruebas, 137 correctas, 0 fallas.
 
 | Resultado | Prueba | Detalle |
 |---|---|---|
@@ -45,6 +45,10 @@ Total: 129 pruebas, 129 correctas, 0 fallas.
 | Correcta | [escritorio-1440] México por estado incluye el caso IMSS con periodo |  |
 | Correcta | [escritorio-1440] Modalidad 40 identificada como esquema de retiro |  |
 | Correcta | [escritorio-1440] Contexto del estado con 5 indicadores y fuente |  |
+| Correcta | [escritorio-1440] Sección «Pensiones y servicio médico: relación indirecta» presente |  |
+| Correcta | [escritorio-1440] Cada afirmación de la sección de pensiones enlaza a su fuente | 12 afirmaciones; sin fuente: ninguna |
+| Correcta | [escritorio-1440] Recuadro de postura rotulado como opinión |  |
+| Correcta | [escritorio-1440] Se aclara que la Modalidad 40 no cubre el servicio médico |  |
 | Correcta | axe sin violaciones: escritorio-1440 México por estado |  |
 | Correcta | [escritorio-1440] Fichas de prácticas con enlace a la fuente | 6 fichas |
 | Correcta | axe sin violaciones: escritorio-1440 Comparación mundial |  |
@@ -105,6 +109,10 @@ Total: 129 pruebas, 129 correctas, 0 fallas.
 | Correcta | [celular-390] México por estado incluye el caso IMSS con periodo |  |
 | Correcta | [celular-390] Modalidad 40 identificada como esquema de retiro |  |
 | Correcta | [celular-390] Contexto del estado con 5 indicadores y fuente |  |
+| Correcta | [celular-390] Sección «Pensiones y servicio médico: relación indirecta» presente |  |
+| Correcta | [celular-390] Cada afirmación de la sección de pensiones enlaza a su fuente | 12 afirmaciones; sin fuente: ninguna |
+| Correcta | [celular-390] Recuadro de postura rotulado como opinión |  |
+| Correcta | [celular-390] Se aclara que la Modalidad 40 no cubre el servicio médico |  |
 | Correcta | axe sin violaciones: celular-390 México por estado |  |
 | Correcta | [celular-390] Fichas de prácticas con enlace a la fuente | 6 fichas |
 | Correcta | axe sin violaciones: celular-390 Comparación mundial |  |

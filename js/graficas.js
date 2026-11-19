@@ -96,7 +96,8 @@
       s += `<g><title>${U.esc(`${a.etiqueta}: ${U.pct(a.obs)} en el estado; referencia nacional ${U.pct(a.ref)}; ${U.pp(a.dif)}; ${U.TEXTO_ESTADO[a.estado]}`)}</title>`;
       if (pri) s += `<rect x="0" y="${y + 1}" width="${W}" height="${fila - 2}" rx="4" fill="rgba(242,169,0,.14)"/>`;
       s += forma(a.estado, x0 + 6, y + 10);
-      s += `<text class="etq" x="${x0 + 16}" y="${y + 14}" font-weight="${pri ? 700 : 500}" fill="var(--tinta)">${U.esc((pri ? 'Prioridad: ' : '') + recortar(a.etiqueta, angosto ? 40 : 60))}</text>`;
+      s += `<use href="#i-${a.id}" x="${x0 + 15}" y="${y + 2}" width="15" height="15" class="ico-svg"/>`;
+      s += `<text class="etq" x="${x0 + 35}" y="${y + 14}" font-weight="${pri ? 700 : 500}" fill="var(--tinta)">${U.esc((pri ? 'Prioridad: ' : '') + recortar(a.etiqueta, angosto ? 40 : 60))}</text>`;
       if (a.obs !== null) {
         s += `<rect class="crece" x="${x0}" y="${by}" width="${Math.max(1, sx(a.obs) - x0)}" height="${bh}" rx="2" fill="${COLOR[a.estado]}"/>`;
         const tx = sx(a.obs) + 4 + (a.ref !== null && Math.abs(sx(a.ref) - sx(a.obs)) < 34 && a.ref > a.obs ? sx(a.ref) - sx(a.obs) + 2 : 0);

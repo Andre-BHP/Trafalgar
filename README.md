@@ -78,10 +78,15 @@ scripts/procesar.mjs  Procesamiento de datos
 pruebas/probar.mjs    Pruebas con Edge y axe
 ```
 
+## Pensiones y servicio médico
+
+Dentro de «México por estado», la sección «Pensiones y servicio médico: relación indirecta» usa el *Informe al Ejecutivo Federal y al Congreso de la Unión sobre la Situación Financiera y los Riesgos del IMSS 2025-2026* (páginas 45, 51, 128, 133, 190, 232 y 239), la ENCIG 2025 y el Anuario Estadístico 2024 de la CONAMED. Cada afirmación enlaza a su página. La postura del equipo va en un recuadro aparte, rotulado como opinión. Los PDF del informe no se suben al repositorio (pesan 47 MB); se descargan de las direcciones citadas en `datos/curados/fuentes.json`.
+
 ## Datos faltantes registrados
 
 - Lista de espera quirúrgica del IMSS: el boletín 593/2026 no publica pacientes pendientes ni tiempos de espera.
 - IMSS-Bienestar: INEGI lo publica solo por región, no por entidad.
 - Servicios estatales: no comparables con 2023 (cambió la institución preguntada).
 - Indicadores de gestión por entidad (tiempos de espera, recetas surtidas, plazas ocupadas): no disponibles en las fuentes consultadas.
+- CONAMED: no publica quejas por «relación médico-paciente» en 2024 ni desglose por motivo en 2025.
 - Médicos y camas: solo sector público (la base sectorial de la DGIS no incluye el privado).

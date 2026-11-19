@@ -1,0 +1,66 @@
+{
+  "titulo": "Pensiones y servicio médico: relación indirecta",
+  "aclaracion": {
+    "texto": "La Modalidad 40 (Continuación Voluntaria en el Régimen Obligatorio) cubre solo dos seguros: Invalidez y Vida, y Retiro, Cesantía en Edad Avanzada y Vejez. No incluye el Seguro de Enfermedades y Maternidad, que es el que paga el servicio médico. Al cierre de 2025 tenía 272,919 personas aseguradas.",
+    "fuente": "imss_informe_2025_2026", "capitulo": "anexos", "pagina": 239, "pdf_pagina": 3,
+    "cita": "Cuadro A.1. Modalidades de aseguramiento por tipo de régimen y esquema de prestaciones, diciembre de 2025"
+  },
+  "cadena": [
+    {
+      "id": "rjp_gasto",
+      "afirmacion": "El pago de pensiones del propio personal del IMSS (Régimen de Jubilaciones y Pensiones, RJP) es uno de los gastos más grandes del Instituto.",
+      "dato": "Nómina del RJP en 2025: 149,411 millones de pesos, el 19.1% de los egresos propios del IMSS.",
+      "fuente": "imss_informe_2025_2026", "capitulo": "cap02", "pagina": 45, "pdf_pagina": 9
+    },
+    {
+      "id": "rjp_presion",
+      "afirmacion": "El propio IMSS reconoce que ese gasto puede restar recursos a la operación.",
+      "dato": "El informe señala que el RJP seguirá presionando el flujo de efectivo durante la próxima década y que la planeación debe considerar «el efecto que este gasto puede tener sobre la disponibilidad de recursos para operación, inversión e infraestructura».",
+      "fuente": "imss_informe_2025_2026", "capitulo": "cap10", "pagina": 232, "pdf_pagina": 6
+    },
+    {
+      "id": "rjp_maximo",
+      "afirmacion": "La presión todavía no llega a su punto más alto.",
+      "dato": "Se estima un gasto anual máximo de 182,607 millones de pesos de 2025 en el año 2040 (pensiones complementarias del RJP, prima de antigüedad, indemnizaciones y pensiones complementarias por invalidez).",
+      "fuente": "imss_informe_2025_2026", "capitulo": "cap08", "pagina": 190, "pdf_pagina": 2
+    },
+    {
+      "id": "sem_asignacion",
+      "afirmacion": "Una parte de ese costo se carga al seguro que financia la atención médica.",
+      "dato": "El gasto de administración del Seguro de Enfermedades y Maternidad se integra con la proporción que se le asigna de los servicios de personal y de los pasivos laborales del IMSS como patrón por jubilaciones y pensiones (nota 4 del cuadro de proyección del SEM).",
+      "fuente": "imss_informe_2025_2026", "capitulo": "cap05", "pagina": 133, "pdf_pagina": 31
+    },
+    {
+      "id": "sem_deficit",
+      "afirmacion": "El seguro que paga el servicio médico gasta más de lo que ingresa.",
+      "dato": "De 2020 a 2025 el Seguro de Enfermedades y Maternidad tuvo déficit todos los años: el déficit operativo equivale al 23% de sus ingresos y el de 2025 fue 40.3% mayor que el de 2020.",
+      "fuente": "imss_informe_2025_2026", "capitulo": "cap05", "pagina": 128, "pdf_pagina": 26
+    },
+    {
+      "id": "reservas_2025",
+      "afirmacion": "En 2025 el Instituto no tuvo que usar reservas.",
+      "dato": "El balance primario de 2025 fue de 52,621 millones de pesos y «en 2025 no fue necesario hacer uso de las reservas».",
+      "fuente": "imss_informe_2025_2026", "capitulo": "cap02", "pagina": 51, "pdf_pagina": 15
+    }
+  ],
+  "limites": [
+    "La presión financiera que el informe vincula con la operación es la del RJP (pensiones de los trabajadores del IMSS), no la de la Modalidad 40.",
+    "Sobre la Modalidad 40, el acuerdo del DOF del 21 de octubre de 2026 apenas ordena analizar su efecto en la situación financiera del IMSS (plazo de 6 meses). Todavía no hay un resultado publicado.",
+    "El informe no mide cuánto de esa presión se traduce en tiempos de espera, falta de medicamentos o trato al paciente. La relación es financiera e indirecta; no es una causa demostrada."
+  ],
+  "trato": {
+    "aspectos": ["trato_respetuoso", "confianza_personal", "informacion_oportuna", "atencion_inmediata"],
+    "conamed": [
+      { "dato": "En 2024 la CONAMED concluyó 1,521 gestiones inmediatas (inconformidades atendidas sin abrir una queja formal); 988 (65.0%) involucraron al IMSS.", "fuente": "conamed_anuario_2024", "pagina": 25, "cita": "Cuadro 3.4" },
+      { "dato": "Entre esas 1,521 gestiones, 343 (22.6%) fueron por demora en la atención médica especializada y 124 (8.2%) por diferimiento de la atención médica especializada. El cuadro no separa estos motivos por institución.", "fuente": "conamed_anuario_2024", "pagina": 29, "cita": "Cuadro 3.7" },
+      { "dato": "De 988 quejas formales concluidas en 2024, 391 (39.6%) involucraron al IMSS.", "fuente": "conamed_anuario_2024", "pagina": 36, "cita": "Cuadro 4.5" },
+      { "dato": "En 2025 la CONAMED recibió 18,734 asuntos, de ellos 1,493 quejas. Para 2025 solo publicó totales por tipo de servicio, sin desglose por motivo ni por institución.", "fuente": "conamed_2025", "pagina": 1, "cita": "Cuadro 1" }
+    ],
+    "sin_datos": "Relación médico-paciente: Sin datos disponibles. El Anuario 2024 clasifica las quejas solo como «irregularidad» o «negativa» y no publica esa categoría."
+  },
+  "postura": {
+    "rotulo": "Postura del equipo (opinión, no es un dato)",
+    "texto": "Consideramos que, además de los recursos, hay fallas de ética y empatía en la atención que retrasan a los pacientes. Los datos de trato y confianza de la ENCIG son consistentes con esa preocupación, aunque no la prueban por sí solos.",
+    "autoria": "Equipo del proyecto"
+  }
+}

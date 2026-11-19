@@ -93,6 +93,34 @@
       "anio": 2018,
       "url": "https://www.who.int/teams/primary-health-care/evidence-and-innovation/primary-health-care-case-study-compendium/detail/country-case-studies-on-primary-health-care--thailand--the-development-of-primary-health-care"
     },
+    "imss_informe_2025_2026": {
+      "titulo": "Informe al Ejecutivo Federal y al Congreso de la Unión sobre la Situación Financiera y los Riesgos del Instituto Mexicano del Seguro Social 2025-2026",
+      "institucion": "Instituto Mexicano del Seguro Social",
+      "anio": 2026,
+      "url": "https://imss.gob.mx/conoce-al-imss/informes-estadisticas",
+      "capitulos": {
+        "cap02": "https://www.imss.gob.mx/sites/all/statics/pdf/informes/20252026/06-Cap02.pdf",
+        "cap05": "https://www.imss.gob.mx/sites/all/statics/pdf/informes/20252026/09-Cap05.pdf",
+        "cap08": "https://www.imss.gob.mx/sites/all/statics/pdf/informes/20252026/12-Cap08.pdf",
+        "cap10": "https://www.imss.gob.mx/sites/all/statics/pdf/informes/20252026/14-Cap10.pdf",
+        "anexos": "https://www.imss.gob.mx/sites/all/statics/pdf/informes/20252026/15-anexos.pdf"
+      },
+      "alcance": "Situación financiera al 31 de diciembre de 2025 y proyecciones."
+    },
+    "conamed_anuario_2024": {
+      "titulo": "Anuario Estadístico 2024",
+      "institucion": "Comisión Nacional de Arbitraje Médico (CONAMED)",
+      "anio": 2024,
+      "url": "https://www.gob.mx/cms/uploads/attachment/file/1005555/ANUARIO_2024.pdf",
+      "alcance": "Asuntos atendidos por la CONAMED (federal); no incluye las comisiones estatales."
+    },
+    "conamed_2025": {
+      "titulo": "Información Estadística Institucional al 4.º trimestre de 2025, Cuadro 1",
+      "institucion": "Comisión Nacional de Arbitraje Médico (CONAMED)",
+      "anio": 2025,
+      "url": "https://www.gob.mx/conamed/documentos/informacion-estadistica-2025",
+      "archivo": "https://www.gob.mx/cms/uploads/attachment/file/1048238/Cuadro_Estadistico_1_4oTrim_2025.pdf"
+    },
     "pm_2024": {
       "titulo": "Pobreza multidimensional 2024. Indicadores de pobreza según entidad federativa (tabulado pm_ef_2024)",
       "institucion": "INEGI, con la metodología del CONEVAL",

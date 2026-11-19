@@ -43,6 +43,25 @@
     return f.url ? `<a href="${U.esc(f.url)}" target="_blank" rel="noopener">${U.esc(texto || f.titulo)}</a>` : U.esc(texto || f.titulo);
   };
 
+  // Íconos de línea del sprite de index.html (mismo trazo para todo el sitio)
+  U.ico = (id, clase) => `<svg class="ico${clase ? ' ' + clase : ''}" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
+  U.iconoAspecto = (id) => U.ico(id, 'ico--aspecto');
+
+  // Cifras que se cuentan solas: el texto final se escribe primero; la animación solo lo reemplaza mientras corre.
+  U.movimiento = () => !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) && document.visibilityState === 'visible';
+  U.contar = (el, valor, formato, ms) => {
+    if (!el) return;
+    el.textContent = formato(valor);
+    if (!U.movimiento() || valor === null || valor === undefined) return;
+    const t0 = performance.now(), dur = ms || 900;
+    const paso = (t) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+      el.textContent = formato(k < 1 ? valor * e : valor);
+      if (k < 1) requestAnimationFrame(paso);
+    };
+    requestAnimationFrame(paso);
+  };
+
   // Sello de fuente (movimiento distintivo «Cartilla»): enlace circular con institución, programa y cuadro.
   let selloId = 0;
   U.sello = (fuenteId, arriba, abajo, centro, centroSub) => {
