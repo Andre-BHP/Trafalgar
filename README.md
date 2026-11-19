@@ -66,7 +66,11 @@ Detalle completo en la vista «Cómo se calculó».
 
 ## Diseño
 
-Dirección visual «Cartilla Nacional de Salud», documentada en `DESIGN.md` (tokens de color, tipografía, espaciado, modo claro y oscuro, movimiento). Producto y público en `PRODUCT.md`. Paletas de gráficas validadas con la skill `dataviz` en ambos modos.
+Dirección visual «Cartilla Nacional de Salud», documentada en `DESIGN.md` (tokens de color, tipografía, espaciado, modo claro y oscuro, movimiento). Producto y público en `PRODUCT.md`. Paletas de gráficas validadas con la skill `dataviz` en ambos modos. Usa técnicas de los temas elixir, metro, lambda y mirai de [iroFactory](https://github.com/RemiH06/iroFactory) (RemLam, MIT); créditos en `THIRD_PARTY_NOTICES.md`.
+
+## QR para compartir
+
+`qr/trafalgar-qr-ilustrado.svg` y `.png` (para imprimir) llevan a https://andre-bhp.github.io/Trafalgar/. En el pie del sitio el mismo QR crece como árbol y se pliega. Para regenerarlos: `python scripts/qr.py` (requiere `pip install "qrcode[pil]"`) y `node scripts/qr-png.mjs`. `npm run probar` los decodifica con jsQR (Node) y ZXing (`pip install zxing-cpp`) a 3 y 5 cm simulados.
 
 ## Estructura
 
@@ -80,6 +84,9 @@ js/app.js             Interfaz
 datos/                Fuentes, datos curados y procesados
 scripts/procesar.mjs  Procesamiento de datos
 pruebas/probar.mjs    Pruebas con Edge y axe
+pruebas/qr-escaneo.mjs  Pruebas de escaneo del QR
+qr/                   QR ilustrado (SVG, PNG y matriz)
+scripts/qr.py         Genera el QR y js/qr-datos.js
 ```
 
 ## Pensiones y servicio médico

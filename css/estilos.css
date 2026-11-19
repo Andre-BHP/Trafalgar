@@ -40,6 +40,15 @@
   --radio: 6px;
   --fuente: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   --mov: cubic-bezier(.16, 1, .3, 1);
+  /* iroFactory (mirai): curvas con nombre; (metro) par sans + mono; (elixir) relleno y tinta por separado */
+  --mov-ida: cubic-bezier(.65, 0, .35, 1);
+  --resorte: linear(0, .062, .209, .391, .574, .737, .869, .966, 1.031, 1.067, 1.082, 1.082, 1.072, 1.058, 1.043, 1.028, 1.016, 1.006, 1, .996, .994, .993, .994, .995, .996, .997, .998, .999, 1);
+  --mono: "Cascadia Mono", "Cascadia Code", Consolas, ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --formula: "Cambria Math", Cambria, "Times New Roman", serif;
+  --ambar: #c98500; --ambar-tinta: #8a5a00;
+  --luz-1: #2a78d6; --luz-2: #1baf7a; --luz-mezcla: multiply;
+  /* (lambda) pintarrón de día */
+  --piz-fondo: #f8f8f4; --piz-tinta: #141410; --piz-tinta-2: #585848; --piz-gis: #1a60c0; --piz-linea: #c8c8b8;
 }
 
 /* ---------- Tokens: modo oscuro (sistema y selector manual) ---------- */
@@ -58,6 +67,9 @@
     --mexico: #e66767; --favorable: #3fbf7f; --c-1: #3987e5; --c-2: #d95926; --c-3: #199e70; --neutro: #8a98a0;
     --trama-fondo: #262726; --trama-linea: #5b5e5c; --frontera: #1a1a19;
     --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 20px -10px rgba(0, 0, 0, .6);
+    --ambar: #e0a52a; --ambar-tinta: #f0bf55;
+    --luz-1: #3987e5; --luz-2: #199e70; --luz-mezcla: screen;
+    --piz-fondo: #1a2420; --piz-tinta: #eee8dc; --piz-tinta-2: #a59e87; --piz-gis: #a8c8e8; --piz-linea: #304038;
   }
 }
 :root[data-theme="dark"] {
@@ -74,6 +86,9 @@
   --mexico: #e66767; --favorable: #3fbf7f; --c-1: #3987e5; --c-2: #d95926; --c-3: #199e70; --neutro: #8a98a0;
   --trama-fondo: #262726; --trama-linea: #5b5e5c; --frontera: #1a1a19;
   --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 20px -10px rgba(0, 0, 0, .6);
+  --ambar: #e0a52a; --ambar-tinta: #f0bf55;
+  --luz-1: #3987e5; --luz-2: #199e70; --luz-mezcla: screen;
+  --piz-fondo: #1a2420; --piz-tinta: #eee8dc; --piz-tinta-2: #a59e87; --piz-gis: #a8c8e8; --piz-linea: #304038;
 }
 
 /* ---------- Base ---------- */
@@ -165,8 +180,8 @@ main { max-width: 1280px; margin: 0 auto; padding: 1.75rem 1.5rem 3.5rem; }
 .pregunta::before { content: ""; position: absolute; inset: -1px -1px auto -1px; height: 4px; background: var(--q); border-radius: 10px 10px 0 0; }
 .pregunta--2 { --q: var(--debajo); }
 .pregunta--3 { --q: var(--arriba); }
-.pregunta--4 { --q: #c98500; }
-.pregunta__ico { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 12px; background: color-mix(in srgb, var(--q) 14%, var(--papel)); color: var(--q); margin-bottom: .7rem; }
+.pregunta--4 { --q: var(--ambar); --q-tinta: var(--ambar-tinta); }
+.pregunta__ico { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 12px; background: color-mix(in srgb, var(--q) 14%, var(--papel)); color: var(--q-tinta, var(--q)); margin-bottom: .7rem; }
 .pregunta__ico .ico { width: 1.45rem; height: 1.45rem; }
 .pregunta h3 { font-size: 1rem; margin: 0 0 .45rem; }
 .pregunta a { font-size: .88rem; font-weight: 650; margin-top: auto; }
@@ -465,8 +480,8 @@ dl.datos dd { margin: 0; font-weight: 600; }
 .cadena p { margin: 0 0 .35rem; }
 .fuente-cita { font-size: .82rem; color: var(--tinta-3); }
 .cita { font-weight: 600; }
-.postura { margin: 2rem 0 0; padding: 1.25rem 1.4rem; border-radius: 10px; border: 2px dashed color-mix(in srgb, #c98500 70%, var(--papel)); background: color-mix(in srgb, #c98500 9%, var(--papel)); }
-.postura__rotulo { display: inline-block; font-size: .8rem; font-weight: 800; letter-spacing: .02em; color: var(--tinta); background: color-mix(in srgb, #c98500 30%, var(--papel)); border-radius: 999px; padding: .2rem .7rem; margin: 0 0 .6rem; }
+.postura { margin: 2rem 0 0; padding: 1.25rem 1.4rem; border-radius: 10px; border: 2px dashed color-mix(in srgb, var(--ambar) 70%, var(--papel)); background: color-mix(in srgb, var(--ambar) 9%, var(--papel)); }
+.postura__rotulo { display: inline-block; font-size: .8rem; font-weight: 800; letter-spacing: .02em; color: var(--tinta); background: color-mix(in srgb, var(--ambar) 30%, var(--papel)); border-radius: 999px; padding: .2rem .7rem; margin: 0 0 .6rem; }
 .postura blockquote { margin: 0; font-size: 1.12rem; font-style: italic; line-height: 1.5; }
 .postura blockquote p { margin: 0; }
 .postura__autor { margin: .6rem 0 0; font-size: .85rem; color: var(--tinta-3); }
@@ -523,3 +538,80 @@ tbody th[scope="row"] a { display: inline-flex; align-items: center; min-height:
 .tiempo p { margin: .1rem 0 0; }
 @media (max-width: 1080px) { .camino { grid-template-columns: 1fr; } .camino li + li::before { left: 1.2rem; top: -.5rem; width: 0; height: .5rem; border-top: 0; border-left: 1px solid var(--sello); } }
 @media (max-width: 640px) { .waffles { grid-template-columns: 1fr; } .multiples { grid-template-columns: 1fr; } }
+
+/* ---------- Técnicas de iroFactory (ver DESIGN.md) ---------- */
+/* metro: la mono para lo técnico */
+thead th, .chip, .tiempo time, .camino__t, .traza strong, .formula__nota b { font-family: var(--mono); }
+thead th { font-size: .76rem; letter-spacing: .01em; }
+.tiempo time { font-size: .92rem; }
+
+/* mirai: marcas de corte en las esquinas, como en un pliego de imprenta */
+.marcas-corte { position: relative; }
+.marcas-corte::before {
+  content: ""; position: absolute; inset: -10px; pointer-events: none; z-index: 0; --m: var(--tinta-3);
+  background:
+    linear-gradient(var(--m) 0 0) left 0 top 8px / 12px 1px, linear-gradient(var(--m) 0 0) left 8px top 0 / 1px 12px,
+    linear-gradient(var(--m) 0 0) right 0 top 8px / 12px 1px, linear-gradient(var(--m) 0 0) right 8px top 0 / 1px 12px,
+    linear-gradient(var(--m) 0 0) left 0 bottom 8px / 12px 1px, linear-gradient(var(--m) 0 0) left 8px bottom 0 / 1px 12px,
+    linear-gradient(var(--m) 0 0) right 0 bottom 8px / 12px 1px, linear-gradient(var(--m) 0 0) right 8px bottom 0 / 1px 12px;
+  background-repeat: no-repeat; opacity: .7;
+}
+
+/* elixir: grafo de pulsos detrás de la cartilla; disco: luces ambientales */
+.portada__red { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .62;
+  -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 72%); mask-image: linear-gradient(90deg, transparent 30%, #000 72%); }
+.portada::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; mix-blend-mode: var(--luz-mezcla); opacity: .5;
+  background:
+    radial-gradient(38% 60% at var(--lx, 78%) var(--ly, 30%), color-mix(in srgb, var(--luz-1) 22%, transparent), transparent 70%),
+    radial-gradient(30% 50% at var(--lx2, 62%) var(--ly2, 80%), color-mix(in srgb, var(--luz-2) 18%, transparent), transparent 70%); }
+.mov .portada::before { animation: deriva 26s var(--mov-ida) infinite alternate; }
+@property --lx { syntax: "<percentage>"; inherits: false; initial-value: 78%; }
+@property --ly { syntax: "<percentage>"; inherits: false; initial-value: 30%; }
+@property --lx2 { syntax: "<percentage>"; inherits: false; initial-value: 62%; }
+@property --ly2 { syntax: "<percentage>"; inherits: false; initial-value: 80%; }
+@keyframes deriva { to { --lx: 66%; --ly: 58%; --lx2: 84%; --ly2: 40%; } }
+.portada__arte .cartilla { position: relative; z-index: 1; }
+.sello:hover { transition-timing-function: var(--resorte); }
+
+/* lambda: el pizarrón de «Cómo se calculó» */
+.pizarron { margin: .5rem 0 2rem; padding: 1.5rem 1.6rem 1.35rem; border-radius: var(--radio); color: var(--piz-tinta);
+  background-color: var(--piz-fondo); border: 1px solid var(--piz-linea); overflow: hidden; isolation: isolate; }
+.pizarron::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='55.43'%3E%3Cpath d='M24 0L48 13.86V41.57L24 55.43L0 41.57V13.86Z' fill='none' stroke='%23c8c8b8' stroke-width='.8'/%3E%3C/svg%3E");
+  background-size: 48px 55.43px; }
+.pizarron .marcas-corte::before, .pizarron.marcas-corte::before { --m: var(--piz-tinta-2); inset: 6px; }
+.pizarron__titulo { position: relative; z-index: 1; font-size: 1.05rem; margin: 0 0 .9rem; color: var(--piz-tinta); }
+.pizarron__formulas { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; max-width: 62ch; }
+.pizarron__formulas li { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem 1rem; }
+.formula { font-family: var(--formula); font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--piz-gis); letter-spacing: .01em;
+  text-shadow: .7px .6px 0 color-mix(in srgb, var(--piz-gis) 40%, transparent); }
+.formula sub { font-size: .6em; font-style: normal; font-family: var(--fuente); }
+.formula__nota { font-size: .88rem; color: var(--piz-tinta-2); }
+.pizarron__gis { position: absolute; right: 1rem; top: .6rem; width: min(38%, 300px); height: auto; z-index: 0; pointer-events: none; color: var(--piz-gis); opacity: .38; }
+.pizarron__gis path, .pizarron__gis circle { fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.pizarron__gis .doble { opacity: .45; transform: translate(1.4px, 1px); }
+.pizarron__gis text { fill: currentColor; font-family: var(--formula); font-style: italic; font-size: 20px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pizarron::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='55.43'%3E%3Cpath d='M24 0L48 13.86V41.57L24 55.43L0 41.57V13.86Z' fill='none' stroke='%233d5048' stroke-width='.8'/%3E%3C/svg%3E"); opacity: .7; } }
+:root[data-theme="dark"] .pizarron::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='55.43'%3E%3Cpath d='M24 0L48 13.86V41.57L24 55.43L0 41.57V13.86Z' fill='none' stroke='%233d5048' stroke-width='.8'/%3E%3C/svg%3E"); opacity: .7; }
+
+/* QR «Comparte Trafalgar» (cartas dis-094 y dis-081): la tarjeta es clara en los dos modos */
+.comparte { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 1.25rem 2.25rem; align-items: center; padding: 1.75rem 0 1.5rem; border-bottom: 1px solid var(--linea); margin-bottom: 1rem; }
+.comparte__qr { margin: 10px; }
+.qr-tarjeta { position: relative; z-index: 1; background: #fcfcfb; border-radius: var(--radio); padding: .4rem; box-shadow: var(--sombra); border: 1px solid #dfe3e0; }
+.qr-arbol svg { display: block; width: 100%; height: auto; }
+.comparte__texto h2 { font-size: 1.45rem; margin: 0 0 .4rem; color: var(--tinta); }
+.comparte__texto p { color: var(--tinta-2); max-width: 60ch; }
+.comparte__descargas { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; }
+.comparte__descargas a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 650; }
+.pie__credito { font-size: .8rem; }
+@media (max-width: 640px) {
+  .comparte { grid-template-columns: 1fr; }
+  .comparte__qr { max-width: 240px; }
+  .pizarron { padding: 1.2rem 1.1rem 1.1rem; }
+  .pizarron__gis { display: none; }
+  .portada__red { display: none; }
+}
+@media (max-width: 1080px) { .portada__red { opacity: .4; -webkit-mask-image: linear-gradient(200deg, #000, transparent 45%); mask-image: linear-gradient(200deg, #000, transparent 45%); } }
+@media (prefers-reduced-motion: reduce) { #qr-repetir { display: none; } }
+@media print { .portada__red, .portada::before { display: none; } .qr-tarjeta { box-shadow: none; } }

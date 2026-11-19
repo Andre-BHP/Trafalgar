@@ -1,8 +1,8 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 7:12:24 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 11:23:14 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
-Total: 177 pruebas, 177 correctas, 0 fallas.
+Total: 214 pruebas, 214 correctas, 0 fallas.
 
 | Resultado | Prueba | Detalle |
 |---|---|---|
@@ -88,7 +88,11 @@ Total: 177 pruebas, 177 correctas, 0 fallas.
 | Correcta | [escritorio-1440 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 670px |
 | Correcta | [escritorio-1440 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 670px |
 | Correcta | [escritorio-1440] Vista «Cómo se calculó» con reglas y fuentes |  |
+| Correcta | [escritorio-1440] Pizarrón de «Cómo se calculó» con las cuatro fórmulas del sitio | 4 fórmulas |
 | Correcta | axe sin violaciones: escritorio-1440 Cómo se calculó |  |
+| Correcta | axe sin violaciones: escritorio-1440 Cómo se calculó en modo oscuro (pizarra) |  |
+| Correcta | [escritorio-1440] El pie da crédito a iroFactory y a GSAP |  |
+| Correcta | [escritorio-1440] Grafo de pulsos de la portada decorativo (visible) | {"existe":true,"oculto":false,"aria":"true"} |
 | Correcta | [escritorio-1440] Sin errores en consola |  |
 | Correcta | [celular-390] Cuatro gráficas dibujadas al abrir | 4 gráficas |
 | Correcta | [celular-390] Tabla estatal con 32 filas | 32 |
@@ -172,7 +176,11 @@ Total: 177 pruebas, 177 correctas, 0 fallas.
 | Correcta | [celular-390 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1110px |
 | Correcta | [celular-390 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1110px |
 | Correcta | [celular-390] Vista «Cómo se calculó» con reglas y fuentes |  |
+| Correcta | [celular-390] Pizarrón de «Cómo se calculó» con las cuatro fórmulas del sitio | 4 fórmulas |
 | Correcta | axe sin violaciones: celular-390 Cómo se calculó |  |
+| Correcta | axe sin violaciones: celular-390 Cómo se calculó en modo oscuro (pizarra) |  |
+| Correcta | [celular-390] El pie da crédito a iroFactory y a GSAP |  |
+| Correcta | [celular-390] Grafo de pulsos de la portada decorativo (oculto en celular) | {"existe":true,"oculto":true,"aria":"true"} |
 | Correcta | [celular-390] Sin errores en consola |  |
 | Correcta | [archivo local] Abre con las cuatro gráficas sin servidor |  |
 | Correcta | [archivo local 1280] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
@@ -183,3 +191,32 @@ Total: 177 pruebas, 177 correctas, 0 fallas.
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [QR] Matriz versión 5 con corrección H hacia la dirección del sitio | versión 5, 37x37, 586 hojas |
+| Correcta | [QR] Ilustrada: zona de silencio de 4 módulos sin marcas oscuras | ninguna hoja ni rama oscura fuera del código |
+| Correcta | [QR] Animada (1440 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1782 ms medidos en la página (2773 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (1440 px, claro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
+| Correcta | [QR] Animada (1440 px, claro): sin errores en consola |  |
+| Correcta | [QR] Animada (1440 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1767 ms medidos en la página (2728 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (1440 px, oscuro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
+| Correcta | [QR] Animada (1440 px, oscuro): sin errores en consola |  |
+| Correcta | [QR] Animada (390 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1783 ms medidos en la página (2923 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (390 px, claro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
+| Correcta | [QR] Animada (390 px, claro): sin errores en consola |  |
+| Correcta | [QR] Animada (390 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1783 ms medidos en la página (2917 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (390 px, oscuro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
+| Correcta | [QR] Animada (390 px, oscuro): sin errores en consola |  |
+| Correcta | [QR] Con reduced-motion el QR queda fijo, sin botón de repetir | {"estado":"fijo","boton":true,"red":true} |
+| Correcta | [QR] Ilustrada SVG: lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Ilustrada SVG: lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |
+| Correcta | [QR] Ilustrada PNG: lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Ilustrada PNG: lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (1440 px, claro): lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (1440 px, claro): lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (1440 px, oscuro): lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (1440 px, oscuro): lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (390 px, claro): lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (390 px, claro): lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (390 px, oscuro): lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Animada al terminar (390 px, oscuro): lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |
+| Correcta | [QR] Fija con reduced-motion: lee la dirección exacta a 3 cm, desenfoque 1.2 px, cámara al 60% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 354 px a 300 ppp |
+| Correcta | [QR] Fija con reduced-motion: lee la dirección exacta a 5 cm, desenfoque 1.5 px, cámara al 50% | jsQR: https://andre-bhp.github.io/Trafalgar/; ZXing: https://andre-bhp.github.io/Trafalgar/; código de 591 px a 300 ppp |

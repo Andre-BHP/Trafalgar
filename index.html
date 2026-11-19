@@ -13,7 +13,7 @@
   <meta name="theme-color" content="#0e4a42">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%230f5c73%27/%3E%3Cpath d=%27M7 3h2v4h4v2H9v4H7V9H3V7h4z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
   <script>try { var t = localStorage.getItem('sec-tema'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-  <link rel="stylesheet" href="css/estilos.css?v=739dfe9862">
+  <link rel="stylesheet" href="css/estilos.css?v=447ad9bbe7">
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -83,6 +83,7 @@
     <!-- RESUMEN -->
     <section class="seccion" id="resumen" aria-labelledby="t-resumen">
       <header class="portada banda banda--portada">
+        <canvas class="portada__red" id="portada-red" aria-hidden="true"></canvas>
         <div class="portada__texto">
           <h2 id="t-resumen" class="portada__titulo">¿Qué tan satisfechas están las personas con la salud pública?</h2>
           <p class="portada__cifra" aria-describedby="portada-pie"><span id="portada-num">43.3</span><span class="portada__pct">%</span></p>
@@ -90,7 +91,7 @@
           <dl class="portada__datos" id="portada-datos"></dl>
           <p class="portada__nota">Elija una institución y un estado en la barra superior; las gráficas, las tablas y la estrategia se actualizan solas. Las diferencias en puntos porcentuales (pp) son <strong>brechas descriptivas</strong>: INEGI no publica una prueba estadística para comparar cada estado con el dato nacional.</p>
         </div>
-        <div class="portada__arte" aria-hidden="true">
+        <div class="portada__arte marcas-corte" aria-hidden="true">
           <svg viewBox="0 0 320 360" class="cartilla">
             <rect x="34" y="24" width="252" height="316" rx="10" class="cartilla__tapa"/>
             <rect x="48" y="38" width="224" height="288" rx="6" class="cartilla__hoja"/>
@@ -379,22 +380,51 @@
     <section class="seccion metodo" id="metodo" aria-labelledby="t-metodo" hidden>
       <h2 id="t-metodo">Cómo se calculó</h2>
       <p class="destacado">Cada cifra del sitio se puede rastrear hasta un cuadro, una página o un archivo oficial.</p>
+      <div class="pizarron marcas-corte" role="group" aria-labelledby="t-pizarron">
+        <svg class="pizarron__gis" viewBox="0 0 300 170" aria-hidden="true" focusable="false">
+          <g><path d="M20 150H160M30 160V40"/><path d="M30 120C60 60 90 150 120 80S150 60 160 70"/><circle cx="235" cy="70" r="40"/><path d="M180 140l60-30m0 0l-12 0m12 0l-8 9"/><text x="208" y="78">Σ</text></g>
+          <g class="doble"><path d="M20 150H160M30 160V40"/><path d="M30 120C60 60 90 150 120 80S150 60 160 70"/><circle cx="235" cy="70" r="40"/><path d="M180 140l60-30m0 0l-12 0m12 0l-8 9"/><text x="208" y="78">Σ</text></g>
+        </svg>
+        <h3 class="pizarron__titulo" id="t-pizarron">Las cuentas del tablero</h3>
+        <ol class="pizarron__formulas">
+          <li><span class="formula">brecha = p<sub>estado</sub> − p<sub>nacional</sub></span><span class="formula__nota">en puntos porcentuales (pp); misma institución, aspecto y año</span></li>
+          <li><span class="formula">EE = (CV ÷ 100) × p</span><span class="formula__nota">error estándar a partir del coeficiente de variación que publica INEGI</span></li>
+          <li><span class="formula">IC<sub>90%</sub> = p ± 1.645 × EE</span><span class="formula__nota">intervalo aproximado; no es la prueba oficial de INEGI</span></li>
+          <li><span class="formula">CV ≥ 30% ⇒ no se clasifica</span><span class="formula__nota">precisión baja: se muestra, pero no decide la prioridad</span></li>
+        </ol>
+      </div>
       <div id="metodo-cuerpo"></div>
     </section>
   </main>
 
   <footer class="pie">
     <div class="pie__interior">
+      <section class="comparte" aria-labelledby="t-comparte">
+        <div class="comparte__qr marcas-corte">
+          <div class="qr-tarjeta"><div class="qr-arbol" id="qr-arbol"><img src="qr/trafalgar-qr-ilustrado-1200.png" loading="lazy" width="1200" height="1440" alt="Código QR que abre https://andre-bhp.github.io/Trafalgar/" style="width:100%;height:auto;display:block"></div></div>
+        </div>
+        <div class="comparte__texto">
+          <h2 id="t-comparte">Comparte Trafalgar</h2>
+          <p>Escanee el código con la cámara del celular para abrir el tablero en <a href="https://andre-bhp.github.io/Trafalgar/">andre-bhp.github.io/Trafalgar</a>.</p>
+          <p>Cada hoja es un módulo del código y las ramas terminan en ellos. Tiene corrección de errores H: se lee aunque falte hasta 30% del dibujo.</p>
+          <p class="comparte__descargas"><a href="qr/trafalgar-qr-ilustrado.svg" download>Descargar SVG</a><a href="qr/trafalgar-qr-ilustrado.png" download>Descargar PNG para imprimir</a><button type="button" id="qr-repetir" hidden>Ver crecer otra vez</button></p>
+        </div>
+      </section>
       <p>Trafalgar. Proyecto escolar, CETI Plantel Colomos. Datos: INEGI (ENCIG 2023 y 2025), Banco Mundial y OMS, IMSS, DOF, CCSS y PHCPI. Fuentes consultadas el 18 de noviembre de 2026. <span id="pie-generado"></span></p>
+      <p class="pie__credito">Diseño con técnicas de los temas elixir, metro, lambda y mirai de <a href="https://github.com/RemiH06/iroFactory">iroFactory</a>, de RemLam (<a href="https://github.com/RemiH06">@RemiH06</a>), licencia MIT. Animación del QR con <a href="https://gsap.com">GSAP</a>. Detalle en <a href="https://github.com/Andre-BHP/Trafalgar/blob/main/THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a>.</p>
     </div>
   </footer>
 
   <noscript><p style="padding:1rem">Este tablero necesita JavaScript para dibujar las gráficas.</p></noscript>
-  <script src="datos/datos.js?v=739dfe9862"></script>
-  <script src="js/util.js?v=739dfe9862"></script>
-  <script src="js/analisis.js?v=739dfe9862"></script>
-  <script src="js/graficas.js?v=739dfe9862"></script>
-  <script src="js/vistas.js?v=739dfe9862"></script>
-  <script src="js/app.js?v=739dfe9862"></script>
+  <script src="datos/datos.js?v=447ad9bbe7"></script>
+  <script src="js/util.js?v=447ad9bbe7"></script>
+  <script src="js/analisis.js?v=447ad9bbe7"></script>
+  <script src="js/graficas.js?v=447ad9bbe7"></script>
+  <script src="js/vistas.js?v=447ad9bbe7"></script>
+  <script src="js/app.js?v=447ad9bbe7"></script>
+  <script src="js/fondo.js?v=447ad9bbe7"></script>
+  <script src="js/vendor/gsap.min.js?v=447ad9bbe7"></script>
+  <script src="js/qr-datos.js?v=447ad9bbe7"></script>
+  <script src="js/qr.js?v=447ad9bbe7"></script>
 </body>
 </html>

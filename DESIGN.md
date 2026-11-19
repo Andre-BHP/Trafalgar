@@ -1,6 +1,6 @@
 # Diseño: Trafalgar
 
-Estado: dirección aprobada por André el 18 de noviembre de 2026 («Sí, Cartilla de Salud»). Escrito antes de construir y actualizado el 19 de noviembre de 2026 con lo construido. Los valores vigentes viven en `css/estilos.css`.
+Estado: dirección aprobada por André el 18 de noviembre de 2026 («Sí, Cartilla de Salud»). Escrito antes de construir y actualizado el 19 de noviembre de 2026 con lo construido y con las técnicas tomadas de iroFactory. Los valores vigentes viven en `css/estilos.css`.
 
 ## Dirección
 
@@ -60,6 +60,30 @@ Escala de 4 px (4, 8, 12, 16, 24, 32, 48). Radio de 6 px. Sombras suaves con des
 - **Cadena de afirmaciones** (pensiones y servicio médico): pasos numerados unidos por línea punteada, cada uno con su cita de página.
 - **Recuadro de postura**: borde punteado ámbar, rótulo «Postura del equipo (opinión, no es un dato)» y texto en cursiva; nunca se confunde con un dato.
 - **Selector de tema** en el encabezado; respeta el sistema y guarda la elección solo en el navegador.
+
+## Técnicas tomadas de iroFactory
+
+Fuente: [iroFactory](https://github.com/RemiH06/iroFactory), colección de temas de RemLam (@RemiH06), licencia MIT. Se estudiaron elixir, metro, lambda y mirai. No se copió ningún tema completo ni se cambió de mundo: «Cartilla» sigue siendo la dirección y cada técnica entra como detalle. El crédito va en `THIRD_PARTY_NOTICES.md` y en el pie del sitio. Todo funciona sin conexión (sin fuentes web ni CDN) y abre con doble clic.
+
+| Tema | Qué se tomó | Dónde | Por qué |
+|---|---|---|---|
+| **elixir** (datos, frío y analítico) | Grafo neuronal animado: nodos por capas, pulsos que viajan por las aristas y cada nodo se queda con el color del último pulso que lo alcanzó. Bucle que se detiene fuera de pantalla, con la pestaña oculta y con `prefers-reduced-motion` (dibuja un cuadro fijo). | Fondo de la portada de Resumen, detrás de la cartilla; máscara que lo desvanece hacia el texto. | Es un tablero de datos: el pulso se lee como respuestas de encuesta que llegan de los estados al cálculo. Va enmascarado y a baja opacidad para que nunca compita con la cifra (principio 1). |
+| **elixir** | Tintas de texto separadas de los rellenos (`--x` para pintar, `--x-tinta` para escribir), mismo matiz y solo cambia la luminosidad para pasar AA. | Tokens `--ambar` / `--ambar-tinta` y uso en preguntas y postura. | Quita el color fijo `#c98500` y garantiza 4.5:1 cuando el color va como texto. |
+| **metro** (técnico) | Par tipográfico sans + mono: la mono (`Cascadia Mono`, `Consolas`) para lo técnico: encabezados de tabla, chips, fechas de la línea de tiempo, pasos del camino y la regla citada en el rastreo. El semáforo siempre lleva palabra o ícono, nunca solo color. | Tablas, `.chip`, `.tiempo time`, `.camino__t`, `.traza`. | Distingue el dato técnico (cuadro, regla, fecha) de la prosa sin una fuente web; las dos familias ya vienen en Windows. |
+| **lambda** (pizarrón) | Pizarrón con retícula hexagonal tenue; de día pintarrón blanco, de noche pizarra verde con gis. Fórmulas con trazo doble (dos pasadas desplazadas) y figuras sueltas (ejes, curva, flecha) como ornamento. Par serif itálica para fórmulas + mono para valores. | Encabezado de «Cómo se calculó»: las tres fórmulas reales del sitio (brecha, error estándar, intervalo al 90%) y el umbral de CV. | Es la sección donde se explica la cuenta; el pizarrón la vuelve clase, que es el contexto de la exposición. La serif solo vive en las fórmulas, no en títulos. |
+| **mirai** (tintas y retícula editorial) | Marcas de corte en las esquinas de los recuadros, como un pliego de imprenta; curvas de movimiento con nombre (`--mov`, `--mov-ida`, `--resorte`). | Portada, pizarrón y tarjeta del QR. Curvas en el sello y el QR. | Las marcas de corte dan estructura de impreso sin bordes gruesos ni tarjetas idénticas; las curvas con nombre evitan valores sueltos. |
+| **disco** (luces ambientales) | Manchas radiales de la paleta que derivan muy lento; `multiply` de día y `screen` de noche. | Portada, solo CSS. | Da profundidad al fondo sin imágenes y sin costo de JavaScript. |
+
+**Lo que no se tomó:** las fuentes web de los temas (Iosevka, Space Mono, Cormorant, Michroma) porque el sitio debe abrir sin conexión; las líneas de barrido (scanlines) de elixir, que bajan el contraste; el borde lateral grueso de los avisos de metro, rechazado desde el inicio; y los componentes de React Bits, que tienen su propia licencia.
+
+**Comprobación:** el contraste AA se mide con axe en claro y oscuro en cada sección; con `prefers-reduced-motion` no hay grafo en movimiento, luces que deriven ni árbol que crezca; los lienzos se pausan fuera de pantalla.
+
+## QR «Comparte Trafalgar»
+
+Dos versiones del mismo QR hacia `https://andre-bhp.github.io/Trafalgar/` (versión 5, corrección H, zona de silencio de 4 módulos):
+
+- **Ilustrada (carta dis-094)** en `qr/`: cada módulo oscuro es una hoja; algunos son flores. Un árbol de ramas finas en tono claro nace de un tronco bajo la zona de silencio y termina en cada módulo. Los tres ojos son anillos redondeados con un centro cuadrado de 3 módulos y una flor encima; el patrón de alineación es un anillo con su punto. El centro es cuadrado porque los lectores también miden los ojos en diagonal: con un centro solo de pétalos, jsQR leía 4 de 18 tamaños; con el cuadrado, 35 de 36. Hojas en verdes muy oscuros y flores en carmín oscuro sobre papel claro: el lector solo ve oscuro contra claro. SVG y PNG para imprimir.
+- **Animada (carta dis-081)** en el pie del sitio: el tronco crece, las ramas se abren por profundidad, las hojas brotan sueltas en la copa y después se pliegan a su lugar de la retícula hasta quedar como el QR escaneable; las ramas se aclaran. GSAP local (sin CDN), 1.8 s, una sola vez al entrar en pantalla y con botón para repetir. Con `prefers-reduced-motion` aparece directo el estado final. La tarjeta del QR es siempre clara, también en modo oscuro, porque muchos lectores no leen QR invertidos.
 
 ## Movimiento
 

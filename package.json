@@ -5,7 +5,8 @@
   "scripts": {
     "datos": "node scripts/procesar.mjs",
     "servir": "npx --yes http-server -p 8080 -c-1 .",
-    "probar": "node pruebas/probar.mjs"
+    "probar": "node pruebas/probar.mjs",
+    "qr": "python scripts/qr.py && node scripts/qr-png.mjs && node scripts/version.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,8 @@
     "axe-core": "^4.10.3",
     "d3-geo": "^3.1.1",
     "exceljs": "^4.4.0",
+    "gsap": "^3.13.0",
+    "jsqr": "^1.4.0",
     "mapshaper": "^0.6.102",
     "playwright-core": "^1.56.1",
     "xlsx": "^0.18.5"

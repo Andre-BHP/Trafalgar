@@ -378,15 +378,7 @@ const resultado = {
 fs.mkdirSync(SALIDA, { recursive: true });
 for (const k of ['encig', 'mundial', 'contexto']) fs.writeFileSync(path.join(SALIDA, k + '.json'), JSON.stringify(resultado[k], null, 1));
 fs.writeFileSync(path.join(DATOS, 'datos.js'), '// Generado por scripts/procesar.mjs. No editar a mano.\nwindow.DATOS = ' + JSON.stringify(resultado) + ';\n');
-// Marca de versión en index.html: obliga al navegador a descargar los archivos nuevos
-const crypto = await import('node:crypto');
-const archivos = ['datos/datos.js', 'css/estilos.css', 'js/util.js', 'js/analisis.js', 'js/graficas.js', 'js/vistas.js', 'js/app.js'];
-const huella = crypto.createHash('sha1');
-archivos.forEach((a) => huella.update(fs.readFileSync(path.join(RAIZ, a))));
-const v = huella.digest('hex').slice(0, 10);
-const INDEX = path.join(RAIZ, 'index.html');
-let html = fs.readFileSync(INDEX, 'utf8');
-const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\/]/g, (c) => '\\' + c);
-for (const a of archivos) html = html.replace(new RegExp('"' + escRe(a) + '(\\?v=[0-9a-f]+)?"', 'g'), `"${a}?v=${v}"`);
-fs.writeFileSync(INDEX, html);
+// Marca de versión en index.html: obliga al navegador a descargar los archivos nuevos (scripts/version.mjs)
+const { marcarVersion } = await import('./version.mjs');
+const v = marcarVersion();
 log(`Listo: datos/datos.js y datos/procesados/*.json. Versión de archivos: ${v}`);

@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
+import { probarQR } from './qr-escaneo.mjs';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright-core');
@@ -16,7 +17,7 @@ const EDGE = process.env.EDGE || 'C:/Program Files (x86)/Microsoft/Edge/Applicat
 fs.mkdirSync(CAPT, { recursive: true });
 
 // Servidor estático mínimo
-const TIPOS = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png' };
+const TIPOS = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const servidor = http.createServer((req, res) => {
   const ruta = path.join(RAIZ, decodeURIComponent(req.url.split('?')[0]).replace(/\/$/, '/index.html'));
   if (!ruta.startsWith(RAIZ) || !fs.existsSync(ruta)) { res.writeHead(404); return res.end(); }
@@ -253,7 +254,17 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   // 10. Cómo se calculó
   await page.click('a[data-seccion="metodo"]');
   ok(`[${nombre}] Vista «Cómo se calculó» con reglas y fuentes`, (await texto(page, '#metodo-cuerpo')).includes('R-06') && (await page.$$eval('#metodo .fuentes-lista a', (l) => l.length)) >= 10);
+  const piz = await page.evaluate(() => ({ n: document.querySelectorAll('#metodo .pizarron__formulas li').length, texto: document.querySelector('#metodo .pizarron')?.textContent || '' }));
+  ok(`[${nombre}] Pizarrón de «Cómo se calculó» con las cuatro fórmulas del sitio`, piz.n === 4 && piz.texto.includes('1.645') && piz.texto.includes('30%'), `${piz.n} fórmulas`);
   await axe(page, `${nombre} Cómo se calculó`);
+  await page.evaluate(() => { document.documentElement.dataset.theme = 'dark'; });
+  await axe(page, `${nombre} Cómo se calculó en modo oscuro (pizarra)`);
+  await page.evaluate(() => { delete document.documentElement.dataset.theme; });
+  const pie = await texto(page, '.pie');
+  ok(`[${nombre}] El pie da crédito a iroFactory y a GSAP`, pie.includes('iroFactory') && pie.includes('RemiH06') && pie.includes('GSAP'));
+  await page.click('a[data-seccion="resumen"]');
+  const red = await page.evaluate(() => { const l = document.getElementById('portada-red'); return { existe: !!l, oculto: !!l && getComputedStyle(l).display === 'none', aria: l && l.getAttribute('aria-hidden') }; });
+  ok(`[${nombre}] Grafo de pulsos de la portada decorativo (${ancho <= 640 ? 'oculto en celular' : 'visible'})`, red.existe && red.aria === 'true' && (ancho <= 640 ? red.oculto : !red.oculto), JSON.stringify(red));
 
   ok(`[${nombre}] Sin errores en consola`, errores.length === 0, errores.join(' | '));
   await ctx.close();
@@ -269,6 +280,9 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   await revisarMundo(page, 'archivo local 390');
   await ctx.close();
 }
+
+// 12. Pruebas de escaneo del QR (ilustrado y animado)
+await probarQR({ navegador, BASE, RAIZ, ok, CAPT });
 
 await navegador.close();
 servidor.close();
