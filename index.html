@@ -3,11 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Salud en Comparación</title>
+  <title>Trafalgar</title>
   <meta name="description" content="Tablero para comparar la satisfacción con los servicios públicos de salud por estado en México (ENCIG 2025, INEGI), la comparación internacional de cobertura y gasto en salud, y estrategias de mejora basadas en datos.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Trafalgar">
+  <meta property="og:description" content="Tablero para comparar la satisfacción con los servicios públicos de salud por estado en México (ENCIG 2025, INEGI), la comparación internacional de cobertura y gasto en salud, y estrategias de mejora basadas en datos.">
+  <meta property="og:locale" content="es_MX">
+  <meta name="application-name" content="Trafalgar">
+  <meta name="theme-color" content="#0e4a42">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%230f5c73%27/%3E%3Cpath d=%27M7 3h2v4h4v2H9v4H7V9H3V7h4z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
   <script>try { var t = localStorage.getItem('sec-tema'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-  <link rel="stylesheet" href="css/estilos.css?v=b3e935670e">
+  <link rel="stylesheet" href="css/estilos.css?v=739dfe9862">
 </head>
 <body>
   <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +42,7 @@
   <header class="encabezado">
     <div class="encabezado__interior">
       <div class="marca">
-        <h1>Salud en Comparación</h1>
+        <h1>Trafalgar</h1>
         <p>Satisfacción con los servicios públicos de salud en México y prácticas internacionales que podrían adaptarse</p>
       </div>
       <button type="button" class="tema" id="btn-tema" aria-pressed="false">
@@ -292,6 +298,11 @@
         </div>
       </div>
 
+      <div class="bloque" aria-labelledby="t-vistas-mx">
+        <h2 id="t-vistas-mx">El país de un vistazo</h2>
+        <div class="rejilla-graficas" id="vistas-mexico"></div>
+      </div>
+
       <div class="bloque banda banda--alt" aria-labelledby="t-contexto">
         <h3 id="t-contexto">Contexto del estado</h3>
         <p class="seccion__intro">Otros datos oficiales para entender la satisfacción. Son contexto: no entran en el cálculo de la brecha ni en la prioridad, y no explican por sí solos la causa.</p>
@@ -336,6 +347,10 @@
         <p class="detalle-pais" id="m3-detalle" aria-live="polite"></p>
         <p class="fuente-nota" id="m3-fuente"></p>
       </article>
+      <div class="bloque" aria-labelledby="t-vistas-mu">
+        <h2 id="t-vistas-mu">Gasto y cobertura en detalle</h2>
+        <div class="rejilla-graficas" id="vistas-mundial"></div>
+      </div>
       <div class="bloque">
         <h3>Países con cobertura igual o mayor que México y menor gasto por habitante</h3>
         <p id="mundial-favorables-intro"></p>
@@ -357,6 +372,7 @@
       <p class="destacado" id="estrategia-destacado"></p>
       <p class="seccion__intro">La estrategia se genera con reglas verificables: busca el aspecto con la mayor brecha desfavorable comparable en el estado e institución elegidos y lo relaciona con acciones y prácticas documentadas. Cambie el estado o la institución en la barra superior para generar otra.</p>
       <div id="estrategia-cuerpo" class="estrategia" aria-live="polite"></div>
+      <div class="rejilla-graficas bloque" id="vistas-estrategia"></div>
     </section>
 
     <!-- METODO -->
@@ -369,15 +385,16 @@
 
   <footer class="pie">
     <div class="pie__interior">
-      <p>Salud en Comparación. Proyecto escolar, CETI Plantel Colomos. Datos: INEGI (ENCIG 2023 y 2025), Banco Mundial y OMS, IMSS, DOF, CCSS y PHCPI. Fuentes consultadas el 18 de noviembre de 2026. <span id="pie-generado"></span></p>
+      <p>Trafalgar. Proyecto escolar, CETI Plantel Colomos. Datos: INEGI (ENCIG 2023 y 2025), Banco Mundial y OMS, IMSS, DOF, CCSS y PHCPI. Fuentes consultadas el 18 de noviembre de 2026. <span id="pie-generado"></span></p>
     </div>
   </footer>
 
   <noscript><p style="padding:1rem">Este tablero necesita JavaScript para dibujar las gráficas.</p></noscript>
-  <script src="datos/datos.js?v=b3e935670e"></script>
-  <script src="js/util.js?v=b3e935670e"></script>
-  <script src="js/analisis.js?v=b3e935670e"></script>
-  <script src="js/graficas.js?v=b3e935670e"></script>
-  <script src="js/app.js?v=b3e935670e"></script>
+  <script src="datos/datos.js?v=739dfe9862"></script>
+  <script src="js/util.js?v=739dfe9862"></script>
+  <script src="js/analisis.js?v=739dfe9862"></script>
+  <script src="js/graficas.js?v=739dfe9862"></script>
+  <script src="js/vistas.js?v=739dfe9862"></script>
+  <script src="js/app.js?v=739dfe9862"></script>
 </body>
 </html>

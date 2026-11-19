@@ -1,4 +1,6 @@
-# Salud en Comparación
+# Trafalgar
+
+Satisfacción con los servicios públicos de salud en México y prácticas internacionales.
 
 Tablero web estático, en español, para responder cuatro preguntas sobre el sistema de salud en México:
 

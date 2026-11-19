@@ -1,4 +1,4 @@
-# Diseño: Salud en Comparación
+# Diseño: Trafalgar
 
 Estado: dirección aprobada por André el 18 de noviembre de 2026 («Sí, Cartilla de Salud»). Escrito antes de construir y actualizado el 19 de noviembre de 2026 con lo construido. Los valores vigentes viven en `css/estilos.css`.
 

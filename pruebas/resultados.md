@@ -1,8 +1,8 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 7:03:56 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 7:12:24 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
-Total: 137 pruebas, 137 correctas, 0 fallas.
+Total: 177 pruebas, 177 correctas, 0 fallas.
 
 | Resultado | Prueba | Detalle |
 |---|---|---|
@@ -23,6 +23,26 @@ Total: 137 pruebas, 137 correctas, 0 fallas.
 | Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
 | Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
 | Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440] Visualización «calor» con datos, hallazgo y tabla (mexico, claro) | 355 marcas, 1190px |
+| Correcta | [escritorio-1440] Visualización «intervalos» con datos, hallazgo y tabla (mexico, claro) | 73 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «mancuernas» con datos, hallazgo y tabla (mexico, claro) | 105 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «instituciones» con datos, hallazgo y tabla (mexico, claro) | 135 marcas, 1190px |
+| Correcta | [escritorio-1440] Visualización «waffle» con datos, hallazgo y tabla (mundial, claro) | 300 marcas, 1190px |
+| Correcta | [escritorio-1440] Visualización «paletas» con datos, hallazgo y tabla (mundial, claro) | 50 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «multiples» con datos, hallazgo y tabla (mundial, claro) | 1392 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «flujo» con datos, hallazgo y tabla (estrategia, claro) | 38 marcas, 1190px |
+| Correcta | [escritorio-1440] Línea de tiempo del caso IMSS (claro) | 10 eventos |
+| Correcta | [escritorio-1440] Camino de la estrategia en 5 pasos (claro) | 5 pasos |
+| Correcta | [escritorio-1440] Visualización «calor» con datos, hallazgo y tabla (mexico, oscuro) | 355 marcas, 1190px |
+| Correcta | [escritorio-1440] Visualización «intervalos» con datos, hallazgo y tabla (mexico, oscuro) | 73 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «mancuernas» con datos, hallazgo y tabla (mexico, oscuro) | 105 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «instituciones» con datos, hallazgo y tabla (mexico, oscuro) | 135 marcas, 1190px |
+| Correcta | [escritorio-1440] Visualización «waffle» con datos, hallazgo y tabla (mundial, oscuro) | 300 marcas, 1190px |
+| Correcta | [escritorio-1440] Visualización «paletas» con datos, hallazgo y tabla (mundial, oscuro) | 50 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «multiples» con datos, hallazgo y tabla (mundial, oscuro) | 1392 marcas, 564px |
+| Correcta | [escritorio-1440] Visualización «flujo» con datos, hallazgo y tabla (estrategia, oscuro) | 38 marcas, 1190px |
+| Correcta | [escritorio-1440] Línea de tiempo del caso IMSS (oscuro) | 10 eventos |
+| Correcta | [escritorio-1440] Camino de la estrategia en 5 pasos (oscuro) | 5 pasos |
 | Correcta | [escritorio-1440] Mapa de México con 32 estados e ícono por estado |  |
 | Correcta | [escritorio-1440] Mapa del mundo dibujado con México resaltado |  |
 | Correcta | [escritorio-1440] Clic en Yucatán en el mapa lo selecciona en todo el sitio |  |
@@ -40,7 +60,7 @@ Total: 137 pruebas, 137 correctas, 0 fallas.
 | Correcta | [escritorio-1440] IMSS-Bienestar muestra «Sin datos comparables» | HallazgoQuerétaro: Sin datos comparables. INEGI publica IMSS-Bienestar solo por región. Querétaro pertenece a la Región  |
 | Correcta | [escritorio-1440] IMSS-Bienestar: la estrategia explica qué información conseguir primero (R-99) |  |
 | Correcta | [escritorio-1440] IMSS-Tamaulipas: estrategia con dato observado, referencia, brecha, práctica e indicador |  |
-| Correcta | [escritorio-1440] La estrategia enlaza fuentes de prácticas | 2 enlaces |
+| Correcta | [escritorio-1440] La estrategia enlaza fuentes de prácticas | 3 enlaces |
 | Correcta | axe sin violaciones: escritorio-1440 Estrategia |  |
 | Correcta | [escritorio-1440] México por estado incluye el caso IMSS con periodo |  |
 | Correcta | [escritorio-1440] Modalidad 40 identificada como esquema de retiro |  |
@@ -87,6 +107,26 @@ Total: 137 pruebas, 137 correctas, 0 fallas.
 | Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390] Visualización «calor» con datos, hallazgo y tabla (mexico, claro) | 355 marcas, 326px |
+| Correcta | [celular-390] Visualización «intervalos» con datos, hallazgo y tabla (mexico, claro) | 73 marcas, 326px |
+| Correcta | [celular-390] Visualización «mancuernas» con datos, hallazgo y tabla (mexico, claro) | 105 marcas, 326px |
+| Correcta | [celular-390] Visualización «instituciones» con datos, hallazgo y tabla (mexico, claro) | 135 marcas, 326px |
+| Correcta | [celular-390] Visualización «waffle» con datos, hallazgo y tabla (mundial, claro) | 300 marcas, 326px |
+| Correcta | [celular-390] Visualización «paletas» con datos, hallazgo y tabla (mundial, claro) | 50 marcas, 326px |
+| Correcta | [celular-390] Visualización «multiples» con datos, hallazgo y tabla (mundial, claro) | 1392 marcas, 326px |
+| Correcta | [celular-390] Visualización «flujo» con datos, hallazgo y tabla (estrategia, claro) | 38 marcas, 326px |
+| Correcta | [celular-390] Línea de tiempo del caso IMSS (claro) | 10 eventos |
+| Correcta | [celular-390] Camino de la estrategia en 5 pasos (claro) | 5 pasos |
+| Correcta | [celular-390] Visualización «calor» con datos, hallazgo y tabla (mexico, oscuro) | 355 marcas, 326px |
+| Correcta | [celular-390] Visualización «intervalos» con datos, hallazgo y tabla (mexico, oscuro) | 73 marcas, 326px |
+| Correcta | [celular-390] Visualización «mancuernas» con datos, hallazgo y tabla (mexico, oscuro) | 105 marcas, 326px |
+| Correcta | [celular-390] Visualización «instituciones» con datos, hallazgo y tabla (mexico, oscuro) | 135 marcas, 326px |
+| Correcta | [celular-390] Visualización «waffle» con datos, hallazgo y tabla (mundial, oscuro) | 300 marcas, 326px |
+| Correcta | [celular-390] Visualización «paletas» con datos, hallazgo y tabla (mundial, oscuro) | 50 marcas, 326px |
+| Correcta | [celular-390] Visualización «multiples» con datos, hallazgo y tabla (mundial, oscuro) | 1392 marcas, 326px |
+| Correcta | [celular-390] Visualización «flujo» con datos, hallazgo y tabla (estrategia, oscuro) | 38 marcas, 326px |
+| Correcta | [celular-390] Línea de tiempo del caso IMSS (oscuro) | 10 eventos |
+| Correcta | [celular-390] Camino de la estrategia en 5 pasos (oscuro) | 5 pasos |
 | Correcta | [celular-390] Mapa de México con 32 estados e ícono por estado |  |
 | Correcta | [celular-390] Mapa del mundo dibujado con México resaltado |  |
 | Correcta | [celular-390] Clic en Yucatán en el mapa lo selecciona en todo el sitio |  |
@@ -104,7 +144,7 @@ Total: 137 pruebas, 137 correctas, 0 fallas.
 | Correcta | [celular-390] IMSS-Bienestar muestra «Sin datos comparables» | HallazgoQuerétaro: Sin datos comparables. INEGI publica IMSS-Bienestar solo por región. Querétaro pertenece a la Región  |
 | Correcta | [celular-390] IMSS-Bienestar: la estrategia explica qué información conseguir primero (R-99) |  |
 | Correcta | [celular-390] IMSS-Tamaulipas: estrategia con dato observado, referencia, brecha, práctica e indicador |  |
-| Correcta | [celular-390] La estrategia enlaza fuentes de prácticas | 2 enlaces |
+| Correcta | [celular-390] La estrategia enlaza fuentes de prácticas | 3 enlaces |
 | Correcta | axe sin violaciones: celular-390 Estrategia |  |
 | Correcta | [celular-390] México por estado incluye el caso IMSS con periodo |  |
 | Correcta | [celular-390] Modalidad 40 identificada como esquema de retiro |  |

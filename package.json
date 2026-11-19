@@ -1,7 +1,7 @@
 {
-  "name": "salud-en-comparacion",
+  "name": "trafalgar",
   "version": "1.0.0",
-  "description": "Salud en Comparación: tablero estático sobre el sistema de salud en México",
+  "description": "Trafalgar: tablero estático sobre la satisfacción con los servicios públicos de salud en México y prácticas internacionales",
   "scripts": {
     "datos": "node scripts/procesar.mjs",
     "servir": "npx --yes http-server -p 8080 -c-1 .",

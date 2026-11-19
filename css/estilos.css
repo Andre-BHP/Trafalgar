@@ -1,4 +1,4 @@
-/* Salud en Comparación — sistema «Cartilla»: ver DESIGN.md. CSS propio, sin librerías. */
+/* Trafalgar — sistema «Cartilla»: ver DESIGN.md. CSS propio, sin librerías. */
 
 /* ---------- Tokens: modo claro ---------- */
 :root {
@@ -30,6 +30,7 @@
   --a-1: #bcd6f7; --a-2: #5598e7; --a-3: #1c5cab;
   --s-1: #cde2fb; --s-2: #86b6ef; --s-3: #3987e5; --s-4: #1c5cab; --s-5: #0d366b;
   --mexico: #d03b3b;
+  --c-1: #2a78d6; --c-2: #eb6834; --c-3: #1baf7a;
   --favorable: #1a8a55;
   --neutro: #7d8d96;
   --trama-fondo: #e9ecea;
@@ -54,7 +55,7 @@
     --d-3: #f08a80; --d-2: #c24a42; --d-1: #6e2c28;
     --a-1: #1f3f66; --a-2: #2f6fbf; --a-3: #86b6ef;
     --s-1: #17365c; --s-2: #1f5aa0; --s-3: #3987e5; --s-4: #86b6ef; --s-5: #cde2fb;
-    --mexico: #e66767; --favorable: #3fbf7f; --neutro: #8a98a0;
+    --mexico: #e66767; --favorable: #3fbf7f; --c-1: #3987e5; --c-2: #d95926; --c-3: #199e70; --neutro: #8a98a0;
     --trama-fondo: #262726; --trama-linea: #5b5e5c; --frontera: #1a1a19;
     --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 20px -10px rgba(0, 0, 0, .6);
   }
@@ -70,7 +71,7 @@
   --d-3: #f08a80; --d-2: #c24a42; --d-1: #6e2c28;
   --a-1: #1f3f66; --a-2: #2f6fbf; --a-3: #86b6ef;
   --s-1: #17365c; --s-2: #1f5aa0; --s-3: #3987e5; --s-4: #86b6ef; --s-5: #cde2fb;
-  --mexico: #e66767; --favorable: #3fbf7f; --neutro: #8a98a0;
+  --mexico: #e66767; --favorable: #3fbf7f; --c-1: #3987e5; --c-2: #d95926; --c-3: #199e70; --neutro: #8a98a0;
   --trama-fondo: #262726; --trama-linea: #5b5e5c; --frontera: #1a1a19;
   --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 20px -10px rgba(0, 0, 0, .6);
 }
@@ -494,3 +495,31 @@ tbody th[scope="row"] a { display: inline-flex; align-items: center; min-height:
   .navegacion a { padding: .5rem .6rem; border-radius: var(--radio); }
   .navegacion a[aria-current="page"] { border-radius: var(--radio) var(--radio) 0 0; }
 }
+
+/* ---------- Visualizaciones adicionales ---------- */
+.equivalente { margin-top: .8rem; }
+.equivalente summary { cursor: pointer; font-weight: 650; color: var(--acento); font-size: .9rem; min-height: 44px; display: flex; align-items: center; }
+.equivalente .tabla-cont { max-height: 360px; overflow: auto; margin-top: .4rem; }
+.waffles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.waffle { margin: 0; }
+.waffle svg { width: 100%; max-width: 240px; display: block; margin: 0 auto; }
+.waffle figcaption { text-align: center; margin-top: .5rem; font-size: .95rem; color: var(--tinta-2); }
+.waffle figcaption strong { display: block; color: var(--tinta); font-size: 1rem; }
+.waffle__n { display: block; font-size: 2.4rem; font-weight: 800; color: var(--tinta); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.multiples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1rem; }
+.multiple { margin: 0; }
+.multiple figcaption { font-size: .82rem; color: var(--tinta-2); margin-bottom: .25rem; }
+.multiple figcaption strong { color: var(--tinta); }
+.multiple svg { width: 100%; height: auto; display: block; }
+.camino { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .5rem; }
+.camino li { position: relative; padding: .7rem .8rem; border: 1px solid var(--linea); border-radius: var(--radio); background: var(--papel-2); }
+.camino li + li::before { content: ""; position: absolute; left: -.5rem; top: 50%; width: .5rem; border-top: 2px solid var(--sello); }
+.camino__t { display: block; font-size: .78rem; font-weight: 700; color: var(--sello); }
+.camino__d { display: block; font-size: .88rem; margin-top: .15rem; }
+.tiempo { list-style: none; padding: 0 0 0 1.25rem; margin: 0; border-left: 1px solid var(--eje); }
+.tiempo li { position: relative; padding: 0 0 1rem .9rem; }
+.tiempo li::before { content: ""; position: absolute; left: -1.25rem; top: .35rem; width: 12px; height: 12px; margin-left: -7px; border-radius: 50%; background: var(--papel); border: 2.5px solid var(--sello); }
+.tiempo time { font-weight: 750; font-variant-numeric: tabular-nums; }
+.tiempo p { margin: .1rem 0 0; }
+@media (max-width: 1080px) { .camino { grid-template-columns: 1fr; } .camino li + li::before { left: 1.2rem; top: -.5rem; width: 0; height: .5rem; border-top: 0; border-left: 1px solid var(--sello); } }
+@media (max-width: 640px) { .waffles { grid-template-columns: 1fr; } .multiples { grid-template-columns: 1fr; } }

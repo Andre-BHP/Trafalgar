@@ -58,6 +58,8 @@
     $('#barra-seleccion').hidden = est.seccion === 'metodo';
     // Las gráficas se dibujan con el ancho real del contenedor; al volver a Resumen se redibujan
     if (est.seccion === 'resumen' && graficasListas) { pintarG1(); pintarG2(); pintarG3(); pintarG4(); }
+    if ((est.seccion === 'mexico' || est.seccion === 'estrategia') && graficasListas) pintarVistas();
+    if (est.seccion === 'mundial' && graficasListas) pintarVistasMundo();
   }
   let graficasListas = false;
 
@@ -421,6 +423,7 @@
       `<p class="fuente-nota">Fuente: ${U.fuente('dof_5801708', 'Diario Oficial de la Federación, 21 de octubre de 2026')}.</p></article>`;
     h += '</div>';
     h += `<div class="hallazgo"><h4>Relación con la ENCIG en ${U.esc(ent().nombre)}</h4><p>Antes del plan, en 2025, la satisfacción con el IMSS en ${U.esc(ent().nombre)} fue de ${U.pct(s.obs)} (nacional ${U.pct(s.ref)}). ${U.pct(sat.obs)} reportó clínicas y hospitales sin saturación (nacional ${U.pct(sat.ref)}) y ${U.pct(med.obs)} disponibilidad de medicamentos (nacional ${U.pct(med.ref)}). Los periodos no coinciden (ENCIG: 2025; boletín: octubre y noviembre de 2026), por lo que no se calcula un efecto del plan.</p></div>`;
+    h += lineaTiempoImss();
     $('#caso-imss').innerHTML = h;
   }
 
@@ -466,7 +469,7 @@
     const es = A.estrategia(est.inst, est.anio, est.ent);
     const i = es.inst, e = es.ent;
     const cab = `<div class="estrategia__cab"><div><h3 style="font-size:1.3rem">${U.esc(e.nombre)} · ${U.esc(i.corto)} · ${est.anio}</h3><p class="grafica__sub">Satisfacción ${U.pct(es.sat.obs)}; referencia nacional ${U.pct(es.sat.ref)}; brecha ${U.pp(es.sat.dif)}. ${U.estadoHTML(es.sat.estado)}</p></div><span class="chip">Regla ${U.esc(es.regla.id)}</span></div>`;
-    let h = `<div class="tarjeta">${cab}</div>`;
+    let h = `<div class="tarjeta">${cab}${caminoEstrategia(es)}</div>`;
     if (es.tipo === 'faltan_datos') {
       const r = es.regla;
       h += `<div class="tarjeta"><div class="paso"><span class="paso__n" aria-hidden="true">1</span><div><h3>Qué problema detectó y con qué datos</h3><p><strong>${U.esc(r.problema)}</strong> ${i.nivel === 'region' ? `INEGI publica ${U.esc(i.corto)} solo por región (cuadro ${i.cuadro}). ${U.esc(e.nombre)} pertenece a la ${U.esc(E.regiones[e.region].nombre)}${es.regional ? `, con ${U.pct(U.r1(es.regional.satisfaccion.v))} de satisfacción (dato regional, no estatal)` : ''}.` : 'Todos los aspectos tienen precisión baja o no tienen dato.'}</p></div></div></div>`;
@@ -728,6 +731,195 @@
     $('#pensiones').innerHTML = h;
   }
 
+  // ---------- Visualizaciones adicionales ----------
+  const VISTAS = {
+    mexico: [
+      ['calor', 'Patrón del país: brecha por estado y aspecto', true],
+      ['intervalos', '¿Qué tan segura es cada brecha?', false],
+      ['mancuernas', '¿Quién mejoró y quién empeoró de 2023 a 2025?', false],
+      ['instituciones', '¿Qué institución sale mejor en cada estado?', true]
+    ],
+    mundial: [
+      ['waffle', 'De cada 100 pesos gastados en salud, ¿cuántos paga el hogar?', true],
+      ['paletas', 'Cobertura de servicios esenciales en los países de clase', false],
+      ['multiples', 'Cobertura y gasto, región por región', false]
+    ],
+    estrategia: [
+      ['flujo', '¿Qué regla se activa en cada estado?', true]
+    ]
+  };
+  function montarVistas() {
+    Object.entries(VISTAS).forEach(([sec, lista]) => {
+      $('#vistas-' + sec).innerHTML = lista.map(([id, titulo, ancha]) => `<article class="tarjeta grafica${ancha ? ' grafica--ancha' : ''}" aria-labelledby="v-${id}-t">
+        <div class="grafica__cab"><div><h3 id="v-${id}-t">${U.esc(titulo)}</h3><p class="grafica__sub" id="v-${id}-sub"></p></div></div>
+        <ul class="leyenda" id="v-${id}-leyenda"></ul>
+        <div class="grafica__lienzo" id="v-${id}"></div>
+        <div class="hallazgo" id="v-${id}-hallazgo" aria-live="polite"></div>
+        <p class="fuente-nota" id="v-${id}-fuente"></p>
+        <div id="v-${id}-tabla"></div></article>`).join('');
+    });
+  }
+  const hallazgoVista = (id, html) => { $(`#v-${id}-hallazgo`).innerHTML = '<h4>Hallazgo</h4>' + html; };
+  const leyendaBrecha = () => `<li><span class="rampa" aria-hidden="true">${G.CLASES_BRECHA.map((c) => `<span style="background:var(${c.var})"></span>`).join('')}</span></li><li class="rampa-et"><span>${G.CLASES_BRECHA.map((c) => c.et).join(' · ')} pp</span></li><li>${U.icono('sin')}Trama: sin datos comparables</li>`;
+
+  function pintarCalor() {
+    const i = inst(), id = 'calor';
+    $('#v-calor-sub').textContent = `${i.corto}, ${est.anio}. Filas: estados ordenados de menor a mayor satisfacción. Columnas: los 11 aspectos del servicio (íconos). Color: brecha contra el nacional.`;
+    $('#v-calor-leyenda').innerHTML = leyendaBrecha();
+    $('#v-calor-fuente').innerHTML = `Fuente: ${etiquetaFuenteEncig(est.anio, i.cuadro)}. Unidad: puntos porcentuales. Aspectos: ${E.aspectos.map((a) => `${U.iconoAspecto(a.id)} ${U.esc(a.etiqueta)}`).join(' · ')}.`;
+    if (i.nivel === 'region') { $('#v-calor').innerHTML = `<div class="sin-datos">Sin datos disponibles por estado: INEGI publica ${U.esc(i.corto)} solo por región.</div>`; hallazgoVista(id, '<p>Sin datos comparables por estado.</p>'); $('#v-calor-tabla').innerHTML = ''; return; }
+    const filas = A.ranking(est.inst, est.anio).filter((f) => f.obs !== null).sort((a, b) => a.obs - b.obs).map((f) => {
+      const celdas = {}; A.aspectos(est.inst, est.anio, f.clave).forEach((a) => { celdas[a.id] = a; }); return { clave: f.clave, nombre: f.nombre, celdas };
+    });
+    V.calor($('#v-calor'), filas, E.aspectos, { titulo: `Mapa de calor de brechas por estado y aspecto, ${i.corto} ${est.anio}`, seleccion: est.ent });
+    const conteo = E.aspectos.map((a) => ({ a, n: filas.filter((f) => f.celdas[a.id].estado === 'debajo').length })).sort((x, y) => y.n - x.n);
+    hallazgoVista(id, `<p>El aspecto que más estados tienen por debajo del nacional es <strong>${U.esc(conteo[0].a.etiqueta.toLowerCase())}</strong> (${conteo[0].n} de 32). El que menos: ${U.esc(conteo[conteo.length - 1].a.etiqueta.toLowerCase())} (${conteo[conteo.length - 1].n}).</p>`);
+    $('#v-calor-tabla').innerHTML = V.tablaEquivalente(`Brecha en pp por estado y aspecto, ${U.esc(i.corto)} ${est.anio}`, ['Estado'].concat(E.aspectos.map((a) => U.esc(a.etiqueta))), filas.map((f) => [U.esc(f.nombre)].concat(E.aspectos.map((a) => U.pp(f.celdas[a.id].dif)))));
+  }
+
+  function pintarIntervalos() {
+    const i = inst(), id = 'intervalos';
+    $('#v-intervalos-sub').textContent = `${i.corto}, ${est.anio}. Punto: satisfacción del estado. Línea: intervalo aproximado al 90% calculado con el coeficiente de variación que publica INEGI. Punto hueco: el intervalo cruza la referencia nacional.`;
+    $('#v-intervalos-leyenda').innerHTML = `<li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5" fill="var(--debajo)"/></svg>Debajo, intervalo sin cruzar el nacional</li><li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5" fill="var(--arriba)"/></svg>Encima, sin cruzar</li><li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.5" fill="none" stroke="var(--sin)" stroke-width="2"/></svg>Brecha incierta</li>`;
+    $('#v-intervalos-fuente').innerHTML = `Fuente: ${etiquetaFuenteEncig(est.anio, i.cuadro)} y su archivo de coeficientes de variación. Cálculo propio: error estándar = CV × valor; intervalo = valor ± 1.645 × error estándar. Es una aproximación, no la prueba oficial de INEGI.`;
+    if (i.nivel === 'region') { $('#v-intervalos').innerHTML = `<div class="sin-datos">Sin datos disponibles por estado.</div>`; hallazgoVista(id, '<p>Sin datos comparables por estado.</p>'); $('#v-intervalos-tabla').innerHTML = ''; return; }
+    const ref = U.r1(A.nacional(est.inst, est.anio).satisfaccion.v);
+    const todas = A.ranking(est.inst, est.anio).filter((f) => f.obs !== null && f.cv !== null);
+    const filas = todas.filter((f) => f.cv < A.CV_MAX).map((f) => { const se = (f.cv / 100) * f.obs; const inf = U.r1(f.obs - 1.645 * se), sup = U.r1(f.obs + 1.645 * se); return Object.assign({}, f, { inf, sup, incierta: inf <= ref && ref <= sup }); }).sort((a, b) => a.obs - b.obs);
+    V.intervalos($('#v-intervalos'), filas, { ref, seleccion: est.ent, titulo: `Satisfacción por estado con intervalo aproximado, ${i.corto} ${est.anio}` });
+    const inc = filas.filter((f) => f.incierta).length, excl = todas.length - filas.length;
+    hallazgoVista(id, `<p>${inc} de ${filas.length} brechas son <strong>inciertas</strong>: su intervalo incluye el valor nacional, así que no se puede asegurar si el estado está arriba o abajo.${excl ? ` ${excl} estados no se grafican por precisión baja.` : ''}</p>`);
+    $('#v-intervalos-tabla').innerHTML = V.tablaEquivalente(`Satisfacción e intervalo aproximado al 90%, ${U.esc(i.corto)} ${est.anio}`, ['Estado', 'Satisfacción', 'Límite inferior', 'Límite superior', 'CV', '¿Cruza el nacional?'], filas.map((f) => [U.esc(f.nombre), U.pct(f.obs), U.pct(f.inf), U.pct(f.sup), U.n1(f.cv) + '%', f.incierta ? 'Sí' : 'No']));
+  }
+
+  function pintarMancuernas() {
+    const id = 'mancuernas';
+    const iid = inst().comparable2023 ? est.inst : 'imss', i = A.inst(iid);
+    $('#v-mancuernas-sub').textContent = `${i.corto}: satisfacción en 2023 (círculo hueco) y 2025 (círculo lleno). Azul: subió; rojo: bajó. Línea punteada y asterisco: precisión baja en algún año.${iid !== est.inst ? ' Se muestra el IMSS porque la institución elegida no es comparable con 2023.' : ''}`;
+    $('#v-mancuernas-leyenda').innerHTML = `<li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.5" fill="var(--papel)" stroke="var(--tinta-2)" stroke-width="1.6"/></svg>2023</li><li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5" fill="var(--arriba)"/></svg>2025, subió</li><li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5" fill="var(--debajo)"/></svg>2025, bajó</li>`;
+    $('#v-mancuernas-fuente').innerHTML = `Fuente: ${U.fuente('encig_2023', 'INEGI, ENCIG 2023')} y ${U.fuente('encig_2025', 'ENCIG 2025')}, cuadro ${i.cuadro}. Unidad: porcentaje de personas usuarias; cambio en pp. Comparación permitida: misma institución, población, preguntas y alcance.`;
+    const filas = E.entidades.map((e) => Object.assign({ clave: e.clave, nombre: e.nombre }, A.cambio(iid, e.clave))).sort((a, b) => (a.dif ?? 99) - (b.dif ?? 99));
+    const c = A.cambio(iid, null);
+    V.mancuernas($('#v-mancuernas'), filas, { seleccion: est.ent, nac23: c.nac23, nac25: c.nac25, titulo: `Satisfacción con ${i.corto} por estado, 2023 y 2025` });
+    const estables = filas.filter((f) => f.estable && f.dif !== null);
+    const bajan = estables.filter((f) => f.dif < 0).length;
+    hallazgoVista(id, `<p>${bajan} de ${estables.length} estados con precisión suficiente bajaron entre 2023 y 2025. La mayor caída fue en ${U.esc(estables[0].nombre)} (${U.pp(estables[0].dif)}); la mayor subida, en ${U.esc(estables[estables.length - 1].nombre)} (${U.pp(estables[estables.length - 1].dif)}). A nivel nacional: ${U.pct(c.nac23)} a ${U.pct(c.nac25)}${c.sig.significativo ? ', cambio significativo según INEGI' : ', sin cambio significativo según INEGI'}. Los cambios estatales son descriptivos.</p>`);
+    $('#v-mancuernas-tabla').innerHTML = V.tablaEquivalente(`Satisfacción con ${U.esc(i.corto)} por estado, 2023 y 2025`, ['Estado', '2023', '2025', 'Cambio', 'Precisión suficiente en ambos años'], filas.map((f) => [U.esc(f.nombre), U.pct(f.v23), U.pct(f.v25), U.pp(f.dif), f.estable ? 'Sí' : 'No']));
+  }
+
+  function pintarInstituciones() {
+    const id = 'instituciones', ids = ['imss', 'issste', 'estatal'];
+    const nombres = ids.map((x) => A.inst(x).corto);
+    $('#v-instituciones-sub').textContent = 'Satisfacción en 2025 de las tres instituciones que INEGI publica por estado. Cada fila es un estado; la línea gris une el valor más bajo con el más alto.';
+    $('#v-instituciones-leyenda').innerHTML = nombres.map((n, k) => `<li>${V.formaSerie(k)}${U.esc(n)}</li>`).join('') + '<li>Sin punto: sin dato comparable (precisión baja)</li>';
+    $('#v-instituciones-fuente').innerHTML = `Fuente: ${U.fuente('encig_2025', 'INEGI, ENCIG 2025, cuadros 2.3, 2.4 y 2.5')}. Unidad: porcentaje de personas usuarias de cada institución. Son poblaciones usuarias distintas: la comparación es descriptiva. IMSS-Bienestar no se incluye porque solo se publica por región.`;
+    const filas = E.entidades.map((e) => ({ clave: e.clave, nombre: e.nombre, valores: ids.map((x) => { const s = A.satisfaccion(x, 2025, e.clave); return s.estado === 'sin' ? null : s.obs; }) })).sort((a, b) => (a.valores[0] ?? 0) - (b.valores[0] ?? 0));
+    V.puntosInstituciones($('#v-instituciones'), filas, nombres, { seleccion: est.ent, titulo: 'Satisfacción con IMSS, ISSSTE y servicios estatales por estado, 2025' });
+    const gana = [0, 0, 0]; filas.forEach((f) => { const vs = f.valores.map((v) => (v === null ? -1 : v)); const m = Math.max(...vs); if (m >= 0) gana[vs.indexOf(m)]++; });
+    const pierde = [0, 0, 0]; filas.forEach((f) => { const vs = f.valores.map((v) => (v === null ? 999 : v)); const m = Math.min(...vs); if (m < 999) pierde[vs.indexOf(m)]++; });
+    hallazgoVista(id, `<p>La institución con mayor satisfacción en cada estado: ${nombres.map((n, k) => `${U.esc(n)} en ${gana[k]}`).join(', ')} de 32 estados. La menor: ${nombres.map((n, k) => `${U.esc(n)} en ${pierde[k]}`).join(', ')}.</p>`);
+    $('#v-instituciones-tabla').innerHTML = V.tablaEquivalente('Satisfacción por institución y estado, 2025', ['Estado'].concat(nombres), filas.map((f) => [U.esc(f.nombre)].concat(f.valores.map((v) => U.pct(v)))));
+  }
+
+  function pintarWaffle() {
+    const id = 'waffle';
+    if (!A.mundialDisponible()) return;
+    const por = Object.fromEntries(A.paises('todos').map((p) => [p.iso3, p]));
+    const items = ['MEX', 'CRI', 'THA'].map((iso) => ({ pais: por[iso].pais, pct: por[iso].bolsillo, mexico: iso === 'MEX' }));
+    $('#v-waffle-sub').textContent = 'Cada cuadro es 1 peso de cada 100 que se gastan en salud en el país (gasto corriente total). Coloreado: lo que pagan directamente los hogares. Costa Rica y Tailandia son los países de las prácticas documentadas.';
+    $('#v-waffle-leyenda').innerHTML = '';
+    V.waffle($('#v-waffle'), items);
+    hallazgoVista(id, `<p>En México, <strong>${Math.round(items[0].pct)} de cada 100 pesos</strong> que se gastan en salud salen directamente del bolsillo de los hogares; en Costa Rica, ${Math.round(items[1].pct)}, y en Tailandia, ${Math.round(items[2].pct)} (2023).</p>`);
+    $('#v-waffle-fuente').innerHTML = `Fuente: ${U.fuente('bm_bolsillo', 'Banco Mundial, SH.XPD.OOPC.CH.ZS')} (vía archivo de clase), 2023. Unidad: % del gasto corriente total en salud, redondeado a entero para la cuadrícula.`;
+    $('#v-waffle-tabla').innerHTML = V.tablaEquivalente('Gasto de bolsillo, 2023', ['País', '% del gasto corriente en salud'], items.map((it) => [U.esc(it.pais), U.n1(it.pct) + '%']));
+  }
+
+  function pintarPaletas() {
+    const id = 'paletas';
+    if (!A.mundialDisponible()) return;
+    const ps = A.paises('clase').slice().sort((a, b) => b.uhc - a.uhc);
+    $('#v-paletas-sub').textContent = 'Índice de cobertura de servicios esenciales (0 a 100) de los 22 países marcados para clase, de mayor a menor, 2023.';
+    $('#v-paletas-leyenda').innerHTML = '<li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="5.5" fill="var(--mexico)"/></svg>México</li>';
+    V.paletas($('#v-paletas'), ps, { titulo: 'Cobertura de servicios esenciales, países de clase, 2023' });
+    const lugar = ps.findIndex((p) => p.iso3 === 'MEX') + 1, mex = A.mexico();
+    hallazgoVista(id, `<p>México ocupa el lugar ${lugar} de 22 con ${U.n0(mex.uhc)} puntos. ${ps.filter((p) => p.uhc === mex.uhc && p.iso3 !== 'MEX').length ? 'Comparte valor con ' + ps.filter((p) => p.uhc === mex.uhc && p.iso3 !== 'MEX').map((p) => U.esc(p.pais)).join(', ') + '. ' : ''}El rango va de ${U.n0(ps[ps.length - 1].uhc)} (${U.esc(ps[ps.length - 1].pais)}) a ${U.n0(ps[0].uhc)} (${U.esc(ps[0].pais)}).</p>`);
+    $('#v-paletas-fuente').innerHTML = `Fuente: ${U.fuente('bm_uhc', 'Banco Mundial, SH_UHC_SCI')} (vía archivo de clase), 2023. Unidad: índice de 0 a 100.`;
+    $('#v-paletas-tabla').innerHTML = V.tablaEquivalente('Cobertura de servicios esenciales, 2023', ['País', 'Índice 0 a 100'], ps.map((p) => [U.esc(p.pais), U.n0(p.uhc)]));
+  }
+
+  function pintarMultiples() {
+    const id = 'multiples';
+    if (!A.mundialDisponible()) return;
+    const ps = A.paises('todos');
+    const regiones = [...new Set(ps.map((p) => p.region))].sort((a, b) => a.localeCompare(b, 'es'));
+    $('#v-multiples-sub').textContent = 'Una gráfica por región del Banco Mundial, con las mismas escalas: gasto por habitante (horizontal, US$ PPA, logarítmica) y cobertura (vertical, 20 a 100). En gris, el resto del mundo; el círculo rojo es México.';
+    $('#v-multiples-leyenda').innerHTML = '<li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4" fill="var(--c-1)"/></svg>Países de la región</li><li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.5" fill="var(--mexico)"/></svg>México</li><li><svg width="14" height="14" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="2.5" fill="var(--eje)"/></svg>Resto del mundo</li>';
+    V.multiples($('#v-multiples'), ps, regiones, {});
+    const med = (r) => { const v = ps.filter((p) => p.region === r).map((p) => p.uhc).sort((a, b) => a - b); return v[Math.floor(v.length / 2)]; };
+    const orden = regiones.slice().sort((a, b) => med(b) - med(a));
+    hallazgoVista(id, `<p>La mediana de cobertura más alta es la de ${U.esc(orden[0])} (${U.n0(med(orden[0]))}) y la más baja, la de ${U.esc(orden[orden.length - 1])} (${U.n0(med(orden[orden.length - 1]))}). En América Latina y el Caribe la mediana es ${U.n0(med('América Latina y el Caribe'))}; México tiene ${U.n0(A.mexico().uhc)}.</p>`);
+    $('#v-multiples-fuente').innerHTML = `Fuente: archivo de clase con indicadores del Banco Mundial (${U.fuente('bm_uhc', 'cobertura')}, ${U.fuente('bm_gasto', 'gasto')}), 2023.`;
+    $('#v-multiples-tabla').innerHTML = V.tablaEquivalente('Países por región, mediana de cobertura, 2023', ['Región', 'Países', 'Mediana de cobertura'], regiones.map((r) => [U.esc(r), ps.filter((p) => p.region === r).length, U.n0(med(r))]));
+  }
+
+  function pintarFlujo() {
+    const id = 'flujo', i = inst();
+    $('#v-flujo-sub').textContent = `${i.corto}, ${est.anio}. Izquierda: el aspecto con mayor brecha desfavorable en cada estado (número de estados). Derecha: las prácticas de referencia de su regla. Un estado puede remitir a dos o tres prácticas. En rojo, el aspecto del estado elegido.`;
+    $('#v-flujo-leyenda').innerHTML = '';
+    $('#v-flujo-fuente').innerHTML = `Fuente: reglas de este sitio (ver «Cómo se calculó») aplicadas a ${etiquetaFuenteEncig(est.anio, i.cuadro)}.`;
+    const est32 = E.entidades.map((e) => A.estrategia(est.inst, est.anio, e.clave));
+    const con = est32.filter((x) => x.tipo === 'brecha');
+    if (!con.length) { $('#v-flujo').innerHTML = `<div class="sin-datos">Sin datos comparables: ninguna estrategia se genera con ${U.esc(i.corto)} porque no hay datos estatales.</div>`; hallazgoVista(id, '<p>Primero hacen falta estimaciones estatales (regla R-99).</p>'); $('#v-flujo-tabla').innerHTML = ''; return; }
+    const izq = {}, der = {}, enl = {};
+    con.forEach((x) => {
+      izq[x.aspecto.id] = izq[x.aspecto.id] || { id: x.aspecto.id, etiqueta: x.aspecto.etiqueta, n: 0 }; izq[x.aspecto.id].n++;
+      x.practicas.forEach((p) => { der[p.id] = der[p.id] || { id: p.id, etiqueta: p.pais + ': ' + p.nombre.split(' (')[0].split(':')[0], n: 0 }; der[p.id].n++; const k = x.aspecto.id + '>' + p.id; enl[k] = enl[k] || { de: x.aspecto.id, a: p.id, n: 0 }; enl[k].n++; });
+    });
+    const L = Object.values(izq).sort((a, b) => b.n - a.n), R = Object.values(der).sort((a, b) => b.n - a.n);
+    const actual = A.estrategia(est.inst, est.anio, est.ent);
+    V.flujo($('#v-flujo'), L, R, Object.values(enl), { seleccion: actual.tipo === 'brecha' ? actual.aspecto.id : null, titulo: `Aspecto priorizado y práctica de referencia por estado, ${i.corto} ${est.anio}` });
+    const sinB = est32.filter((x) => x.tipo === 'sin_brecha').length, falt = est32.filter((x) => x.tipo === 'faltan_datos').length;
+    hallazgoVista(id, `<p>Con ${U.esc(i.corto)}, el aspecto que más veces se prioriza es <strong>${U.esc(L[0].etiqueta.toLowerCase())}</strong> (${L[0].n} de 32 estados), y la práctica más citada es ${U.esc(R[0].etiqueta)}.${sinB ? ` ${sinB} estados no tienen brecha desfavorable.` : ''}${falt ? ` ${falt} no tienen datos comparables.` : ''}</p>`);
+    $('#v-flujo-tabla').innerHTML = V.tablaEquivalente(`Estrategia por estado, ${U.esc(i.corto)} ${est.anio}`, ['Estado', 'Aspecto priorizado', 'Regla', 'Prácticas'], est32.map((x) => [U.esc(x.ent.nombre), x.tipo === 'brecha' ? U.esc(x.aspecto.etiqueta) : x.tipo === 'sin_brecha' ? 'Sin brecha desfavorable' : 'Sin datos comparables', U.esc(x.regla.id), x.tipo === 'brecha' ? x.practicas.map((p) => U.esc(p.pais)).join(', ') : '-']));
+  }
+
+  // Camino de la estrategia del estado elegido: brecha, regla, práctica, acción, indicador
+  function caminoEstrategia(es) {
+    if (es.tipo !== 'brecha') return '';
+    const pasos = [
+      ['Brecha detectada', `${U.iconoAspecto(es.aspecto.id)} ${U.esc(es.aspecto.etiqueta)}: ${U.pp(es.aspecto.dif)}`],
+      ['Regla aplicada', `${U.esc(es.regla.id)}: mayor brecha desfavorable comparable`],
+      ['Práctica de referencia', es.practicas.map((p) => U.esc(p.pais)).join(' · ')],
+      ['Primera acción', U.esc(es.regla.primero)],
+      ['Indicador de avance', U.esc(es.regla.indicador_operativo)]
+    ];
+    return `<ol class="camino" aria-label="Cómo se generó esta estrategia">${pasos.map(([t, d]) => `<li><span class="camino__t">${t}</span><span class="camino__d">${d}</span></li>`).join('')}</ol>`;
+  }
+
+  // Línea de tiempo del caso IMSS 2026 (fechas de las fuentes)
+  function lineaTiempoImss() {
+    const ev = [
+      ['10 oct 2026', 'Sesión extraordinaria del H. Consejo Técnico: acuerdo sobre la Continuación Voluntaria (Modalidad 40).', 'dof_5801708'],
+      ['12 oct 2026', 'Inicio del conteo de cirugías adicionales en turnos nocturnos y fines de semana.', 'imss_boletin_593'],
+      ['21 oct 2026', 'Publicación del acuerdo en el Diario Oficial de la Federación.', 'dof_5801708'],
+      ['22 oct 2026', 'Entrada en vigor del acuerdo (día hábil siguiente a su publicación).', 'dof_5801708'],
+      ['17 nov 2026', 'Inicio de operación de dos tomógrafos de 256 cortes (Charo, Michoacán, y Puerto Vallarta, Jalisco).', 'imss_boletin_593'],
+      ['18 nov 2026', 'Boletín 593/2026: 6 294 cirugías adicionales y 94% de surtimiento completo de recetas.', 'imss_boletin_593'],
+      ['18 a 21 nov 2026', 'Segunda jornada de reclutamiento de especialistas (meta: 2 500).', 'imss_boletin_593'],
+      ['1 ene 2027', 'Fecha meta para otorgar 10 939 plazas de base.', 'imss_boletin_593'],
+      ['24 feb 2027', 'Fin del seguimiento semanal del plan «12 acciones en 120 días».', 'imss_boletin_593'],
+      ['abr 2027', 'Plazo máximo (6 meses) para el análisis del efecto financiero de la Continuación Voluntaria.', 'dof_5801708']
+    ];
+    return `<h3 class="bloque">Línea de tiempo del caso IMSS</h3><p class="seccion__intro">Fechas tomadas del boletín 593/2026 y del acuerdo publicado en el DOF. La última es un plazo calculado: 6 meses desde la emisión del acuerdo.</p>
+      <ol class="tiempo">${ev.map(([f, t, s]) => `<li><time>${f}</time><p>${U.esc(t)} <span class="fuente-cita">${U.fuente(s, s === 'dof_5801708' ? 'DOF' : 'IMSS, boletín 593')}</span></p></li>`).join('')}</ol>`;
+  }
+
+  function pintarVistas() {
+    pintarCalor(); pintarIntervalos(); pintarMancuernas(); pintarInstituciones();
+    pintarFlujo();
+  }
+  function pintarVistasMundo() { pintarWaffle(); pintarPaletas(); pintarMultiples(); }
+
   // ---------- Tema ----------
   function pintarTema() {
     const oscuro = U.tema.actual() === 'dark';
@@ -746,11 +938,13 @@
     pintarTablaEst();
     pintarMexico();
     pintarEstrategia();
+    pintarVistas();
     escribirHash();
   }
   function pintarTodo() {
+    mostrarSeccion();
     actualizar();
-    pintarG3(); pintarG4(); pintarM2(); pintarTablaInt();
+    pintarG3(); pintarG4(); pintarM2(); pintarTablaInt(); pintarVistasMundo();
     pintarMundial(); pintarMetodo(); pintarTema();
     mostrarSeccion();
   }
@@ -794,7 +988,7 @@
     window.addEventListener('resize', U.debounce(() => {
       if (window.innerWidth === ultimoAncho) return;
       ultimoAncho = window.innerWidth;
-      pintarG1(); pintarG2(); pintarG3(); pintarG4();
+      pintarG1(); pintarG2(); pintarG3(); pintarG4(); pintarVistas(); pintarVistasMundo();
     }, 150));
   }
 
@@ -815,6 +1009,7 @@
   estadoInicial();
   leerHash();
   eventos();
+  montarVistas();
   pintarTodo();
   graficasListas = true;
   observarGraficas();

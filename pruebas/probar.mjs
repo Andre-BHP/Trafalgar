@@ -67,6 +67,37 @@ async function paisesVisibles(page, sel) {
     return { n, gigantes, ancho: Math.round(caja.width) };
   });
 }
+
+// Visualizaciones adicionales: cada una con dibujo, hallazgo y tabla equivalente, en claro y oscuro
+const VISTAS_PRUEBA = { mexico: ['calor', 'intervalos', 'mancuernas', 'instituciones'], mundial: ['waffle', 'paletas', 'multiples'], estrategia: ['flujo'] };
+async function revisarVistas(page, etiqueta) {
+  for (const tema of ['light', 'dark']) {
+    await page.evaluate((t) => { document.documentElement.dataset.theme = t; }, tema);
+    for (const [sec, ids] of Object.entries(VISTAS_PRUEBA)) {
+      await page.click(`a[data-seccion="${sec}"]`);
+      await page.waitForTimeout(500);
+      for (const id of ids) {
+        const r = await page.evaluate((id) => {
+          const c = document.getElementById('v-' + id);
+          const marcas = c ? c.querySelectorAll('rect, circle, path, line').length : 0;
+          const ancho = c ? Math.round(c.getBoundingClientRect().width) : 0;
+          return { marcas, ancho, hallazgo: (document.getElementById(`v-${id}-hallazgo`) || {}).textContent || '', tabla: !!document.querySelector(`#v-${id}-tabla details table tbody tr`), sinDatos: !!(c && c.querySelector('.sin-datos')) };
+        }, id);
+        ok(`[${etiqueta}] Visualización «${id}» con datos, hallazgo y tabla (${sec}, ${tema === 'dark' ? 'oscuro' : 'claro'})`, r.marcas > 20 && r.ancho > 200 && r.hallazgo.length > 30 && r.tabla && !r.sinDatos, `${r.marcas} marcas, ${r.ancho}px`);
+      }
+    }
+    await page.click('a[data-seccion="mexico"]');
+    await page.waitForTimeout(300);
+    const t = await page.$$eval('#caso-imss .tiempo li', (l) => l.length);
+    ok(`[${etiqueta}] Línea de tiempo del caso IMSS (${tema === 'dark' ? 'oscuro' : 'claro'})`, t >= 8, `${t} eventos`);
+    await page.click('a[data-seccion="estrategia"]');
+    await page.waitForTimeout(300);
+    const c = await page.$$eval('#estrategia-cuerpo .camino li', (l) => l.length);
+    ok(`[${etiqueta}] Camino de la estrategia en 5 pasos (${tema === 'dark' ? 'oscuro' : 'claro'})`, c === 5, `${c} pasos`);
+  }
+  await page.evaluate(() => { delete document.documentElement.dataset.theme; });
+  await page.click('a[data-seccion="resumen"]');
+}
 async function revisarMundo(page, etiqueta) {
   for (const tema of ['light', 'dark']) {
     await page.evaluate((t) => { document.documentElement.dataset.theme = t; }, tema);
@@ -98,6 +129,9 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   // 1a. Mapa mundial visible en cada pestaña, modo e indicador (servidor local)
   for (const ind of ['uhc', 'gasto', 'bolsillo']) { await page.selectOption('#m2-ind', ind); await revisarMundo(page, `${nombre} servidor, ${ind}`); }
   await page.selectOption('#m2-ind', 'uhc');
+
+  // 1c. Visualizaciones adicionales
+  await revisarVistas(page, nombre);
 
   // 1b. Mapas
   ok(`[${nombre}] Mapa de México con 32 estados e ícono por estado`, (await page.$$eval('#m1 .estado-mapa', (l) => l.length)) === 32 && (await page.$$eval('#m1 .capa-iconos > *', (l) => l.length)) === 32);

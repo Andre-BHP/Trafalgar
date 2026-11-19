@@ -2,13 +2,17 @@
 
 <!-- impeccable:product-schema 1 -->
 
+## Name
+
+Trafalgar (antes «Salud en Comparación»; nombre definido por André el 19 de noviembre de 2026).
+
 ## Platform
 
 web
 
 ## Stack
 
-Sitio estático (HTML, CSS y JavaScript sin framework), datos ya procesados en `datos/datos.js` y JSON, publicable en GitHub Pages. Las gráficas y los mapas se dibujan en SVG propio; las geometrías se proyectan en el script de datos. Elegido por la sesión LAW dentro de la indicación de André: «lo más simple posible: un sitio estático con los datos en JSON».
+Sitio estático (HTML, CSS y JavaScript sin framework), datos ya procesados en `datos/datos.js` y JSON, publicable en GitHub Pages. Las gráficas y los mapas se dibujan en SVG propio; las geometrías se proyectan en el script de datos. Elegido dentro de la indicación de André: «lo más simple posible: un sitio estático con los datos en JSON».
 
 ## Users
 

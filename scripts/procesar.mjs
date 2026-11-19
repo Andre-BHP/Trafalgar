@@ -380,7 +380,7 @@ for (const k of ['encig', 'mundial', 'contexto']) fs.writeFileSync(path.join(SAL
 fs.writeFileSync(path.join(DATOS, 'datos.js'), '// Generado por scripts/procesar.mjs. No editar a mano.\nwindow.DATOS = ' + JSON.stringify(resultado) + ';\n');
 // Marca de versión en index.html: obliga al navegador a descargar los archivos nuevos
 const crypto = await import('node:crypto');
-const archivos = ['datos/datos.js', 'css/estilos.css', 'js/util.js', 'js/analisis.js', 'js/graficas.js', 'js/app.js'];
+const archivos = ['datos/datos.js', 'css/estilos.css', 'js/util.js', 'js/analisis.js', 'js/graficas.js', 'js/vistas.js', 'js/app.js'];
 const huella = crypto.createHash('sha1');
 archivos.forEach((a) => huella.update(fs.readFileSync(path.join(RAIZ, a))));
 const v = huella.digest('hex').slice(0, 10);
