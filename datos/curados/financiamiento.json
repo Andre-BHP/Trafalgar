@@ -71,5 +71,72 @@
     "R-10": "Ocupación de urgencias y consulta, casos resolubles en primer nivel y costo de ampliar horarios.",
     "R-11": "Servicios por los que se paga en el sector privado, frecuencia y costo de garantizarlos en la institución."
   },
-  "sin_costo": "Por estimar"
+  "sin_costo": "Por estimar",
+  "subrogacion": {
+    "titulo": "Convenios o subrogación con hospitales privados",
+    "estado_general": "Opción a evaluar",
+    "proposito": "Usar capacidad privada ya instalada, de forma temporal y pagada por procedimiento, para bajar rezagos que la institución no alcanza a cubrir con su propia capacidad (por ejemplo, cirugías pendientes), sin cambiar quién es responsable del paciente.",
+    "aplica_soluciones": [
+      1,
+      8,
+      10
+    ],
+    "marco": {
+      "imss": {
+        "estado": "Con marco legal",
+        "fuente": "lss",
+        "cita": "Indirectamente, en virtud de convenios con otros organismos públicos o particulares",
+        "detalle": "Ley del Seguro Social, artículo 89, fracción II: el IMSS puede prestar los servicios del ramo de enfermedades y maternidad mediante convenios, siempre bajo su vigilancia y responsabilidad; los convenios fijan plazo, amplitud del servicio subrogado, pagos y causas de terminación."
+      },
+      "issste": {
+        "estado": "Con marco legal",
+        "fuente": "lissste",
+        "cita": "subrogación de servicios",
+        "detalle": "Ley del ISSSTE, artículo 30: la Junta Directiva establece normas y procedimientos para el escalonamiento de los servicios, referencias y contrarreferencias y subrogación de servicios."
+      },
+      "imssb": {
+        "estado": "Opción a evaluar",
+        "fuente": null,
+        "detalle": "No se revisó un marco legal específico de IMSS-Bienestar para subrogar con particulares. Además, sin datos estatales comparables (R-99) no se sabe dónde haría falta."
+      },
+      "estatal": {
+        "estado": "Opción a evaluar",
+        "fuente": null,
+        "detalle": "Cada estado tiene su propia ley de salud; no se revisaron los 32 marcos estatales."
+      }
+    },
+    "antecedente": {
+      "texto": "En los boletines del IMSS revisados (septiembre a noviembre de 2026) las cirugías adicionales del plan «12 acciones en 120 días» se hicieron en jornadas quirúrgicas y turnos nocturnos y de fin de semana dentro del propio IMSS; no se encontró un convenio con hospitales privados para la lista de espera.",
+      "fuente": "imss_boletin_593"
+    },
+    "practica_internacional": "No se documentó en las fuentes de este sitio una práctica internacional de contratación de hospitales privados; la red distrital de Tailandia (CUP) se describe con unidades públicas.",
+    "condiciones": [
+      {
+        "titulo": "Costo por procedimiento",
+        "texto": "Por estimar. Hace falta la tarifa del hospital privado por procedimiento y el costo de la misma cirugía en la institución, para pagar solo cuando el privado no sea más caro o cuando la espera tenga un costo mayor para el paciente."
+      },
+      {
+        "titulo": "Supervisión de calidad",
+        "texto": "Contrato con indicadores de resultado (complicaciones, reingresos, tiempo hasta la cirugía), establecimiento con CLUES en operación y licencia sanitaria, y verificación por la institución, que sigue siendo responsable del paciente."
+      },
+      {
+        "titulo": "Financiamiento nacional",
+        "texto": "Se paga desde la misma partida nacional de la institución, con tarifas únicas para todo el país y solo en los estados de la ruta de despliegue; no se contrata hospital por hospital."
+      },
+      {
+        "titulo": "Capacidad privada en el estado",
+        "texto": "Solo tiene sentido donde hay camas privadas suficientes; el dato por estado (ESEP 2023) se muestra como contexto."
+      },
+      {
+        "titulo": "Temporalidad y salida",
+        "texto": "Convenio con plazo y meta (por ejemplo, abatir el rezago acumulado), para no sustituir la inversión en capacidad pública."
+      }
+    ],
+    "falta_saber": [
+      "Tamaño de la lista de espera quirúrgica por estado y procedimiento (el IMSS no la publica; «Sin datos disponibles»).",
+      "Tarifas privadas por procedimiento y costo institucional del mismo procedimiento.",
+      "Camas privadas desocupadas o disponibles, no solo instaladas.",
+      "Marco legal de IMSS-Bienestar y de los servicios estatales para subrogar con particulares."
+    ]
+  }
 }

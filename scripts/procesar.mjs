@@ -283,8 +283,24 @@ function contexto() {
     put(c, 'medicos_1000', r2((suma[c].medicos / pob[c]) * 1000));
     put(c, 'camas_1000', r2((suma[c].camas / pob[c]) * 1000));
   }
-  const n = ENTIDADES.filter(([c]) => est[c] && Object.keys(est[c]).length === 5).length;
-  log(`Contexto: ${n} de 32 entidades con los 5 indicadores. Nacional: carencia ${est.nac.carencia_salud}%, médicos ${est.nac.medicos_1000}/1000, camas ${est.nac.camas_1000}/1000, gasto ${est.nac.gasto_salud_hogar} pesos.`);
+  // 4. Sector privado (contexto, nunca entra al cálculo de la brecha). Resúmenes de scripts/privados.mjs:
+  //    INEGI, ESEP 2023 (establecimientos particulares con hospitalización) y DGIS, CLUES octubre de 2026.
+  const leerResumen = (f) => { const [h, ...ls] = fs.readFileSync(path.join(DATOS, 'fuentes', 'privados', f), 'utf8').trim().split(/\r?\n/); const k = h.split(','); return Object.fromEntries(ls.map((l) => { const v = l.split(','); return [v[0], Object.fromEntries(k.map((x, j) => [x, j ? Number(v[j]) : v[j]]))]; })); };
+  const esep = leerResumen('esep_2023_por_entidad.csv'), clues = leerResumen('clues_202610_por_entidad.csv');
+  const sumaDe = (o, k) => Object.values(o).reduce((t, x) => t + x[k], 0);
+  esep.nac = { camas_censables: sumaDe(esep, 'camas_censables'), establecimientos: sumaDe(esep, 'establecimientos') };
+  clues.nac = { privados: sumaDe(clues, 'privados'), en_operacion: sumaDe(clues, 'en_operacion'), privados_adyacentes_farmacia: sumaDe(clues, 'privados_adyacentes_farmacia') };
+  for (const c of Object.keys(pob)) {
+    const e = esep[c], q = clues[c];
+    if (e) {
+      put(c, 'camas_priv_1000', r2((e.camas_censables / pob[c]) * 1000));
+      put(c, 'hosp_priv_100k', r2((e.establecimientos / pob[c]) * 100000));
+      if (suma[c]) put(c, 'pct_camas_priv', r2((100 * e.camas_censables) / (e.camas_censables + suma[c].camas)));
+    }
+    if (q) { put(c, 'clues_priv_100k', r2((q.privados / pob[c]) * 100000)); put(c, 'farmacia_100k', r2((q.privados_adyacentes_farmacia / pob[c]) * 100000)); put(c, 'pct_unidades_priv', r2((100 * q.privados) / q.en_operacion)); }
+  }
+  const n = ENTIDADES.filter(([c]) => est[c] && Object.keys(est[c]).length === 11).length;
+  log(`Contexto: ${n} de 32 entidades con los 11 indicadores (5 públicos y de hogares, 6 del sector privado). Privado nacional: ${est.nac.camas_priv_1000} camas/1000, ${est.nac.pct_camas_priv}% de las camas. Nacional: carencia ${est.nac.carencia_salud}%, médicos ${est.nac.medicos_1000}/1000, camas ${est.nac.camas_1000}/1000, gasto ${est.nac.gasto_salud_hogar} pesos.`);
   return {
     nota: 'Datos de contexto. No se usan para calcular la brecha ni la prioridad y no explican por sí solos la satisfacción reportada.',
     indicadores: {
@@ -292,8 +308,16 @@ function contexto() {
       medicos_1000: { etiqueta: 'Médicos generales, especialistas y odontólogos del sector público', unidad: 'por cada 1 000 habitantes', anio: 2024, fuente: 'dgis_2024', alcance: 'Establecimientos públicos registrados por la DGIS (cierre 2024). Denominador: población total ENIGH 2024. No incluye el sector privado.', sentido: 'mayor es mejor' },
       camas_1000: { etiqueta: 'Camas en área de hospitalización (censables) del sector público', unidad: 'por cada 1 000 habitantes', anio: 2024, fuente: 'dgis_2024', alcance: 'Establecimientos públicos registrados por la DGIS (cierre 2024). Denominador: población total ENIGH 2024. No incluye el sector privado.', sentido: 'mayor es mejor' },
       gasto_salud_hogar: { etiqueta: 'Gasto monetario de los hogares en cuidados de la salud', unidad: 'pesos por hogar, promedio trimestral (precios de 2024)', anio: 2024, fuente: 'enigh_2024', alcance: 'Todos los hogares de la entidad. Incluye consultas, medicamentos y otros pagos de salud de los hogares.', sentido: 'sin sentido de mejora (depende de ingreso y necesidad)' },
-      gasto_salud_pct: { etiqueta: 'Peso del gasto en salud en el gasto corriente monetario de los hogares', unidad: '% del gasto corriente monetario', anio: 2024, fuente: 'enigh_2024', alcance: 'Todos los hogares de la entidad.', sentido: 'sin sentido de mejora' }
+      gasto_salud_pct: { etiqueta: 'Peso del gasto en salud en el gasto corriente monetario de los hogares', unidad: '% del gasto corriente monetario', anio: 2024, fuente: 'enigh_2024', alcance: 'Todos los hogares de la entidad.', sentido: 'sin sentido de mejora' },
+      camas_priv_1000: { grupo: 'privado', etiqueta: 'Camas censables en hospitales particulares', unidad: 'por cada 1 000 habitantes', anio: 2023, fuente: 'esep_2023', alcance: 'Establecimientos particulares con hospitalización que informan a INEGI (ESEP 2023). Denominador: población total ENIGH 2024 (un año después).', sentido: 'sin sentido de mejora (contexto)' },
+      pct_camas_priv: { grupo: 'privado', etiqueta: 'Proporción privada de las camas censables', unidad: '% de las camas censables (privadas entre privadas y públicas)', anio: 2023, fuente: 'esep_2023', fuente2: 'dgis_2024', alcance: 'Camas privadas de la ESEP 2023 y camas públicas de la DGIS 2024: años distintos, la proporción es aproximada.', sentido: 'sin sentido de mejora (contexto)' },
+      hosp_priv_100k: { grupo: 'privado', etiqueta: 'Establecimientos particulares con hospitalización', unidad: 'por cada 100 000 habitantes', anio: 2023, fuente: 'esep_2023', alcance: 'ESEP 2023 de INEGI. Denominador: población total ENIGH 2024.', sentido: 'sin sentido de mejora (contexto)' },
+      clues_priv_100k: { grupo: 'privado', etiqueta: 'Establecimientos privados en operación registrados en el CLUES', unidad: 'por cada 100 000 habitantes', anio: 2026, fuente: 'clues_202610', alcance: 'Catálogo CLUES de la DGIS, corte de octubre de 2026, institución «Servicios médicos privados», estatus «En operación». Es un registro administrativo: no todo consultorio privado está registrado.', sentido: 'sin sentido de mejora (contexto)' },
+      pct_unidades_priv: { grupo: 'privado', etiqueta: 'Proporción privada de los establecimientos en operación del CLUES', unidad: '% de los establecimientos en operación', anio: 2026, fuente: 'clues_202610', alcance: 'Privados entre todos los establecimientos en operación del CLUES (públicos, privados y sociales). Cuenta establecimientos, no consultorios ni camas.', sentido: 'sin sentido de mejora (contexto)' },
+      farmacia_100k: { grupo: 'privado', etiqueta: 'Consultorios adyacentes a farmacia', unidad: 'por cada 100 000 habitantes', anio: 2026, fuente: 'clues_202610', alcance: 'Tipología «Consultorio adyacente a farmacia» del CLUES, octubre de 2026, en operación. Mide oferta registrada, no cuántas personas los usan.', sentido: 'sin sentido de mejora (contexto)' }
     },
+    uso_privado: { estado: 'Sin datos disponibles', nota: 'No se encontró una fuente oficial con el uso de servicios privados por entidad: el tabulado del Censo 2020 sobre lugar de atención no se pudo descargar y la ENSANUT publica este dato a nivel nacional. La oferta privada (camas y establecimientos) y el gasto de los hogares (ENIGH) se muestran solo como contexto descriptivo.' },
+    comparacion_satisfaccion: { estado: 'Sin indicador comparable', nota: 'La ENCIG pregunta solo por servicios públicos y la ESEP no mide satisfacción ni tiempo de espera; no hay en las fuentes revisadas un indicador oficial por estado que compare la satisfacción o la espera del sector privado con la del público.' },
     datos: est
   };
 }

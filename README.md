@@ -24,6 +24,8 @@ Para publicarlo en GitHub Pages basta con subir la carpeta y activar Pages sobre
 
 ## Cómo actualizar los datos
 
+Sector privado: descargar a `datos/fuentes/privados/` el zip de datos abiertos de la ESEP 2023 (INEGI) y el catálogo CLUES (DGIS), correr `node scripts/privados.mjs` y después `npm run datos`.
+
 Requiere Node.js 18 o superior.
 
 ```powershell

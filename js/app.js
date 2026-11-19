@@ -298,7 +298,7 @@
     const n = tabla($('#tabla-est'), {
       orden: est.ordenEst, filas, repintar: pintarTablaEst,
       claseFila: (f) => (f.clave === est.ent ? 'fila--sel' : ''),
-      caption: `${U.esc(i.nombre)}. Año ${est.anio}. Unidad: porcentaje de personas usuarias satisfechas o muy satisfechas; diferencias en puntos porcentuales (pp). Fuente: ${etiquetaFuenteEncig(est.anio, i.cuadro)}.${regional ? ' INEGI publica este servicio solo por región.' : ''}`,
+      caption: `${U.esc(i.nombre)}. Año ${est.anio}. Unidad: porcentaje de personas usuarias satisfechas o muy satisfechas; diferencias en puntos porcentuales (pp). Fuente: ${etiquetaFuenteEncig(est.anio, i.cuadro)}. Las dos columnas del sector privado son contexto (INEGI, ESEP 2023; DGIS 2024) y no entran en la brecha.${regional ? ' INEGI publica este servicio solo por región.' : ''}`,
       columnas: [
         { id: 'nombre', titulo: 'Estado', valor: (f) => f.nombre, html: (f) => `<a href="#mexico" data-ent="${f.clave}">${U.esc(f.nombre)}</a>` },
         { id: 'obs', titulo: 'Satisfacción', num: true, valor: (f) => f.obs, html: (f) => (regional ? `Sin datos disponibles<br><small>Región: ${U.pct(f.regional ? U.r1(f.regional.satisfaccion.v) : null)}</small>` : U.pct(f.obs)) },
@@ -307,6 +307,8 @@
         { id: 'estado', titulo: 'Resultado', valor: (f) => U.TEXTO_ESTADO[f.estado], html: (f) => U.estadoHTML(f.estado) },
         { id: 'cambio', titulo: 'Cambio 2023-2025', num: true, valor: (f) => f.cambio, html: (f) => U.esc(f.cambioTxt) },
         { id: 'cv', titulo: 'Precisión (CV)', num: true, valor: (f) => f.cv, html: (f) => (f.cv === null ? 'Sin dato' : `${f.precision} (${U.n1(f.cv)}%)`) },
+        { id: 'camasPriv', titulo: 'Camas privadas por 1 000 (ESEP 2023)', num: true, valor: (f) => (D.contexto.datos[f.clave] || {}).camas_priv_1000, html: (f) => fmtCtx('camas_priv_1000', (D.contexto.datos[f.clave] || {}).camas_priv_1000) },
+        { id: 'pctPriv', titulo: '% de camas privadas', num: true, valor: (f) => (D.contexto.datos[f.clave] || {}).pct_camas_priv, html: (f) => fmtCtx('pct_camas_priv', (D.contexto.datos[f.clave] || {}).pct_camas_priv) },
         { id: 'anio', titulo: 'Año', sinOrden: true, valor: () => est.anio },
         { id: 'fuente', titulo: 'Fuente', sinOrden: true, valor: () => '', html: () => U.fuente(fuenteEncig(est.anio), `INEGI, cuadro ${i.cuadro}`) }
       ]
@@ -510,6 +512,7 @@
     ['resumen', 'estrategia'].forEach((modo) => { $('#solucion-' + modo).innerHTML = bloqueSoluciones(S, i, modo); });
     $('#financia').innerHTML = bloqueFinancia(S, i);
     $('#ruta').innerHTML = bloqueRuta(S, i);
+    $('#subrogacion').innerHTML = bloqueSubrogacion(S, i);
     mapaEtapas($('#ruta-mapa'), S);
   }
   // Cifras en pesos: siempre con su fuente (data-fuente) o con la etiqueta de supuesto
@@ -538,6 +541,32 @@
       </div>`;
   }
   const ETAPA_VAR = ['--s-5', '--s-3', '--s-2'];
+  function bloqueSubrogacion(S, i) {
+    const SB = D.financiamiento.subrogacion, mk = SB.marco[est.inst], C = D.contexto;
+    const estado = mk.estado === 'Con marco legal' ? 'Opción a evaluar, con marco legal' : 'Opción a evaluar';
+    const sols = S.activas.filter((s) => SB.aplica_soluciones.includes(s.n));
+    const filas = sols.flatMap((s) => s.ruta.map((x) => ({ s, x, priv: (C.datos[x.clave] || {}).camas_priv_1000, pct: (C.datos[x.clave] || {}).pct_camas_priv })));
+    const tabla = filas.length ? `<div class="tabla-cont" tabindex="0" role="region" aria-label="Estados donde la opción podría apoyar"><table><caption>Estados de las Soluciones ${listaY(SB.aplica_soluciones.map(String))} (espera, personal y saturación) con su oferta privada, ${U.esc(i.corto)} ${S.anio}. La oferta privada es contexto (ESEP 2023), no capacidad disponible.</caption>
+      <thead><tr><th scope="col">Estado</th><th scope="col">Solución y etapa</th><th scope="col" class="num">Brecha</th><th scope="col" class="num">Camas privadas por 1 000</th><th scope="col" class="num">% de camas privadas</th></tr></thead>
+      <tbody>${filas.map((f) => `<tr${f.x.clave === est.ent ? ' class="fila--sel"' : ''}><th scope="row">${U.esc(f.x.nombre)}</th><td>Solución ${f.s.n}, etapa ${f.x.etapa}</td><td class="num">${U.pp(f.x.dif)}</td><td class="num">${fmtCtx('camas_priv_1000', f.priv)}</td><td class="num">${fmtCtx('pct_camas_priv', f.pct)}</td></tr>`).join('')}</tbody></table></div>`
+      : `<p class="sin-datos">Con ${U.esc(i.corto)} ${S.anio} no hay estados con las Soluciones ${listaY(SB.aplica_soluciones.map(String))}${S.activas.length ? '' : ' (faltan datos comparables, R-99)'}.</p>`;
+    return `<h2 id="t-subrogacion">${U.esc(SB.titulo)}</h2>
+      <p class="destacado"><span class="chip chip--aviso" data-estado-opcion="${U.esc(estado)}">${U.esc(estado)}</span> ${U.esc(SB.proposito)}</p>
+      <div class="tarjeta">
+      <dl class="datos">
+        <dt>Marco para ${U.esc(i.corto)}</dt><dd data-marco="${U.esc(mk.estado)}">${U.esc(mk.detalle)}${mk.fuente ? ` Cita: «${U.esc(mk.cita)}». Fuente: ${U.fuente(mk.fuente, D.fuentes.fuentes[mk.fuente].titulo)}.` : ''}</dd>
+        <dt>Antecedente en el caso IMSS</dt><dd>${U.esc(SB.antecedente.texto)} Fuente: ${U.fuente(SB.antecedente.fuente, 'IMSS, boletín 593/2026')}.</dd>
+        <dt>Práctica internacional</dt><dd>${U.esc(SB.practica_internacional)}</dd>
+      </dl>
+      <h3>Condiciones</h3>
+      <ul class="financia__razones">${SB.condiciones.map((c) => `<li><strong>${U.esc(c.titulo)}.</strong> ${U.esc(c.texto)}</li>`).join('')}</ul>
+      <h3>Lo que faltaría saber</h3>
+      <ul class="financia__razones">${SB.falta_saber.map((x) => `<li>${U.esc(x)}</li>`).join('')}</ul>
+      <h3>Dónde podría apoyar</h3>
+      ${tabla}
+      <p class="fuente-nota">La opción no cambia la brecha ni la prioridad: se calcula igual, solo con datos de servicios públicos (ENCIG).</p>
+      </div>`;
+  }
   function bloqueRuta(S, i) {
     const R = D.reglas, tam = R.despliegue.tam_etapa;
     const titulo = `<h2 id="t-ruta">Ruta de despliegue, de estado en estado</h2>
@@ -818,10 +847,10 @@
   // ---------- Contexto del estado ----------
   function pintarContexto() {
     const C = D.contexto, e = ent();
-    const filas = Object.entries(C.indicadores).map(([k, m]) => {
+    const filaCtx = ([k, m]) => {
       const v = C.datos[est.ent] ? C.datos[est.ent][k] : null, n = C.datos.nac[k];
       const todos = E.entidades.map((x) => C.datos[x.clave] && C.datos[x.clave][k]).filter((x) => x !== null && x !== undefined);
-      const fmt = (x) => (x === null || x === undefined ? 'Sin datos disponibles' : k === 'gasto_salud_hogar' ? '$' + U.n0(x) : /pct|carencia/.test(k) ? U.n1(x) + '%' : U.n1(x).replace(/,0$/, ''));
+      const fmt = (x) => fmtCtx(k, x);
       const min = Math.min(...todos), max = Math.max(...todos);
       const px = (x) => 6 + ((x - min) / (max - min || 1)) * 288;
       const tira = v === null || v === undefined ? '' : `<svg viewBox="0 0 300 34" role="img" aria-label="${U.esc(`${e.nombre}: ${fmt(v)}; nacional ${fmt(n)}; mínimo ${fmt(min)} y máximo ${fmt(max)} entre los 32 estados`)}">
@@ -829,10 +858,37 @@
         ${todos.map((x) => `<circle cx="${px(x).toFixed(1)}" cy="17" r="3" fill="var(--neutro)" opacity=".45"/>`).join('')}
         <line x1="${px(n).toFixed(1)}" x2="${px(n).toFixed(1)}" y1="6" y2="28" stroke="var(--ref)" stroke-width="2" stroke-dasharray="3 2"/>
         <circle cx="${px(v).toFixed(1)}" cy="17" r="6.5" fill="var(--acento)" stroke="var(--papel)" stroke-width="2"/></svg>`;
-      return `<div class="contexto__fila"><div><h4>${U.esc(m.etiqueta)}</h4><p>${U.esc(m.unidad)}, ${m.anio}. ${U.esc(m.alcance)} Fuente: ${U.fuente(m.fuente, D.fuentes.fuentes[m.fuente].institucion)}.</p></div>
+      return `<div class="contexto__fila" data-indicador="${k}"><div><h4>${U.esc(m.etiqueta)}</h4><p>${U.esc(m.unidad)}, ${m.anio}. ${U.esc(m.alcance)} Fuente: ${U.fuente(m.fuente, D.fuentes.fuentes[m.fuente].institucion + (m.fuente === 'esep_2023' ? ', ESEP 2023' : m.fuente === 'clues_202610' ? ', CLUES' : ''))}${m.fuente2 ? ' y ' + U.fuente(m.fuente2, D.fuentes.fuentes[m.fuente2].institucion) : ''}.</p></div>
         <div class="contexto__valor">${fmt(v)}<small>Nacional: ${fmt(n)}</small></div><div class="tira">${tira}</div></div>`;
-    }).join('');
-    $('#contexto').innerHTML = `<div class="contexto">${filas}</div><p class="fuente-nota">Punto grande: ${U.esc(e.nombre)}. Línea punteada: nacional. Puntos claros: los 32 estados. ${U.esc(C.nota)}</p>`;
+    };
+    const ind = Object.entries(C.indicadores);
+    const publicas = ind.filter(([, m]) => m.grupo !== 'privado').map(filaCtx).join('');
+    const privadas = ind.filter(([, m]) => m.grupo === 'privado').map(filaCtx).join('');
+    const sinDato = (t, x) => `<div class="contexto__fila contexto__fila--sin" data-sin="${U.esc(x.estado)}"><div><h4>${U.esc(t)}</h4><p>${U.esc(x.nota)}</p></div><div class="contexto__valor">${U.esc(x.estado)}</div><div></div></div>`;
+    const r1 = correlacion('camas_priv_1000', 'gasto_salud_hogar'), r2c = correlacion('pct_camas_priv', 'gasto_salud_pct');
+    $('#contexto').innerHTML = `<div class="contexto">${publicas}</div>
+      <h4 class="contexto__grupo" id="t-contexto-privado">Sector privado: contexto, no entra en la brecha</h4>
+      <p class="fuente-nota">La conformidad de la ENCIG es solo de servicios públicos. Estos datos describen la oferta privada del estado; no se mezclan con el cálculo de la brecha ni con la prioridad.</p>
+      <div class="contexto contexto--privado" aria-labelledby="t-contexto-privado">${privadas}${sinDato('Uso de servicios privados por la población', C.uso_privado)}${sinDato('Satisfacción o espera: pública contra privada', C.comparacion_satisfaccion)}</div>
+      <p class="fuente-nota" id="contexto-relacion">Relación descriptiva entre los 32 estados, sin causalidad: correlación de ${r1.toFixed(2)} entre camas privadas por 1 000 habitantes y gasto de los hogares en salud (ENIGH 2024), y de ${r2c.toFixed(2)} entre la proporción privada de camas y el peso del gasto en salud en el gasto de los hogares. Una correlación indica que los valores tienden a moverse juntos, no que uno cause el otro.</p>
+      <p class="fuente-nota">Punto grande: ${U.esc(e.nombre)}. Línea punteada: nacional. Puntos claros: los 32 estados. ${U.esc(C.nota)}</p>`;
+  }
+  // Formato de los indicadores de contexto
+  function fmtCtx(k, x) {
+    if (x === null || x === undefined) return 'Sin datos disponibles';
+    if (k === 'gasto_salud_hogar') return '$' + U.n0(x);
+    if (/pct|carencia/.test(k)) return U.n1(x) + '%';
+    if (/_1000$/.test(k)) return x.toFixed(2);
+    return U.n1(x);
+  }
+  // Correlación de Pearson entre dos indicadores de contexto (32 estados); solo descriptiva
+  function correlacion(a, b) {
+    const C = D.contexto.datos, xs = [], ys = [];
+    E.entidades.forEach((e) => { const d = C[e.clave]; if (d && d[a] != null && d[b] != null) { xs.push(d[a]); ys.push(d[b]); } });
+    const m = (v) => v.reduce((t, x) => t + x, 0) / v.length, mx = m(xs), my = m(ys);
+    let sxy = 0, sxx = 0, syy = 0;
+    xs.forEach((x, i) => { sxy += (x - mx) * (ys[i] - my); sxx += (x - mx) ** 2; syy += (ys[i] - my) ** 2; });
+    return sxy / Math.sqrt(sxx * syy);
   }
 
   // ---------- Portada y frases destacadas ----------
@@ -904,7 +960,9 @@
       ['calor', 'Patrón del país: brecha por estado y aspecto', true],
       ['intervalos', '¿Qué tan segura es cada brecha?', false],
       ['mancuernas', '¿Quién mejoró y quién empeoró de 2023 a 2025?', false],
-      ['instituciones', '¿Qué institución sale mejor en cada estado?', true]
+      ['instituciones', '¿Qué institución sale mejor en cada estado?', true],
+      ['privado', 'Camas públicas contra privadas por estado', true],
+      ['mapapriv', 'Mapa del sector privado por estado', true]
     ],
     mundial: [
       ['waffle', 'De cada 100 pesos gastados en salud, ¿cuántos paga el hogar?', true],
@@ -1081,8 +1139,66 @@
       <ol class="tiempo">${ev.map(([f, t, s]) => `<li><time>${f}</time><p>${U.esc(t)} <span class="fuente-cita">${U.fuente(s, s === 'dof_5801708' ? 'DOF' : 'IMSS, boletín 593')}</span></p></li>`).join('')}</ol>`;
   }
 
+  // Camas públicas (DGIS 2024) contra privadas (ESEP 2023) por estado: barras divergentes
+  function pintarPrivado() {
+    const id = 'privado', C = D.contexto, I = C.indicadores;
+    $('#v-privado-sub').textContent = `Izquierda: camas censables del sector público por cada 1 000 habitantes (DGIS, ${I.camas_1000.anio}). Derecha: camas censables de hospitales particulares (INEGI, ESEP ${I.camas_priv_1000.anio}). A la derecha de cada barra, la proporción privada. Ordenado de mayor a menor proporción privada. Es contexto: no entra en la brecha.`;
+    $('#v-privado-leyenda').innerHTML = `<li><svg width="14" height="14" aria-hidden="true"><rect width="14" height="14" rx="2" style="fill:var(--c-1)"/></svg>Público</li><li><svg width="14" height="14" aria-hidden="true"><rect width="14" height="14" rx="2" style="fill:var(--c-2)"/></svg>Privado</li>`;
+    const filas = E.entidades.map((e) => ({ clave: e.clave, nombre: e.nombre, pub: (C.datos[e.clave] || {}).camas_1000, priv: (C.datos[e.clave] || {}).camas_priv_1000, pct: (C.datos[e.clave] || {}).pct_camas_priv }))
+      .filter((f) => f.pub != null && f.priv != null).sort((a, b) => b.pct - a.pct);
+    const W = 780, L = 170, MID = L + 260, H = 22 * filas.length + 40, max = Math.max(...filas.map((f) => Math.max(f.pub, f.priv)));
+    const esc = (v) => (v / max) * 210;
+    let g = `<line x1="${MID}" x2="${MID}" y1="18" y2="${H - 8}" class="eje-l" stroke="var(--eje)"/><text class="etq" x="${MID - 8}" y="12" text-anchor="end">Público</text><text class="etq" x="${MID + 8}" y="12">Privado</text><text class="etq" x="${W - 4}" y="12" text-anchor="end">% privado</text>`;
+    filas.forEach((f, k) => {
+      const y = 26 + k * 22, sel = f.clave === est.ent;
+      g += `<g class="priv-fila${sel ? ' priv-fila--sel' : ''}" data-clave="${f.clave}">${sel ? `<rect x="0" y="${y - 3}" width="${W}" height="20" rx="3" class="priv-fila__fondo"/>` : ''}<text class="etq${sel ? ' etq--tinta' : ''}" x="${L - 6}" y="${y + 11}" text-anchor="end"${sel ? ' font-weight="700"' : ''}>${U.esc(f.nombre)}</text>
+        <rect class="crece-izq" x="${MID - esc(f.pub)}" y="${y}" width="${esc(f.pub)}" height="14" rx="2" style="fill:var(--c-1)"><title>${U.esc(f.nombre)}: ${f.pub.toFixed(2)} camas públicas por 1 000</title></rect>
+        <rect x="${MID}" y="${y}" width="${esc(f.priv)}" height="14" rx="2" style="fill:var(--c-2)"><title>${U.esc(f.nombre)}: ${f.priv.toFixed(2)} camas privadas por 1 000</title></rect>
+        <text class="etq" x="${MID - esc(f.pub) - 4}" y="${y + 11}" text-anchor="end" font-size="10">${f.pub.toFixed(2)}</text><text class="etq" x="${MID + esc(f.priv) + 4}" y="${y + 11}" font-size="10">${f.priv.toFixed(2)}</text>
+        <text class="etq etq--tinta" x="${W - 4}" y="${y + 11}" text-anchor="end" font-weight="650">${U.n1(f.pct)}%</text></g>`;
+    });
+    $('#v-privado').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Barras divergentes: camas públicas y privadas por cada 1 000 habitantes en los 32 estados">${g}</svg>`;
+    const top = filas[0], bajo = filas[filas.length - 1], sel = filas.find((f) => f.clave === est.ent), nac = C.datos.nac;
+    hallazgoVista(id, `<p>A nivel nacional, ${U.n1(nac.pct_camas_priv)}% de las camas censables son privadas (${nac.camas_priv_1000.toFixed(2)} privadas y ${nac.camas_1000.toFixed(2)} públicas por cada 1 000 habitantes). La proporción privada va de ${U.n1(bajo.pct)}% en ${U.esc(bajo.nombre)} a ${U.n1(top.pct)}% en ${U.esc(top.nombre)}.${sel ? ` ${U.esc(sel.nombre)}: ${U.n1(sel.pct)}%.` : ''} Los años de las dos fuentes no coinciden (2023 y 2024), así que la proporción es aproximada.</p>`);
+    $('#v-privado-fuente').innerHTML = `Fuente: ${U.fuente('esep_2023', 'INEGI, ESEP 2023')} (camas censables de establecimientos particulares) y ${U.fuente('dgis_2024', 'DGIS, Recursos en Salud 2024')} (sector público); población de ${U.fuente('enigh_2024', 'INEGI, ENIGH 2024')}. Unidad: camas censables por cada 1 000 habitantes. Alcance: hospitales con camas censables; no incluye consultorios sin hospitalización.`;
+    $('#v-privado-tabla').innerHTML = V.tablaEquivalente('Camas censables públicas y privadas por cada 1 000 habitantes', ['Estado', 'Públicas (DGIS 2024)', 'Privadas (ESEP 2023)', 'Proporción privada'], filas.map((f) => [U.esc(f.nombre), f.pub.toFixed(2), f.priv.toFixed(2), U.n1(f.pct) + '%']));
+  }
+  // Mapa del sector privado con indicador seleccionable
+  const IND_PRIV = ['camas_priv_1000', 'pct_camas_priv', 'hosp_priv_100k', 'clues_priv_100k', 'pct_unidades_priv', 'farmacia_100k'];
+  est.indPriv = 'camas_priv_1000';
+  function pintarMapaPriv() {
+    const id = 'mapapriv', C = D.contexto, k = est.indPriv, m = C.indicadores[k];
+    const sub = $('#v-mapapriv-sub');
+    sub.innerHTML = `<label class="campo"><span class="etiqueta">Indicador</span><select id="mapapriv-ind">${IND_PRIV.map((x) => `<option value="${x}"${x === k ? ' selected' : ''}>${U.esc(C.indicadores[x].etiqueta)} (${U.esc(C.indicadores[x].unidad)})</option>`).join('')}</select></label>
+      <span>${U.esc(m.unidad)}, ${m.anio}. Cinco clases por quintiles de los 32 estados; el número más alto, el tono más intenso. Pulse un estado o recórralos con Tab y Enter.</span>`;
+    $('#mapapriv-ind').addEventListener('change', (ev) => { est.indPriv = ev.target.value; pintarMapaPriv(); });
+    const vals = E.entidades.map((e) => (C.datos[e.clave] || {})[k]).filter((v) => v != null).sort((a, b) => a - b);
+    const q = [0.2, 0.4, 0.6, 0.8].map((p) => vals[Math.floor(p * (vals.length - 1))]);
+    const clase = (v) => (v == null ? null : q.filter((c) => v > c).length);
+    $('#v-mapapriv-leyenda').innerHTML = `<li><span class="rampa" aria-hidden="true">${[1, 2, 3, 4, 5].map((c) => `<span style="background:var(--s-${c})"></span>`).join('')}</span></li><li class="rampa-et"><span>${fmtCtx(k, vals[0])} a ${fmtCtx(k, vals[vals.length - 1])}</span></li>`;
+    const geo = D.geo.mexico;
+    let svg = `<svg viewBox="0 0 ${geo.ancho} ${geo.alto}" role="group" aria-label="Mapa de México: ${U.esc(m.etiqueta)}. Use Tab para recorrer los estados y Enter para elegir uno."><defs><pattern id="trama-priv" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--trama-fondo)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--trama-linea)" stroke-width="1.6"/></pattern></defs><g>`;
+    geo.estados.forEach((g) => {
+      const v = (C.datos[g.clave] || {})[k], c = clase(v), nom = A.entidad(g.clave).nombre;
+      const etq = `${nom}: ${fmtCtx(k, v)}. Nacional: ${fmtCtx(k, C.datos.nac[k])}.`;
+      svg += `<path class="ruta__estado${g.clave === est.ent ? ' ruta__estado--sel' : ''}" d="${g.d}" data-clave="${g.clave}" role="button" tabindex="0" aria-pressed="${g.clave === est.ent}" aria-label="${U.esc(etq)}" style="fill:${c === null ? 'url(#trama-priv)' : `var(--s-${c + 1})`}"><title>${U.esc(etq)}</title></path>`;
+    });
+    svg += '</g></svg>';
+    const cont = $('#v-mapapriv'); cont.classList.add('ruta__mapa'); cont.innerHTML = svg;
+    const selp = cont.querySelector('.ruta__estado--sel'); if (selp) selp.parentNode.appendChild(selp);
+    U.$$('.ruta__estado', cont).forEach((p) => {
+      p.addEventListener('click', () => { est.ent = p.dataset.clave; actualizar(); });
+      p.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); est.ent = p.dataset.clave; actualizar(); const r = $(`#v-mapapriv .ruta__estado[data-clave="${p.dataset.clave}"]`); if (r) r.focus(); } });
+    });
+    const filas = E.entidades.map((e) => ({ nombre: e.nombre, v: (C.datos[e.clave] || {})[k], clave: e.clave })).filter((f) => f.v != null).sort((a, b) => b.v - a.v);
+    const sel = filas.find((f) => f.clave === est.ent);
+    hallazgoVista(id, `<p>${U.esc(m.etiqueta)}: el valor más alto es ${U.esc(filas[0].nombre)} (${fmtCtx(k, filas[0].v)}) y el más bajo ${U.esc(filas[filas.length - 1].nombre)} (${fmtCtx(k, filas[filas.length - 1].v)}); nacional ${fmtCtx(k, C.datos.nac[k])}.${sel ? ` ${U.esc(sel.nombre)}: ${fmtCtx(k, sel.v)}, lugar ${filas.indexOf(sel) + 1} de 32.` : ''} Describe oferta privada; no dice cuántas personas la usan.</p>`);
+    $('#v-mapapriv-fuente').innerHTML = `Fuente: ${U.fuente(m.fuente, D.fuentes.fuentes[m.fuente].titulo.split('.')[0])}${m.fuente2 ? ' y ' + U.fuente(m.fuente2, 'DGIS, Recursos en Salud 2024') : ''}. Unidad: ${U.esc(m.unidad)}. Año: ${m.anio}. Alcance: ${U.esc(m.alcance)} ${U.esc(D.geo.atribucion)}`;
+    $('#v-mapapriv-tabla').innerHTML = V.tablaEquivalente(`${U.esc(m.etiqueta)} (${U.esc(m.unidad)}, ${m.anio})`, ['Estado', 'Valor', 'Lugar'], filas.map((f, j) => [U.esc(f.nombre), fmtCtx(k, f.v), String(j + 1)]));
+  }
+
   function pintarVistas() {
-    pintarCalor(); pintarIntervalos(); pintarMancuernas(); pintarInstituciones();
+    pintarCalor(); pintarIntervalos(); pintarMancuernas(); pintarInstituciones(); pintarPrivado(); pintarMapaPriv();
     pintarFlujo();
   }
   function pintarVistasMundo() { pintarWaffle(); pintarPaletas(); pintarMultiples(); }

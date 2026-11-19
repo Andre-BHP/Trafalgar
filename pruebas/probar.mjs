@@ -70,7 +70,7 @@ async function paisesVisibles(page, sel) {
 }
 
 // Visualizaciones adicionales: cada una con dibujo, hallazgo y tabla equivalente, en claro y oscuro
-const VISTAS_PRUEBA = { mexico: ['calor', 'intervalos', 'mancuernas', 'instituciones'], mundial: ['waffle', 'paletas', 'multiples'], estrategia: ['flujo'] };
+const VISTAS_PRUEBA = { mexico: ['calor', 'intervalos', 'mancuernas', 'instituciones', 'privado', 'mapapriv'], mundial: ['waffle', 'paletas', 'multiples'], estrategia: ['flujo'] };
 async function revisarVistas(page, etiqueta) {
   for (const tema of ['light', 'dark']) {
     await page.evaluate((t) => { document.documentElement.dataset.theme = t; }, tema);
@@ -209,6 +209,24 @@ async function revisarSoluciones(page, etiqueta) {
     });
     ok(`[${etiqueta}] «La solución» con ${inst.toUpperCase()}${inst === 'imssb' ? '' : ' ' + anio}: soluciones de las reglas, numeración, prioridad R-12, etapas R-13 solo con brecha y cifras con fuente`, r.problemas.length === 0, `${r.soluciones} soluciones; prioritaria: ${r.prioritaria ?? 'ninguna'}; ${r.conBrecha} estados en la ruta; ${r.cifras} cifras en pesos${r.problemas.length ? '; ' + r.problemas.slice(0, 4).join(' / ') : ''}`);
   }
+  for (const inst of ['imss', 'issste', 'estatal', 'imssb']) {
+    await page.selectOption('#sel-inst', inst);
+    const sb = await page.evaluate((inst) => {
+      const D = window.DATOS, SB = D.financiamiento.subrogacion, mk = SB.marco[inst], cont = document.getElementById('subrogacion'), problemas = [];
+      const chip = cont.querySelector('[data-estado-opcion]').textContent;
+      if (!chip.startsWith('Opción a evaluar')) problemas.push('no se rotula como opción a evaluar');
+      if (mk.fuente) { if (!chip.includes('marco legal') || ![...cont.querySelectorAll('dd[data-marco] a')].some((a) => a.href === D.fuentes.fuentes[mk.fuente].url)) problemas.push('marco sin enlace a la ley'); }
+      else if (chip.includes('marco legal')) problemas.push('dice «con marco legal» sin fuente');
+      for (const t of ['Costo por procedimiento', 'Supervisión de calidad', 'Financiamiento nacional']) if (!cont.textContent.includes(t)) problemas.push('falta la condición ' + t);
+      if (!cont.textContent.includes('Lo que faltaría saber')) problemas.push('falta lo que faltaría saber');
+      const S = window.A.soluciones(inst, +document.getElementById('sel-anio').value);
+      const validos = new Set(S.activas.filter((s) => SB.aplica_soluciones.includes(s.n)).flatMap((s) => s.ruta.map((x) => x.nombre)));
+      const filas = [...cont.querySelectorAll('tbody th[scope="row"]')].map((t) => t.textContent);
+      if (filas.some((n) => !validos.has(n)) || filas.length !== validos.size) problemas.push('la tabla incluye estados fuera de las soluciones 1, 8 o 10');
+      return { problemas, chip, filas: filas.length };
+    }, inst);
+    ok(`[${etiqueta}] Subrogación con privados (${inst.toUpperCase()}): «${sb.chip}», con condiciones y solo en estados de las Soluciones 1, 8 y 10`, sb.problemas.length === 0, `${sb.filas} estados; ${sb.problemas.join(' / ')}`);
+  }
   await page.selectOption('#sel-inst', 'imss');
   await page.selectOption('#sel-anio', '2025');
   await page.selectOption('#sel-ent', '28');
@@ -300,7 +318,30 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   await page.click('a[data-seccion="mexico"]');
   ok(`[${nombre}] México por estado incluye el caso IMSS con periodo`, (await texto(page, '#caso-imss')).includes('12 de octubre de 2026'));
   ok(`[${nombre}] Modalidad 40 identificada como esquema de retiro`, (await texto(page, '#caso-imss')).includes('cotización voluntaria para el retiro'));
-  ok(`[${nombre}] Contexto del estado con 5 indicadores y fuente`, (await page.$$eval('#contexto .contexto__fila', (l) => l.length)) === 5 && (await page.$$eval('#contexto a[href^="http"]', (l) => l.length)) >= 5);
+  ok(`[${nombre}] Contexto del estado con 5 indicadores públicos y fuente`, (await page.$$eval('#contexto .contexto:not(.contexto--privado) .contexto__fila', (l) => l.length)) === 5 && (await page.$$eval('#contexto .contexto:not(.contexto--privado) a[href^="http"]', (l) => l.length)) >= 5);
+  // Sector privado: contexto con fuente, año y unidad; «Sin datos disponibles» donde falta; nunca entra en la brecha
+  const priv = await page.evaluate(() => {
+    const D = window.DATOS, A = window.A, problemas = [];
+    const filas = [...document.querySelectorAll('#contexto .contexto--privado .contexto__fila')];
+    filas.filter((f) => f.dataset.indicador).forEach((f) => {
+      const m = D.contexto.indicadores[f.dataset.indicador];
+      const t = f.textContent;
+      if (!f.querySelector('a[href^="http"]')) problemas.push(`${f.dataset.indicador} sin enlace a su fuente`);
+      if (!t.includes(String(m.anio)) || !t.includes(m.unidad)) problemas.push(`${f.dataset.indicador} sin año o unidad`);
+    });
+    const sin = filas.filter((f) => f.dataset.sin).map((f) => f.dataset.sin);
+    if (!sin.includes('Sin datos disponibles') || !sin.includes('Sin indicador comparable')) problemas.push('faltan los renglones sin dato (uso privado o comparación de satisfacción)');
+    // Quitar los datos privados no cambia ninguna brecha, solución ni etapa
+    const huella = () => JSON.stringify(['imss', 'issste', 'estatal'].map((i) => A.soluciones(i, 2025).porEstado.map((x) => [x.regla.id, x.tipo === 'brecha' ? x.aspecto.dif : null])));
+    const antes = huella();
+    const copia = JSON.parse(JSON.stringify(D.contexto.datos));
+    Object.values(D.contexto.datos).forEach((d) => Object.keys(D.contexto.indicadores).filter((k) => D.contexto.indicadores[k].grupo === 'privado').forEach((k) => { delete d[k]; }));
+    if (huella() !== antes) problemas.push('los datos privados cambian el cálculo');
+    D.contexto.datos = copia;
+    return { problemas, n: filas.length };
+  });
+  ok(`[${nombre}] Sector privado como contexto: fuente, año y unidad, «Sin datos disponibles» donde falta y fuera del cálculo de la brecha`, priv.problemas.length === 0 && priv.n >= 8, `${priv.n} renglones; ${priv.problemas.join(' / ')}`);
+  ok(`[${nombre}] Tabla estatal con las columnas del sector privado`, (await page.$$eval('#tabla-est thead th', (l) => l.map((t) => t.textContent).join('|'))).includes('Camas privadas por 1 000'));
   // Pensiones y servicio médico: sección, fuentes por afirmación y postura rotulada
   const pens = await page.evaluate(() => {
     const sec = document.querySelector('#pensiones');

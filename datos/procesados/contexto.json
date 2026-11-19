@@ -40,7 +40,70 @@
    "fuente": "enigh_2024",
    "alcance": "Todos los hogares de la entidad.",
    "sentido": "sin sentido de mejora"
+  },
+  "camas_priv_1000": {
+   "grupo": "privado",
+   "etiqueta": "Camas censables en hospitales particulares",
+   "unidad": "por cada 1 000 habitantes",
+   "anio": 2023,
+   "fuente": "esep_2023",
+   "alcance": "Establecimientos particulares con hospitalización que informan a INEGI (ESEP 2023). Denominador: población total ENIGH 2024 (un año después).",
+   "sentido": "sin sentido de mejora (contexto)"
+  },
+  "pct_camas_priv": {
+   "grupo": "privado",
+   "etiqueta": "Proporción privada de las camas censables",
+   "unidad": "% de las camas censables (privadas entre privadas y públicas)",
+   "anio": 2023,
+   "fuente": "esep_2023",
+   "fuente2": "dgis_2024",
+   "alcance": "Camas privadas de la ESEP 2023 y camas públicas de la DGIS 2024: años distintos, la proporción es aproximada.",
+   "sentido": "sin sentido de mejora (contexto)"
+  },
+  "hosp_priv_100k": {
+   "grupo": "privado",
+   "etiqueta": "Establecimientos particulares con hospitalización",
+   "unidad": "por cada 100 000 habitantes",
+   "anio": 2023,
+   "fuente": "esep_2023",
+   "alcance": "ESEP 2023 de INEGI. Denominador: población total ENIGH 2024.",
+   "sentido": "sin sentido de mejora (contexto)"
+  },
+  "clues_priv_100k": {
+   "grupo": "privado",
+   "etiqueta": "Establecimientos privados en operación registrados en el CLUES",
+   "unidad": "por cada 100 000 habitantes",
+   "anio": 2026,
+   "fuente": "clues_202610",
+   "alcance": "Catálogo CLUES de la DGIS, corte de octubre de 2026, institución «Servicios médicos privados», estatus «En operación». Es un registro administrativo: no todo consultorio privado está registrado.",
+   "sentido": "sin sentido de mejora (contexto)"
+  },
+  "pct_unidades_priv": {
+   "grupo": "privado",
+   "etiqueta": "Proporción privada de los establecimientos en operación del CLUES",
+   "unidad": "% de los establecimientos en operación",
+   "anio": 2026,
+   "fuente": "clues_202610",
+   "alcance": "Privados entre todos los establecimientos en operación del CLUES (públicos, privados y sociales). Cuenta establecimientos, no consultorios ni camas.",
+   "sentido": "sin sentido de mejora (contexto)"
+  },
+  "farmacia_100k": {
+   "grupo": "privado",
+   "etiqueta": "Consultorios adyacentes a farmacia",
+   "unidad": "por cada 100 000 habitantes",
+   "anio": 2026,
+   "fuente": "clues_202610",
+   "alcance": "Tipología «Consultorio adyacente a farmacia» del CLUES, octubre de 2026, en operación. Mide oferta registrada, no cuántas personas los usan.",
+   "sentido": "sin sentido de mejora (contexto)"
   }
+ },
+ "uso_privado": {
+  "estado": "Sin datos disponibles",
+  "nota": "No se encontró una fuente oficial con el uso de servicios privados por entidad: el tabulado del Censo 2020 sobre lugar de atención no se pudo descargar y la ENSANUT publica este dato a nivel nacional. La oferta privada (camas y establecimientos) y el gasto de los hogares (ENIGH) se muestran solo como contexto descriptivo."
+ },
+ "comparacion_satisfaccion": {
+  "estado": "Sin indicador comparable",
+  "nota": "La ENCIG pregunta solo por servicios públicos y la ESEP no mide satisfacción ni tiempo de espera; no hay en las fuentes revisadas un indicador oficial por estado que compare la satisfacción o la espera del sector privado con la del público."
  },
  "datos": {
   "10": {
@@ -48,231 +111,429 @@
    "gasto_salud_hogar": 1507,
    "gasto_salud_pct": 3.55,
    "medicos_1000": 1.69,
-   "camas_1000": 0.86
+   "camas_1000": 0.86,
+   "camas_priv_1000": 0.15,
+   "hosp_priv_100k": 1.11,
+   "pct_camas_priv": 15.11,
+   "clues_priv_100k": 11.7,
+   "farmacia_100k": 7.7,
+   "pct_unidades_priv": 28.32
   },
   "11": {
    "carencia_salud": 33.71,
    "gasto_salud_hogar": 1584,
    "gasto_salud_pct": 3.48,
    "medicos_1000": 1.31,
-   "camas_1000": 0.61
+   "camas_1000": 0.61,
+   "camas_priv_1000": 0.34,
+   "hosp_priv_100k": 2.56,
+   "pct_camas_priv": 35.76,
+   "clues_priv_100k": 13.03,
+   "farmacia_100k": 8.36,
+   "pct_unidades_priv": 51.76
   },
   "12": {
    "carencia_salud": 38.86,
    "gasto_salud_hogar": 1705,
    "gasto_salud_pct": 4.93,
    "medicos_1000": 1.96,
-   "camas_1000": 0.57
+   "camas_1000": 0.57,
+   "camas_priv_1000": 0.25,
+   "hosp_priv_100k": 2.88,
+   "pct_camas_priv": 30.39,
+   "clues_priv_100k": 8.29,
+   "farmacia_100k": 7.16,
+   "pct_unidades_priv": 19.42
   },
   "13": {
    "carencia_salud": 43.53,
    "gasto_salud_hogar": 1597,
    "gasto_salud_pct": 4.38,
    "medicos_1000": 1.52,
-   "camas_1000": 0.5
+   "camas_1000": 0.5,
+   "camas_priv_1000": 0.27,
+   "hosp_priv_100k": 2.91,
+   "pct_camas_priv": 35.01,
+   "clues_priv_100k": 11.05,
+   "farmacia_100k": 5.2,
+   "pct_unidades_priv": 27.98
   },
   "14": {
    "carencia_salud": 32.04,
    "gasto_salud_hogar": 1882,
    "gasto_salud_pct": 3.36,
    "medicos_1000": 1.4,
-   "camas_1000": 0.82
+   "camas_1000": 0.82,
+   "camas_priv_1000": 0.37,
+   "hosp_priv_100k": 1.88,
+   "pct_camas_priv": 31.08,
+   "clues_priv_100k": 11.3,
+   "farmacia_100k": 6.92,
+   "pct_unidades_priv": 45.34
   },
   "15": {
    "carencia_salud": 40.24,
    "gasto_salud_hogar": 1246,
    "gasto_salud_pct": 2.51,
    "medicos_1000": 1.1,
-   "camas_1000": 0.53
+   "camas_1000": 0.53,
+   "camas_priv_1000": 0.22,
+   "hosp_priv_100k": 2.24,
+   "pct_camas_priv": 29.43,
+   "clues_priv_100k": 9.2,
+   "farmacia_100k": 6.49,
+   "pct_unidades_priv": 44.7
   },
   "16": {
    "carencia_salud": 46.05,
    "gasto_salud_hogar": 2033,
    "gasto_salud_pct": 4.45,
    "medicos_1000": 1.35,
-   "camas_1000": 0.57
+   "camas_1000": 0.57,
+   "camas_priv_1000": 0.37,
+   "hosp_priv_100k": 2.29,
+   "pct_camas_priv": 38.93,
+   "clues_priv_100k": 13.57,
+   "farmacia_100k": 7.24,
+   "pct_unidades_priv": 38.7
   },
   "17": {
    "carencia_salud": 43.99,
    "gasto_salud_hogar": 1638,
    "gasto_salud_pct": 3.88,
    "medicos_1000": 1.64,
-   "camas_1000": 0.62
+   "camas_1000": 0.62,
+   "camas_priv_1000": 0.23,
+   "hosp_priv_100k": 2.69,
+   "pct_camas_priv": 27.06,
+   "clues_priv_100k": 17.09,
+   "farmacia_100k": 11.92,
+   "pct_unidades_priv": 47.46
   },
   "18": {
    "carencia_salud": 25.7,
    "gasto_salud_hogar": 1430,
    "gasto_salud_pct": 3.2,
    "medicos_1000": 2.42,
-   "camas_1000": 0.85
+   "camas_1000": 0.85,
+   "camas_priv_1000": 0.07,
+   "hosp_priv_100k": 0.32,
+   "pct_camas_priv": 8.04,
+   "clues_priv_100k": 12.63,
+   "farmacia_100k": 8.29,
+   "pct_unidades_priv": 24.3
   },
   "19": {
    "carencia_salud": 15.82,
    "gasto_salud_hogar": 1368,
    "gasto_salud_pct": 2.31,
    "medicos_1000": 1.25,
-   "camas_1000": 0.71
+   "camas_1000": 0.71,
+   "camas_priv_1000": 0.35,
+   "hosp_priv_100k": 1.06,
+   "pct_camas_priv": 32.65,
+   "clues_priv_100k": 14.13,
+   "farmacia_100k": 11.02,
+   "pct_unidades_priv": 56.23
   },
   "20": {
    "carencia_salud": 43.85,
    "gasto_salud_hogar": 2145,
    "gasto_salud_pct": 6.29,
    "medicos_1000": 1.38,
-   "camas_1000": 0.52
+   "camas_1000": 0.52,
+   "camas_priv_1000": 0.19,
+   "hosp_priv_100k": 1.83,
+   "pct_camas_priv": 26.88,
+   "clues_priv_100k": 10.65,
+   "farmacia_100k": 5.87,
+   "pct_unidades_priv": 20.73
   },
   "21": {
    "carencia_salud": 47.31,
    "gasto_salud_hogar": 1496,
    "gasto_salud_pct": 3.58,
    "medicos_1000": 1.33,
-   "camas_1000": 0.61
+   "camas_1000": 0.61,
+   "camas_priv_1000": 0.26,
+   "hosp_priv_100k": 1.88,
+   "pct_camas_priv": 29.99,
+   "clues_priv_100k": 14.32,
+   "farmacia_100k": 8.55,
+   "pct_unidades_priv": 42.55
   },
   "22": {
    "carencia_salud": 24.14,
    "gasto_salud_hogar": 2160,
    "gasto_salud_pct": 3.51,
    "medicos_1000": 1.33,
-   "camas_1000": 0.53
+   "camas_1000": 0.53,
+   "camas_priv_1000": 0.35,
+   "hosp_priv_100k": 2.17,
+   "pct_camas_priv": 39.79,
+   "clues_priv_100k": 13.55,
+   "farmacia_100k": 8.31,
+   "pct_unidades_priv": 49.21
   },
   "23": {
    "carencia_salud": 30.35,
    "gasto_salud_hogar": 1214,
    "gasto_salud_pct": 2.26,
    "medicos_1000": 1.38,
-   "camas_1000": 0.63
+   "camas_1000": 0.63,
+   "camas_priv_1000": 0.21,
+   "hosp_priv_100k": 1.77,
+   "pct_camas_priv": 24.61,
+   "clues_priv_100k": 23.23,
+   "farmacia_100k": 15.24,
+   "pct_unidades_priv": 59.89
   },
   "24": {
    "carencia_salud": 33.43,
    "gasto_salud_hogar": 2091,
    "gasto_salud_pct": 4.44,
    "medicos_1000": 1.25,
-   "camas_1000": 0.78
+   "camas_1000": 0.78,
+   "camas_priv_1000": 0.23,
+   "hosp_priv_100k": 1.25,
+   "pct_camas_priv": 23.01,
+   "clues_priv_100k": 9.55,
+   "farmacia_100k": 6.95,
+   "pct_unidades_priv": 28.98
   },
   "25": {
    "carencia_salud": 24.71,
    "gasto_salud_hogar": 1640,
    "gasto_salud_pct": 3.38,
    "medicos_1000": 1.89,
-   "camas_1000": 0.82
+   "camas_1000": 0.82,
+   "camas_priv_1000": 0.23,
+   "hosp_priv_100k": 1.53,
+   "pct_camas_priv": 21.7,
+   "clues_priv_100k": 15.37,
+   "farmacia_100k": 9.34,
+   "pct_unidades_priv": 43.54
   },
   "26": {
    "carencia_salud": 24.12,
    "gasto_salud_hogar": 1767,
    "gasto_salud_pct": 3.44,
    "medicos_1000": 1.99,
-   "camas_1000": 1.01
+   "camas_1000": 1.01,
+   "camas_priv_1000": 0.2,
+   "hosp_priv_100k": 1.14,
+   "pct_camas_priv": 16.45,
+   "clues_priv_100k": 11.5,
+   "farmacia_100k": 9.05,
+   "pct_unidades_priv": 37.29
   },
   "27": {
    "carencia_salud": 35.08,
    "gasto_salud_hogar": 1516,
    "gasto_salud_pct": 3.84,
    "medicos_1000": 2.3,
-   "camas_1000": 0.72
+   "camas_1000": 0.72,
+   "camas_priv_1000": 0.16,
+   "hosp_priv_100k": 1.58,
+   "pct_camas_priv": 18.14,
+   "clues_priv_100k": 15.19,
+   "farmacia_100k": 11.32,
+   "pct_unidades_priv": 33.22
   },
   "28": {
    "carencia_salud": 25.12,
    "gasto_salud_hogar": 1373,
    "gasto_salud_pct": 3.06,
    "medicos_1000": 1.74,
-   "camas_1000": 0.95
+   "camas_1000": 0.95,
+   "camas_priv_1000": 0.33,
+   "hosp_priv_100k": 2.07,
+   "pct_camas_priv": 25.67,
+   "clues_priv_100k": 16.74,
+   "farmacia_100k": 13.61,
+   "pct_unidades_priv": 47.84
   },
   "29": {
    "carencia_salud": 39.27,
    "gasto_salud_hogar": 1360,
    "gasto_salud_pct": 3.4,
    "medicos_1000": 1.86,
-   "camas_1000": 0.5
+   "camas_1000": 0.5,
+   "camas_priv_1000": 0.15,
+   "hosp_priv_100k": 1.5,
+   "pct_camas_priv": 22.48,
+   "clues_priv_100k": 8.65,
+   "farmacia_100k": 5.72,
+   "pct_unidades_priv": 31.36
   },
   "30": {
    "carencia_salud": 40.72,
    "gasto_salud_hogar": 1219,
    "gasto_salud_pct": 3.54,
    "medicos_1000": 1.54,
-   "camas_1000": 0.67
+   "camas_1000": 0.67,
+   "camas_priv_1000": 0.19,
+   "hosp_priv_100k": 1.33,
+   "pct_camas_priv": 21.79,
+   "clues_priv_100k": 10.91,
+   "farmacia_100k": 8,
+   "pct_unidades_priv": 32.94
   },
   "31": {
    "carencia_salud": 26.06,
    "gasto_salud_hogar": 2087,
    "gasto_salud_pct": 4.07,
    "medicos_1000": 1.75,
-   "camas_1000": 0.84
+   "camas_1000": 0.84,
+   "camas_priv_1000": 0.16,
+   "hosp_priv_100k": 0.71,
+   "pct_camas_priv": 16.2,
+   "clues_priv_100k": 14.11,
+   "farmacia_100k": 11.42,
+   "pct_unidades_priv": 45.41
   },
   "32": {
    "carencia_salud": 33.78,
    "gasto_salud_hogar": 2193,
    "gasto_salud_pct": 5.5,
    "medicos_1000": 1.76,
-   "camas_1000": 0.64
+   "camas_1000": 0.64,
+   "camas_priv_1000": 0.23,
+   "hosp_priv_100k": 1.38,
+   "pct_camas_priv": 26.61,
+   "clues_priv_100k": 11.24,
+   "farmacia_100k": 8.78,
+   "pct_unidades_priv": 24.57
   },
   "nac": {
    "carencia_salud": 34.17,
    "gasto_salud_hogar": 1605,
    "gasto_salud_pct": 3.37,
    "medicos_1000": 1.58,
-   "camas_1000": 0.74
+   "camas_1000": 0.74,
+   "camas_priv_1000": 0.28,
+   "hosp_priv_100k": 1.89,
+   "pct_camas_priv": 27.01,
+   "clues_priv_100k": 13.35,
+   "farmacia_100k": 8.64,
+   "pct_unidades_priv": 41.71
   },
   "01": {
    "carencia_salud": 25.2,
    "gasto_salud_hogar": 1821,
    "gasto_salud_pct": 3.38,
    "medicos_1000": 1.83,
-   "camas_1000": 0.72
+   "camas_1000": 0.72,
+   "camas_priv_1000": 0.27,
+   "hosp_priv_100k": 1.34,
+   "pct_camas_priv": 27.34,
+   "clues_priv_100k": 11.56,
+   "farmacia_100k": 7.95,
+   "pct_unidades_priv": 50
   },
   "02": {
    "carencia_salud": 23.26,
    "gasto_salud_hogar": 1129,
    "gasto_salud_pct": 2.04,
    "medicos_1000": 1.31,
-   "camas_1000": 0.69
+   "camas_1000": 0.69,
+   "camas_priv_1000": 0.38,
+   "hosp_priv_100k": 3.41,
+   "pct_camas_priv": 35.4,
+   "clues_priv_100k": 17.34,
+   "farmacia_100k": 11.81,
+   "pct_unidades_priv": 67.77
   },
   "03": {
    "carencia_salud": 19.62,
    "gasto_salud_hogar": 1433,
    "gasto_salud_pct": 2.56,
    "medicos_1000": 2.21,
-   "camas_1000": 1.02
+   "camas_1000": 1.02,
+   "camas_priv_1000": 0.14,
+   "hosp_priv_100k": 1.71,
+   "pct_camas_priv": 12.03,
+   "clues_priv_100k": 16.29,
+   "farmacia_100k": 10.14,
+   "pct_unidades_priv": 42.81
   },
   "04": {
    "carencia_salud": 28.5,
    "gasto_salud_hogar": 1330,
    "gasto_salud_pct": 3.2,
    "medicos_1000": 2.16,
-   "camas_1000": 0.9
+   "camas_1000": 0.9,
+   "camas_priv_1000": 0.14,
+   "hosp_priv_100k": 1.06,
+   "pct_camas_priv": 13.66,
+   "clues_priv_100k": 14.06,
+   "farmacia_100k": 11.63,
+   "pct_unidades_priv": 31.44
   },
   "05": {
    "carencia_salud": 20.3,
    "gasto_salud_hogar": 1459,
    "gasto_salud_pct": 2.89,
    "medicos_1000": 1.56,
-   "camas_1000": 0.9
+   "camas_1000": 0.9,
+   "camas_priv_1000": 0.26,
+   "hosp_priv_100k": 1.09,
+   "pct_camas_priv": 22.13,
+   "clues_priv_100k": 10.71,
+   "farmacia_100k": 8.36,
+   "pct_unidades_priv": 45.74
   },
   "06": {
    "carencia_salud": 24.03,
    "gasto_salud_hogar": 2026,
    "gasto_salud_pct": 3.9,
    "medicos_1000": 2.38,
-   "camas_1000": 0.97
+   "camas_1000": 0.97,
+   "camas_priv_1000": 0.25,
+   "hosp_priv_100k": 1.79,
+   "pct_camas_priv": 20.34,
+   "clues_priv_100k": 11.57,
+   "farmacia_100k": 8.26,
+   "pct_unidades_priv": 29.37
   },
   "07": {
    "carencia_salud": 63.34,
    "gasto_salud_hogar": 966,
    "gasto_salud_pct": 3.56,
    "medicos_1000": 1.2,
-   "camas_1000": 0.41
+   "camas_1000": 0.41,
+   "camas_priv_1000": 0.12,
+   "hosp_priv_100k": 1.04,
+   "pct_camas_priv": 22.04,
+   "clues_priv_100k": 9,
+   "farmacia_100k": 6,
+   "pct_unidades_priv": 22.1
   },
   "08": {
    "carencia_salud": 20.89,
    "gasto_salud_hogar": 1283,
    "gasto_salud_pct": 2.74,
    "medicos_1000": 1.56,
-   "camas_1000": 0.83
+   "camas_1000": 0.83,
+   "camas_priv_1000": 0.35,
+   "hosp_priv_100k": 1.75,
+   "pct_camas_priv": 29.57,
+   "clues_priv_100k": 14.02,
+   "farmacia_100k": 10.44,
+   "pct_unidades_priv": 44.42
   },
   "09": {
    "carencia_salud": 21.79,
    "gasto_salud_hogar": 2424,
    "gasto_salud_pct": 3.65,
    "medicos_1000": 3.01,
-   "camas_1000": 1.67
+   "camas_1000": 1.67,
+   "camas_priv_1000": 0.53,
+   "hosp_priv_100k": 2.59,
+   "pct_camas_priv": 24.02,
+   "clues_priv_100k": 27.68,
+   "farmacia_100k": 12.21,
+   "pct_unidades_priv": 76
   }
  }
 }

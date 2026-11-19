@@ -56,6 +56,10 @@
       "anio": 2023
     },
     "pef_2026": {"titulo": "Presupuesto de Egresos de la Federación para el Ejercicio Fiscal 2026 (Anexo 1, Gasto neto total, y Anexo 22, Ramo 33)", "institucion": "Secretaría de Hacienda y Crédito Público; Cámara de Diputados", "anio": 2026, "publicacion": "21 de noviembre de 2025 (Diario Oficial de la Federación)", "unidad": "pesos corrientes", "url": "https://www.dof.gob.mx/2025/SHCP/PEF_2026.html"},
+    "esep_2023": {"titulo": "Estadísticas de Salud en Establecimientos Particulares (ESEP) 2023. Datos abiertos, tabla de recursos", "institucion": "INEGI", "anio": 2023, "publicacion": "conjunto de datos actualizado el 17 de agosto de 2026", "unidad": "establecimientos, camas censables, consultorios y personal médico", "alcance": "Establecimientos particulares con servicio de hospitalización (camas censables)", "url": "https://www.inegi.org.mx/programas/salud/"},
+    "clues_202610": {"titulo": "Catálogo de Clave Única de Establecimientos de Salud (CLUES), corte de octubre de 2026", "institucion": "Secretaría de Salud, Dirección General de Información en Salud", "anio": 2026, "unidad": "establecimientos", "alcance": "Establecimientos registrados; se usan los que están «En operación»", "url": "http://www.dgis.salud.gob.mx/contenidos/intercambio/clues_gobmx.html"},
+    "lss": {"titulo": "Ley del Seguro Social, artículo 89, fracción II (texto vigente, última reforma DOF 15-01-2026)", "institucion": "Cámara de Diputados", "anio": 2026, "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LSS.pdf"},
+    "lissste": {"titulo": "Ley del ISSSTE, artículo 30 (texto vigente, última reforma DOF 15-01-2026)", "institucion": "Cámara de Diputados", "anio": 2026, "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LISSSTE.pdf"},
     "imss_boletin_593": {
       "titulo": "IMSS reduce listas de espera con más de 6 mil cirugías adicionales y pone en operación 64 equipos de alta tecnología: Zoé Robledo. Boletín No. 593/2026",
       "institucion": "Instituto Mexicano del Seguro Social",

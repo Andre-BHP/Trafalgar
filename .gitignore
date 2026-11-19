@@ -4,3 +4,7 @@ node_modules/
 datos/fuentes/imss/informe_2025_2026/*.pdf
 datos/fuentes/conamed/anuario.txt
 .taste-skill/
+datos/fuentes/privados/clues_202610.xlsx
+datos/fuentes/privados/esep/
+datos/fuentes/privados/clues.html
+datos/fuentes/privados/cpv2020_*.xlsx
