@@ -4,6 +4,7 @@
   "reglas": {
     "atencion_inmediata": {
       "id": "R-01",
+      "solucion": {"n": 1, "nombre": "Menos espera con población asignada a cada equipo (modelo EBAIS)"},
       "problema": "Menos personas usuarias reportan haber recibido atención inmediata que en la referencia nacional.",
       "practicas": ["cr_ebais", "mx_imss_plan_2026"],
       "primero": "Medir durante 4 semanas el tiempo de espera para consulta y urgencias por unidad y turno, para ubicar dónde se concentra la demora.",
@@ -14,6 +15,7 @@
     },
     "trato_respetuoso": {
       "id": "R-02",
+      "solucion": {"n": 2, "nombre": "Trato digno en el primer contacto"},
       "problema": "Menos personas usuarias reportan trato respetuoso que en la referencia nacional.",
       "practicas": ["mx_imss_plan_2026", "cr_ebais"],
       "primero": "Revisar quejas y comentarios por unidad y área (recepción, urgencias, consulta) para identificar en qué punto del recorrido se concentra el mal trato.",
@@ -24,6 +26,7 @@
     },
     "informacion_oportuna": {
       "id": "R-03",
+      "solucion": {"n": 3, "nombre": "Indicaciones claras y equipo fijo de seguimiento"},
       "problema": "Menos personas usuarias reportan haber recibido información oportuna y comprensible sobre su salud.",
       "practicas": ["cr_ebais", "th_red_distrital"],
       "primero": "Identificar los motivos de consulta más frecuentes y revisar qué información recibe la persona al salir (diagnóstico, tratamiento, próxima cita).",
@@ -34,6 +37,7 @@
     },
     "instalaciones_equipo": {
       "id": "R-04",
+      "solucion": {"n": 4, "nombre": "Equipo médico en operación"},
       "problema": "Menos personas usuarias reportan instalaciones adecuadas y con el equipo necesario.",
       "practicas": ["mx_imss_plan_2026"],
       "primero": "Hacer un inventario del equipo médico por unidad que distinga equipo en operación, instalado sin operar y descompuesto.",
@@ -44,6 +48,7 @@
     },
     "instalaciones_limpias": {
       "id": "R-05",
+      "solucion": {"n": 5, "nombre": "Limpieza con metas por unidad"},
       "problema": "Menos personas usuarias reportan instalaciones limpias y ordenadas.",
       "practicas": ["cr_ebais"],
       "nivel_respaldo": "general",
@@ -56,6 +61,7 @@
     },
     "medicamentos": {
       "id": "R-06",
+      "solucion": {"n": 6, "nombre": "Abasto y surtido completo de recetas"},
       "problema": "Menos personas usuarias reportan disponibilidad de medicamentos.",
       "practicas": ["oms_medicamentos_esenciales", "mx_imss_plan_2026"],
       "primero": "Identificar los medicamentos que faltan con más frecuencia y revisar los inventarios de cada unidad.",
@@ -66,6 +72,7 @@
     },
     "sin_materiales": {
       "id": "R-07",
+      "solucion": {"n": 7, "nombre": "Material de curación sin costo para el paciente"},
       "problema": "Menos personas usuarias reportan ser atendidas sin que se les pidan materiales de curación o equipo médico.",
       "practicas": ["oms_medicamentos_esenciales", "mx_imss_plan_2026"],
       "nivel_respaldo": "general",
@@ -78,6 +85,7 @@
     },
     "personal_suficiente": {
       "id": "R-08",
+      "solucion": {"n": 8, "nombre": "Plazas médicas cubiertas y retención del personal"},
       "problema": "Menos personas usuarias reportan que hay médicos suficientes.",
       "practicas": ["th_retencion", "mx_imss_plan_2026"],
       "primero": "Hacer un diagnóstico de plazas vacantes y ausencias por unidad, turno y especialidad.",
@@ -88,6 +96,7 @@
     },
     "confianza_personal": {
       "id": "R-09",
+      "solucion": {"n": 9, "nombre": "Médico o equipo de cabecera estable"},
       "problema": "Menos personas usuarias reportan contar con médicos en quienes confían por su capacidad.",
       "practicas": ["cr_ebais", "th_red_distrital"],
       "primero": "Medir cuántas personas son atendidas por el mismo médico o equipo en consultas sucesivas.",
@@ -98,6 +107,7 @@
     },
     "sin_saturacion": {
       "id": "R-10",
+      "solucion": {"n": 10, "nombre": "Primer nivel fuerte contra la saturación"},
       "problema": "Menos personas usuarias reportan clínicas y hospitales sin saturación.",
       "practicas": ["cr_ebais", "th_red_distrital", "mx_imss_plan_2026"],
       "primero": "Medir la ocupación diaria de consulta y urgencias y cuántos casos podrían resolverse en el primer nivel.",
@@ -108,6 +118,7 @@
     },
     "sin_pago_privado": {
       "id": "R-11",
+      "solucion": {"n": 11, "nombre": "Servicios garantizados para no pagar por fuera"},
       "problema": "Más personas usuarias tuvieron que pagar un servicio privado por deficiencias del servicio público.",
       "practicas": ["th_proteccion_financiera", "cr_ebais"],
       "primero": "Identificar por qué servicios pagan las personas en el sector privado (consulta, estudios, medicamentos) con una encuesta breve en la unidad.",
@@ -116,6 +127,11 @@
       "indicador_operativo": "Porcentaje de personas usuarias que reportan haber pagado un servicio privado",
       "condiciones": ["Financiamiento para ampliar el servicio más demandado", "Encuesta con registro por unidad"]
     }
+  },
+  "prioridad_solucion": {
+    "id": "R-12",
+    "regla": "La solución prioritaria es la que se activa en más estados para la institución y el año elegidos. Si dos o más empatan, gana la de brecha promedio más amplia (más negativa); si siguen empatadas, la de número menor.",
+    "nota": "Aparte se señala la solución que corresponde a la mayor brecha individual, porque puede ser distinta."
   },
   "sin_prioridad": {
     "id": "R-00",

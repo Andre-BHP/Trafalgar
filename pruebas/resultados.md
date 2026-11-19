@@ -1,8 +1,8 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 11:23:14 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 11:48:14 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
-Total: 214 pruebas, 214 correctas, 0 fallas.
+Total: 226 pruebas, 226 correctas, 0 fallas.
 
 | Resultado | Prueba | Detalle |
 |---|---|---|
@@ -11,6 +11,12 @@ Total: 214 pruebas, 214 correctas, 0 fallas.
 | Correcta | [escritorio-1440] Tabla internacional con 22 países de clase | 22 |
 | Correcta | [escritorio-1440] Sin desplazamiento horizontal de la página | 0px |
 | Correcta | axe sin violaciones: escritorio-1440 Resumen |  |
+| Correcta | [escritorio-1440] «La solución» con IMSS 2025: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 11 soluciones; prioritaria: 7 |
+| Correcta | [escritorio-1440] «La solución» con IMSS 2023: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 11 soluciones; prioritaria: 7 |
+| Correcta | [escritorio-1440] «La solución» con ISSSTE 2025: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 9 soluciones; prioritaria: 4 |
+| Correcta | [escritorio-1440] «La solución» con ESTATAL 2025: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 10 soluciones; prioritaria: 7 |
+| Correcta | [escritorio-1440] «La solución» con IMSSB: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 0 soluciones; prioritaria: ninguna |
+| Correcta | [escritorio-1440] «Cómo se calculó» numera las soluciones igual que las reglas |  |
 | Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
 | Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
 | Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
@@ -60,7 +66,7 @@ Total: 214 pruebas, 214 correctas, 0 fallas.
 | Correcta | [escritorio-1440] IMSS-Bienestar muestra «Sin datos comparables» | HallazgoQuerétaro: Sin datos comparables. INEGI publica IMSS-Bienestar solo por región. Querétaro pertenece a la Región  |
 | Correcta | [escritorio-1440] IMSS-Bienestar: la estrategia explica qué información conseguir primero (R-99) |  |
 | Correcta | [escritorio-1440] IMSS-Tamaulipas: estrategia con dato observado, referencia, brecha, práctica e indicador |  |
-| Correcta | [escritorio-1440] La estrategia enlaza fuentes de prácticas | 3 enlaces |
+| Correcta | [escritorio-1440] La estrategia enlaza fuentes de prácticas | 45 enlaces |
 | Correcta | axe sin violaciones: escritorio-1440 Estrategia |  |
 | Correcta | [escritorio-1440] México por estado incluye el caso IMSS con periodo |  |
 | Correcta | [escritorio-1440] Modalidad 40 identificada como esquema de retiro |  |
@@ -99,6 +105,12 @@ Total: 214 pruebas, 214 correctas, 0 fallas.
 | Correcta | [celular-390] Tabla internacional con 22 países de clase | 22 |
 | Correcta | [celular-390] Sin desplazamiento horizontal de la página | 0px |
 | Correcta | axe sin violaciones: celular-390 Resumen |  |
+| Correcta | [celular-390] «La solución» con IMSS 2025: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 11 soluciones; prioritaria: 7 |
+| Correcta | [celular-390] «La solución» con IMSS 2023: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 11 soluciones; prioritaria: 7 |
+| Correcta | [celular-390] «La solución» con ISSSTE 2025: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 9 soluciones; prioritaria: 4 |
+| Correcta | [celular-390] «La solución» con ESTATAL 2025: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 10 soluciones; prioritaria: 7 |
+| Correcta | [celular-390] «La solución» con IMSSB: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12 | 0 soluciones; prioritaria: ninguna |
+| Correcta | [celular-390] «Cómo se calculó» numera las soluciones igual que las reglas |  |
 | Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
@@ -148,7 +160,7 @@ Total: 214 pruebas, 214 correctas, 0 fallas.
 | Correcta | [celular-390] IMSS-Bienestar muestra «Sin datos comparables» | HallazgoQuerétaro: Sin datos comparables. INEGI publica IMSS-Bienestar solo por región. Querétaro pertenece a la Región  |
 | Correcta | [celular-390] IMSS-Bienestar: la estrategia explica qué información conseguir primero (R-99) |  |
 | Correcta | [celular-390] IMSS-Tamaulipas: estrategia con dato observado, referencia, brecha, práctica e indicador |  |
-| Correcta | [celular-390] La estrategia enlaza fuentes de prácticas | 3 enlaces |
+| Correcta | [celular-390] La estrategia enlaza fuentes de prácticas | 45 enlaces |
 | Correcta | axe sin violaciones: celular-390 Estrategia |  |
 | Correcta | [celular-390] México por estado incluye el caso IMSS con periodo |  |
 | Correcta | [celular-390] Modalidad 40 identificada como esquema de retiro |  |
@@ -193,16 +205,16 @@ Total: 214 pruebas, 214 correctas, 0 fallas.
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [QR] Matriz versión 5 con corrección H hacia la dirección del sitio | versión 5, 37x37, 586 hojas |
 | Correcta | [QR] Ilustrada: zona de silencio de 4 módulos sin marcas oscuras | ninguna hoja ni rama oscura fuera del código |
-| Correcta | [QR] Animada (1440 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1782 ms medidos en la página (2773 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (1440 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1785 ms medidos en la página (2981 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (1440 px, claro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (1440 px, claro): sin errores en consola |  |
-| Correcta | [QR] Animada (1440 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1767 ms medidos en la página (2728 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (1440 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1784 ms medidos en la página (3058 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (1440 px, oscuro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (1440 px, oscuro): sin errores en consola |  |
-| Correcta | [QR] Animada (390 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1783 ms medidos en la página (2923 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (390 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1785 ms medidos en la página (3054 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (390 px, claro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (390 px, claro): sin errores en consola |  |
-| Correcta | [QR] Animada (390 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1783 ms medidos en la página (2917 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (390 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1786 ms medidos en la página (3015 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (390 px, oscuro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (390 px, oscuro): sin errores en consola |  |
 | Correcta | [QR] Con reduced-motion el QR queda fijo, sin botón de repetir | {"estado":"fijo","boton":true,"red":true} |

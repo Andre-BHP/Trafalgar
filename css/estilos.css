@@ -615,3 +615,42 @@ thead th { font-size: .76rem; letter-spacing: .01em; }
 @media (max-width: 1080px) { .portada__red { opacity: .4; -webkit-mask-image: linear-gradient(200deg, #000, transparent 45%); mask-image: linear-gradient(200deg, #000, transparent 45%); } }
 @media (prefers-reduced-motion: reduce) { #qr-repetir { display: none; } }
 @media print { .portada__red, .portada::before { display: none; } .qr-tarjeta { box-shadow: none; } }
+
+/* ---------- La solución que propone Trafalgar ---------- */
+.solucion { margin: 0 0 2.5rem; }
+.solucion > h2 { margin-bottom: .5rem; }
+.solucion__frase { max-width: 70ch; }
+.solucion__prioritaria { position: relative; margin: 0 0 1.25rem; padding: 1rem 1.2rem; border-radius: var(--radio); background: color-mix(in srgb, var(--ambar) 10%, var(--papel)); border: 1px solid color-mix(in srgb, var(--ambar) 55%, var(--papel)); max-width: 92ch; }
+.solucion__prioritaria p { margin: 0 0 .4rem; }
+.solucion__prioritaria p:last-child { margin: 0; }
+.solucion__rotulo { font-family: var(--mono); font-size: .78rem; font-weight: 700; color: var(--ambar-tinta); }
+.soluciones { list-style: none; margin: 0 0 .75rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 1rem; align-items: start; }
+.sol { scroll-margin-top: 5rem; }
+.sol--prioritaria { border-color: color-mix(in srgb, var(--ambar) 70%, var(--papel)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ambar) 55%, transparent), var(--sombra); }
+.sol__cab { display: grid; grid-template-columns: 2.4rem 1fr; gap: .75rem; align-items: start; margin-bottom: .6rem; }
+.sol__n { width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 2px solid var(--sello); color: var(--sello); display: grid; place-items: center; font-weight: 800; font-family: var(--mono); }
+.sol__cab h3 { margin: .15rem 0 .35rem; font-size: 1.05rem; }
+.sol__num { color: var(--acento); }
+.sol__meta { display: flex; flex-wrap: wrap; gap: .35rem .6rem; align-items: center; margin: 0; }
+.sol__conteo { font-size: .85rem; font-weight: 700; color: var(--tinta-2); font-family: var(--mono); }
+.sol dl.datos { grid-template-columns: minmax(7.5rem, max-content) 1fr; font-size: .9rem; }
+.sol dl.datos dd { font-weight: 450; }
+.sol dl.datos dd ul { margin: 0; padding-left: 1.1rem; }
+.sol__estados { line-height: 1.6; }
+.sol__elegido { font-weight: 750; background: color-mix(in srgb, var(--foco) 22%, transparent); border-radius: 3px; padding: 0 .2rem; }
+.sol-etq { margin: 0 0 .2rem; font-weight: 700; font-size: 1rem; }
+.sol-etq a { text-decoration: none; }
+.sol-etq a:hover { text-decoration: underline; }
+.sol-etq--sin { color: var(--tinta-3); }
+.matriz svg { display: block; width: 100%; height: auto; }
+.matriz { border: 0; background: transparent; }
+.matriz__c { fill: var(--linea-2); stroke: var(--linea); stroke-width: .6; }
+.matriz__c--sol { fill: var(--acento); stroke: none; }
+.matriz__c--neutro { fill: var(--neutro); stroke: none; }
+.matriz__c--sin { fill: var(--sin); stroke: none; }
+.matriz__col-sel { fill: color-mix(in srgb, var(--foco) 22%, transparent); }
+@media (max-width: 640px) {
+  .sol dl.datos { grid-template-columns: 1fr; gap: .1rem; }
+  .sol dl.datos dd { margin-bottom: .45rem; }
+}
+.matriz svg { max-width: 1000px; }

@@ -468,7 +468,8 @@
   function pintarEstrategia() {
     const es = A.estrategia(est.inst, est.anio, est.ent);
     const i = es.inst, e = es.ent;
-    const cab = `<div class="estrategia__cab"><div><h3 style="font-size:1.3rem">${U.esc(e.nombre)} · ${U.esc(i.corto)} · ${est.anio}</h3><p class="grafica__sub">Satisfacción ${U.pct(es.sat.obs)}; referencia nacional ${U.pct(es.sat.ref)}; brecha ${U.pp(es.sat.dif)}. ${U.estadoHTML(es.sat.estado)}</p></div><span class="chip">Regla ${U.esc(es.regla.id)}</span></div>`;
+    const sol = es.tipo === 'brecha' ? `<p class="sol-etq" data-solucion="${es.regla.solucion.n}"><a href="#sol-estrategia-${es.regla.solucion.n}"><span class="sol__num">Solución ${es.regla.solucion.n}:</span> ${U.esc(es.regla.solucion.nombre)}</a></p>` : `<p class="sol-etq sol-etq--sin">Sin solución asignada (regla ${U.esc(es.regla.id)})</p>`;
+    const cab = `<div class="estrategia__cab"><div>${sol}<h3 style="font-size:1.3rem">${U.esc(e.nombre)} · ${U.esc(i.corto)} · ${est.anio}</h3><p class="grafica__sub">Satisfacción ${U.pct(es.sat.obs)}; referencia nacional ${U.pct(es.sat.ref)}; brecha ${U.pp(es.sat.dif)}. ${U.estadoHTML(es.sat.estado)}</p></div><span class="chip">Regla ${U.esc(es.regla.id)}</span></div>`;
     let h = `<div class="tarjeta">${cab}${caminoEstrategia(es)}</div>`;
     if (es.tipo === 'faltan_datos') {
       const r = es.regla;
@@ -500,6 +501,90 @@
     $('#estrategia-cuerpo').innerHTML = h;
   }
 
+  // ---------- La solución (Resumen y Estrategia) ----------
+  const ABREV = ['AGS', 'BC', 'BCS', 'CAMP', 'COAH', 'COL', 'CHIS', 'CHIH', 'CDMX', 'DGO', 'GTO', 'GRO', 'HGO', 'JAL', 'MEX', 'MICH', 'MOR', 'NAY', 'NL', 'OAX', 'PUE', 'QRO', 'QROO', 'SLP', 'SIN', 'SON', 'TAB', 'TAMPS', 'TLAX', 'VER', 'YUC', 'ZAC'];
+  const listaY = (xs) => (xs.length < 2 ? xs.join('') : xs.slice(0, -1).join(', ') + ' y ' + xs[xs.length - 1]);
+  function pintarSoluciones() {
+    const S = A.soluciones(est.inst, est.anio), i = inst();
+    ['resumen', 'estrategia'].forEach((modo) => { $('#solucion-' + modo).innerHTML = bloqueSoluciones(S, i, modo); });
+  }
+  function bloqueSoluciones(S, i, modo) {
+    const tit = `<h2 id="t-sol-${modo}">La solución que propone Trafalgar</h2>`;
+    if (!S.activas.length) {
+      const r = D.reglas.faltan_datos;
+      return `${tit}<p class="destacado solucion__frase">Con ${U.esc(i.corto)} no se propone una solución por estado: ${S.faltan.length === 32 ? 'INEGI publica este servicio solo por región, así que no hay brechas estatales comparables.' : 'ningún estado tiene un aspecto comparable por debajo de la referencia.'} La regla ${U.esc(r.id)} indica qué datos conseguir primero.</p>
+        <div class="aviso"><p>${U.esc(r.primero)}</p></div>`;
+    }
+    const total = S.activas.reduce((s, x) => s + x.estados.length, 0);
+    const P = S.prioritaria, M = S.mayorBrecha;
+    const empate = S.activas.filter((x) => x.estados.length === P.estados.length && x !== P);
+    const frase = `<p class="destacado solucion__frase">Trafalgar propone <strong>${S.activas.length} soluciones</strong> para ${U.esc(i.corto)} ${S.anio}: en cada estado, mejorar el aspecto del servicio con la mayor brecha desfavorable frente al promedio nacional, con una práctica documentada, un primer paso y un indicador para medir el avance.</p>`;
+    const prio = `<div class="solucion__prioritaria" data-prioritaria="${P.n}" role="note">
+      <p class="solucion__rotulo">Solución prioritaria</p>
+      <p><a href="#sol-${modo}-${P.n}"><strong>Solución ${P.n}: ${U.esc(P.nombre)}</strong></a>. Se activa en <strong>${P.estados.length} de 32 estados</strong>${empate.length ? `, igual que ${listaY(empate.map((x) => 'la Solución ' + x.n))}; gana por tener la brecha promedio más amplia (${U.pp(P.media)})` : ', más que cualquier otra'}. Regla ${U.esc(S.reglaPrioridad.id)}: ${U.esc(S.reglaPrioridad.regla)}</p>
+      ${M !== P ? `<p>La mayor brecha individual está en ${U.esc(M.mayor.nombre)}: «${U.esc(M.aspecto.etiqueta.toLowerCase())}», ${U.pp(M.mayor.dif)}, que corresponde a la <a href="#sol-${modo}-${M.n}">Solución ${M.n}</a>.</p>` : `<p>También corresponde a la mayor brecha individual: ${U.esc(M.mayor.nombre)}, ${U.pp(M.mayor.dif)}.</p>`}
+    </div>`;
+    const tarjetas = `<ol class="soluciones" aria-label="Soluciones numeradas">${S.activas.map((s) => tarjetaSolucion(s, S, modo, s === P)).join('')}</ol>`;
+    const inactivas = S.lista.filter((x) => !x.estados.length);
+    const resto = `<p class="fuente-nota">${total} de 32 estados tienen una solución asignada.${inactivas.length ? ` No se activan con ${U.esc(i.corto)} ${S.anio}: ${inactivas.map((x) => `Solución ${x.n} (${U.esc(x.nombre)})`).join('; ')}.` : ' Las 11 soluciones se activan en al menos un estado.'}${S.sinBrecha.length ? ` Sin brecha desfavorable (regla R-00): ${listaY(S.sinBrecha.map((e) => U.esc(e.nombre)))}.` : ''}${S.faltan.length ? ` Sin datos comparables (regla R-99): ${listaY(S.faltan.map((e) => U.esc(e.nombre)))}.` : ''}</p>`;
+    return tit + frase + prio + tarjetas + resto + matrizSoluciones(S, i, modo);
+  }
+  function tarjetaSolucion(s, S, modo, esPrioritaria) {
+    const r = s.regla, ej = S.porEstado.find((x) => x.tipo === 'brecha' && x.regla.id === r.id);
+    const elegido = s.estados.find((x) => x.clave === est.ent);
+    const min = s.estados[s.estados.length - 1], max = s.estados[0];
+    const obs = s.estados.map((x) => x.obs);
+    const pasos = `<dl class="datos">
+        <dt>Primer paso</dt><dd>${U.esc(r.primero)}</dd>
+        <dt>Siguiente</dt><dd>${U.esc(r.despues)}</dd>
+        <dt>Área responsable</dt><dd>${ej.areas.map(U.esc).join('; ')}</dd>
+        <dt>Indicador</dt><dd>${U.esc(ej.indicador.principal)}</dd>
+        <dt>Dato de partida</dt><dd>${s.estados.length > 1 ? `de ${U.pct(Math.min(...obs))} a ${U.pct(Math.max(...obs))} según el estado` : U.pct(obs[0])}; nacional ${U.pct(s.estados[0].ref)} (${S.anio})${elegido ? `; ${U.esc(elegido.nombre)}: ${U.pct(elegido.obs)}` : ''}</dd>
+        <dt>Indicador de gestión</dt><dd>${U.esc(r.indicador_operativo)}. Dato de partida: ${U.esc(ej.indicador.partidaOperativa)}</dd>
+        <dt>Condiciones a revisar</dt><dd><ul>${r.condiciones.map((x) => `<li>${U.esc(x)}</li>`).join('')}</ul></dd>
+      </dl>`;
+    return `<li class="tarjeta sol${esPrioritaria ? ' sol--prioritaria' : ''}" id="sol-${modo}-${s.n}" data-solucion="${s.n}" data-regla="${U.esc(r.id)}">
+      <div class="sol__cab"><span class="sol__n" aria-hidden="true">${s.n}</span><div><h3><span class="sol__num">Solución ${s.n}:</span> ${U.esc(s.nombre)}</h3>
+        <p class="sol__meta"><span class="chip">Regla ${U.esc(r.id)}</span>${esPrioritaria ? '<span class="chip chip--aviso">Prioritaria</span>' : ''}<span class="sol__conteo">${s.estados.length} de 32 estados</span></p></div></div>
+      <dl class="datos">
+        <dt>Problema que ataca</dt><dd>${U.esc(r.problema)} Aspecto de la ENCIG: ${U.iconoAspecto(s.aspecto.id)} «${U.esc(s.aspecto.etiqueta_inegi || s.aspecto.etiqueta)}».</dd>
+        <dt>Brecha que la activa</dt><dd>Es la mayor brecha desfavorable comparable del estado: ${s.estados.length > 1 ? `entre ${U.pp(max.dif)} y ${U.pp(min.dif)}, promedio ${U.pp(s.media)}` : U.pp(max.dif)}. Fuente: ${etiquetaFuenteEncig(S.anio, i_cuadro())}.</dd>
+        <dt>Estados (${s.estados.length})</dt><dd class="sol__estados">${s.estados.map((x) => `<span${x.clave === est.ent ? ' class="sol__elegido"' : ''}>${U.esc(x.nombre)} (${U.pp(x.dif)})</span>`).join(', ')}</dd>
+        <dt>Práctica de referencia</dt><dd>${s.practicas.map((p) => `${U.esc(p.pais)}: ${U.esc(p.nombre)} (${p.fuentes.map((f) => U.fuente(f, D.fuentes.fuentes[f].institucion)).join(', ')})`).join('; ')}.${r.nivel_respaldo === 'general' ? ` <small>${U.esc(r.nota_respaldo)}</small>` : ''}</dd>
+      </dl>
+      ${modo === 'resumen' ? `<details class="equivalente"><summary>Pasos, responsables, indicador y condiciones</summary>${pasos}</details>` : pasos}
+    </li>`;
+  }
+  const i_cuadro = () => inst().cuadro;
+  function matrizSoluciones(S, i, modo) {
+    const filas = S.activas.map((s) => ({ etq: `Solución ${s.n}`, sub: s.aspecto.etiqueta, claves: new Set(s.estados.map((x) => x.clave)), n: s.estados.length, tipo: 'sol', titulo: `Solución ${s.n}: ${s.nombre}` }));
+    if (S.sinBrecha.length) filas.push({ etq: 'Sin brecha (R-00)', sub: 'Ningún aspecto por debajo', claves: new Set(S.sinBrecha.map((e) => e.clave)), n: S.sinBrecha.length, tipo: 'neutro', titulo: 'Sin brecha desfavorable' });
+    if (S.faltan.length) filas.push({ etq: 'Sin datos (R-99)', sub: 'Faltan datos estatales', claves: new Set(S.faltan.map((e) => e.clave)), n: S.faltan.length, tipo: 'sin', titulo: 'Sin datos comparables' });
+    const LW = 210, C = 17, X0 = LW + 8, Y0 = 46, RH = 34, maxN = Math.max(...filas.map((f) => f.n));
+    const W = X0 + 32 * C + 96, H = Y0 + filas.length * RH + 6;
+    const sel = E.entidades.findIndex((e) => e.clave === est.ent);
+    let g = `<rect x="${X0 + sel * C - 1}" y="2" width="${C}" height="${H - 4}" rx="3" class="matriz__col-sel"/>`;
+    g += E.entidades.map((e, k) => `<text class="etq${k === sel ? ' etq--tinta' : ''}" transform="translate(${X0 + k * C + C / 2 + 3} ${Y0 - 6}) rotate(-90)" font-size="10">${ABREV[k]}<title>${U.esc(e.nombre)}</title></text>`).join('');
+    filas.forEach((f, r) => {
+      const y = Y0 + r * RH;
+      g += `<g class="matriz__fila" data-fila="${U.esc(f.etq)}"><title>${U.esc(f.titulo)}: ${f.n} estados</title>`;
+      g += `<text class="etq etq--tinta" x="0" y="${y + 14}" font-weight="700">${U.esc(f.etq)}</text><text class="etq" x="0" y="${y + 28}" font-size="11">${U.esc(f.sub)}</text>`;
+      E.entidades.forEach((e, k) => { const on = f.claves.has(e.clave); g += `<rect x="${X0 + k * C + 1}" y="${y + 6}" width="${C - 3}" height="${C - 3}" rx="2.5" class="matriz__c${on ? ' matriz__c--' + f.tipo : ''}"${on ? ` data-clave="${e.clave}"` : ''}/>`; });
+      const bw = Math.max(2, 56 * f.n / maxN);
+      g += `<rect x="${X0 + 32 * C + 8}" y="${y + 8}" width="${bw}" height="12" rx="2" class="matriz__barra matriz__c--${f.tipo}"/><text class="etq etq--tinta" x="${X0 + 32 * C + 14 + bw}" y="${y + 18}" font-weight="700">${f.n}</text></g>`;
+    });
+    const P = S.prioritaria;
+    const tabla = V.tablaEquivalente(`Solución asignada a cada estado, ${U.esc(i.corto)} ${S.anio}`, ['Estado', 'Solución', 'Aspecto que la activa', 'Brecha', 'Regla'],
+      S.porEstado.map((x) => [U.esc(x.ent.nombre), x.tipo === 'brecha' ? `Solución ${x.regla.solucion.n}: ${U.esc(x.regla.solucion.nombre)}` : 'Sin solución asignada', x.tipo === 'brecha' ? U.esc(x.aspecto.etiqueta) : x.tipo === 'sin_brecha' ? 'Ningún aspecto por debajo' : 'Sin datos comparables', x.tipo === 'brecha' ? U.pp(x.aspecto.dif) : '-', U.esc(x.regla.id)]));
+    return `<article class="tarjeta grafica grafica--ancha bloque" aria-labelledby="t-matriz-${modo}">
+      <div class="grafica__cab"><div><h3 id="t-matriz-${modo}">Qué solución corresponde a cada estado</h3>
+      <p class="grafica__sub">${U.esc(i.corto)}, ${S.anio}. Cada renglón es una solución y el problema que ataca; cada columna, un estado. El cuadro lleno marca la solución del estado y la barra cuenta sus estados. Columna resaltada: ${U.esc(ent().nombre)}.</p></div></div>
+      <div class="tabla-cont matriz" tabindex="0" role="region" aria-label="Matriz de soluciones por estado, se puede desplazar"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Matriz: ${S.activas.length} soluciones por 32 estados; la que reúne más estados es la Solución ${P.n} con ${P.estados.length}" style="min-width:${Math.round(W * 0.82)}px">${g}</svg></div>
+      <div class="hallazgo"><h4>Hallazgo</h4><p>La Solución ${P.n}, «${U.esc(P.nombre)}», reúne más estados: ${P.estados.length} de 32. ${S.activas.length} soluciones distintas cubren ${S.activas.reduce((t, x) => t + x.estados.length, 0)} estados${S.sinBrecha.length ? `; ${S.sinBrecha.length} no tienen brecha desfavorable` : ''}${S.faltan.length ? `; ${S.faltan.length} no tienen datos comparables` : ''}.</p></div>
+      <p class="fuente-nota">Fuente: reglas R-01 a R-12 de este sitio aplicadas a ${etiquetaFuenteEncig(S.anio, i.cuadro)}. <a href="#metodo" data-ir="metodo">Cómo se calculó</a>.</p>
+      ${tabla}</article>`;
+  }
+
   // ---------- Cómo se calculó ----------
   function pintarMetodo() {
     const F = D.fuentes.fuentes;
@@ -510,7 +595,7 @@
       const malos = [['satisfaccion', r.satisfaccion]].concat(Object.entries(r.aspectos)).filter(([, p]) => p.cv !== null && p.cv >= 30).map(([k]) => (k === 'satisfaccion' ? 'Satisfacción general' : A.aspecto(k).etiqueta));
       if (malos.length) bajos.push(`${x.corto} ${anio}, ${en.nombre}: ${malos.join(', ')}`);
     })));
-    const reglas = Object.entries(D.reglas.reglas).map(([k, r]) => `<tr><th scope="row">${r.id}</th><td>${U.esc(A.aspecto(k).etiqueta)}</td><td>${U.esc(r.primero)}</td><td>${r.practicas.map((p) => U.esc(D.practicas.practicas.find((x) => x.id === p).pais)).join(', ')}${r.nivel_respaldo === 'general' ? ' <small>(respaldo general)</small>' : ''}</td><td>${U.esc(r.indicador_operativo)}</td></tr>`).join('');
+    const reglas = Object.entries(D.reglas.reglas).map(([k, r]) => `<tr><th scope="row">${r.id}</th><td>Solución ${r.solucion.n}: ${U.esc(r.solucion.nombre)}</td><td>${U.esc(A.aspecto(k).etiqueta)}</td><td>${U.esc(r.primero)}</td><td>${r.practicas.map((p) => U.esc(D.practicas.practicas.find((x) => x.id === p).pais)).join(', ')}${r.nivel_respaldo === 'general' ? ' <small>(respaldo general)</small>' : ''}</td><td>${U.esc(r.indicador_operativo)}</td></tr>`).join('');
     $('#metodo-cuerpo').innerHTML = `
       <h3>1. Qué se mide</h3>
       <p><strong>Conformidad</strong>: ${U.esc(E.definicion_conformidad)} Es satisfacción reportada por las personas usuarias. No mide cobertura, financiamiento ni calidad clínica; esos temas se tratan con los indicadores internacionales, que son otra cosa.</p>
@@ -529,9 +614,11 @@
         <li>Se calculan las brechas de los 11 aspectos del estado y se descartan los no comparables.</li>
         <li>Se elige la <strong>mayor brecha desfavorable</strong> (la más negativa). En empate se usa el orden del cuestionario.</li>
         <li>Si ningún aspecto es negativo, se aplica la regla R-00. Si no hay ningún aspecto comparable, se aplica la regla R-99 y la estrategia explica qué información conseguir primero.</li>
+        <li>Cada regla R-01 a R-11 es una <strong>solución con número fijo</strong> (Solución 1 = R-01, y así hasta la Solución 11 = R-11). La numeración es la misma en Resumen, Estrategia de mejora, la matriz y esta tabla.</li>
+        <li><strong>Solución prioritaria (regla ${U.esc(D.reglas.prioridad_solucion.id)})</strong>: ${U.esc(D.reglas.prioridad_solucion.regla)} ${U.esc(D.reglas.prioridad_solucion.nota)}</li>
       </ol>
       <h3>4. Reglas de la estrategia</h3>
-      <div class="tabla-cont" tabindex="0" role="region" aria-label="Tabla de reglas, se puede desplazar"><table><caption>Cada regla une un aspecto con acciones, prácticas documentadas e indicadores. Fuente de las reglas: elaboración propia a partir de las prácticas citadas.</caption><thead><tr><th scope="col">Regla</th><th scope="col">Aspecto</th><th scope="col">Primera acción</th><th scope="col">Prácticas</th><th scope="col">Indicador de gestión</th></tr></thead><tbody>${reglas}</tbody></table></div>
+      <div class="tabla-cont" tabindex="0" role="region" aria-label="Tabla de reglas, se puede desplazar"><table><caption>Cada regla une un aspecto con acciones, prácticas documentadas e indicadores. Fuente de las reglas: elaboración propia a partir de las prácticas citadas.</caption><thead><tr><th scope="col">Regla</th><th scope="col">Solución</th><th scope="col">Aspecto</th><th scope="col">Primera acción</th><th scope="col">Prácticas</th><th scope="col">Indicador de gestión</th></tr></thead><tbody>${reglas}</tbody></table></div>
       <h3 class="bloque">5. Comparación entre años</h3>
       <ul>${E.instituciones.map((x) => `<li><strong>${U.esc(x.corto)}</strong>: ${x.comparable2023 ? 'comparable 2023-2025. ' : 'no comparable. '}${U.esc(x.nota2023)}</li>`).join('')}</ul>
       <h3>6. Comparación mundial</h3>
@@ -695,7 +782,7 @@
       ? `${U.esc(e.nombre)}: sin datos comparables para ${U.esc(i.corto)}. ${U.esc(s.motivo || '')}`
       : `${U.esc(e.nombre)}: ${U.pct(s.obs)} de satisfacción con ${U.esc(i.corto)}, ${U.pp(s.dif)} frente al nacional.${es.tipo === 'brecha' ? ` El aspecto más rezagado es ${U.esc(es.aspecto.etiqueta.toLowerCase())}.` : ''}`;
     $('#estrategia-destacado').innerHTML = es.tipo === 'brecha'
-      ? `Prioridad para ${U.esc(e.nombre)} con ${U.esc(i.corto)}: ${U.esc(es.aspecto.etiqueta.toLowerCase())}, ${U.pct(es.aspecto.obs)} contra ${U.pct(es.aspecto.ref)} nacional.`
+      ? `${U.esc(e.nombre)} con ${U.esc(i.corto)}: Solución ${es.regla.solucion.n}, ${U.esc(es.regla.solucion.nombre.charAt(0).toLowerCase() + es.regla.solucion.nombre.slice(1))}, porque «${U.esc(es.aspecto.etiqueta.toLowerCase())}» está en ${U.pct(es.aspecto.obs)} contra ${U.pct(es.aspecto.ref)} nacional.`
       : es.tipo === 'sin_brecha' ? `${U.esc(e.nombre)} no tiene aspectos por debajo de la referencia con ${U.esc(i.corto)}.` : `Primero hacen falta datos estatales de ${U.esc(i.corto)} para ${U.esc(e.nombre)}.`;
     if (A.mundialDisponible()) {
       const m = A.mexico();
@@ -880,7 +967,7 @@
     V.flujo($('#v-flujo'), L, R, Object.values(enl), { seleccion: actual.tipo === 'brecha' ? actual.aspecto.id : null, titulo: `Aspecto priorizado y práctica de referencia por estado, ${i.corto} ${est.anio}` });
     const sinB = est32.filter((x) => x.tipo === 'sin_brecha').length, falt = est32.filter((x) => x.tipo === 'faltan_datos').length;
     hallazgoVista(id, `<p>Con ${U.esc(i.corto)}, el aspecto que más veces se prioriza es <strong>${U.esc(L[0].etiqueta.toLowerCase())}</strong> (${L[0].n} de 32 estados), y la práctica más citada es ${U.esc(R[0].etiqueta)}.${sinB ? ` ${sinB} estados no tienen brecha desfavorable.` : ''}${falt ? ` ${falt} no tienen datos comparables.` : ''}</p>`);
-    $('#v-flujo-tabla').innerHTML = V.tablaEquivalente(`Estrategia por estado, ${U.esc(i.corto)} ${est.anio}`, ['Estado', 'Aspecto priorizado', 'Regla', 'Prácticas'], est32.map((x) => [U.esc(x.ent.nombre), x.tipo === 'brecha' ? U.esc(x.aspecto.etiqueta) : x.tipo === 'sin_brecha' ? 'Sin brecha desfavorable' : 'Sin datos comparables', U.esc(x.regla.id), x.tipo === 'brecha' ? x.practicas.map((p) => U.esc(p.pais)).join(', ') : '-']));
+    $('#v-flujo-tabla').innerHTML = V.tablaEquivalente(`Estrategia por estado, ${U.esc(i.corto)} ${est.anio}`, ['Estado', 'Solución', 'Aspecto priorizado', 'Regla', 'Prácticas'], est32.map((x) => [U.esc(x.ent.nombre), x.tipo === 'brecha' ? `Solución ${x.regla.solucion.n}` : '-', x.tipo === 'brecha' ? U.esc(x.aspecto.etiqueta) : x.tipo === 'sin_brecha' ? 'Sin brecha desfavorable' : 'Sin datos comparables', U.esc(x.regla.id), x.tipo === 'brecha' ? x.practicas.map((p) => U.esc(p.pais)).join(', ') : '-']));
   }
 
   // Camino de la estrategia del estado elegido: brecha, regla, práctica, acción, indicador
@@ -888,7 +975,7 @@
     if (es.tipo !== 'brecha') return '';
     const pasos = [
       ['Brecha detectada', `${U.iconoAspecto(es.aspecto.id)} ${U.esc(es.aspecto.etiqueta)}: ${U.pp(es.aspecto.dif)}`],
-      ['Regla aplicada', `${U.esc(es.regla.id)}: mayor brecha desfavorable comparable`],
+      ['Solución asignada', `Solución ${es.regla.solucion.n} (regla ${U.esc(es.regla.id)}): mayor brecha desfavorable comparable`],
       ['Práctica de referencia', es.practicas.map((p) => U.esc(p.pais)).join(' · ')],
       ['Primera acción', U.esc(es.regla.primero)],
       ['Indicador de avance', U.esc(es.regla.indicador_operativo)]
@@ -938,6 +1025,7 @@
     pintarTablaEst();
     pintarMexico();
     pintarEstrategia();
+    pintarSoluciones();
     pintarVistas();
     escribirHash();
   }

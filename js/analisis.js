@@ -129,6 +129,38 @@
     });
   };
 
+  // ---------- Soluciones ----------
+  // Cada regla R-01 a R-11 es una solución con número fijo (Solución N = regla R-0N) y
+  // nombre corto en reglas.json. Una solución «aplica» a un estado cuando su regla es la
+  // que activa la estrategia de ese estado (mayor brecha desfavorable comparable).
+  A.solucion = (regla) => (regla && regla.solucion ? regla.solucion : null);
+  A.etiquetaSolucion = (regla) => { const s = A.solucion(regla); return s ? `Solución ${s.n}: ${s.nombre}` : ''; };
+  A.soluciones = (instId, anio) => {
+    const R = D.reglas;
+    const porEstado = E.entidades.map((e) => A.estrategia(instId, anio, e.clave));
+    const lista = Object.entries(R.reglas).map(([aspId, regla]) => {
+      const estados = porEstado.filter((x) => x.tipo === 'brecha' && x.regla.id === regla.id)
+        .map((x) => ({ clave: x.ent.clave, nombre: x.ent.nombre, obs: x.aspecto.obs, ref: x.aspecto.ref, dif: x.aspecto.dif, cv: x.aspecto.cv }))
+        .sort((a, b) => a.dif - b.dif);
+      const media = estados.length ? U.r1(estados.reduce((s, x) => s + x.dif, 0) / estados.length) : null;
+      return {
+        n: regla.solucion.n, nombre: regla.solucion.nombre, regla, aspecto: A.aspecto(aspId), estados, media,
+        mayor: estados[0] || null,
+        practicas: regla.practicas.map((id) => D.practicas.practicas.find((p) => p.id === id)).filter(Boolean)
+      };
+    }).sort((a, b) => a.n - b.n);
+    const activas = lista.filter((s) => s.estados.length);
+    // Regla R-12: más estados; empate, brecha promedio más negativa; luego número menor
+    const prioritaria = activas.slice().sort((a, b) => b.estados.length - a.estados.length || a.media - b.media || a.n - b.n)[0] || null;
+    const mayorBrecha = activas.slice().sort((a, b) => a.mayor.dif - b.mayor.dif || a.n - b.n)[0] || null;
+    return {
+      instId, anio, lista, activas, prioritaria, mayorBrecha, reglaPrioridad: R.prioridad_solucion,
+      sinBrecha: porEstado.filter((x) => x.tipo === 'sin_brecha').map((x) => x.ent),
+      faltan: porEstado.filter((x) => x.tipo === 'faltan_datos').map((x) => x.ent),
+      porEstado
+    };
+  };
+
   // ---------- Comparación mundial ----------
   const M = D.mundial;
   A.mundialDisponible = () => !!(M && M.disponible);

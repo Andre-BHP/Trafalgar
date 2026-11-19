@@ -113,6 +113,66 @@ async function revisarMundo(page, etiqueta) {
   await page.click('a[data-seccion="resumen"]');
 }
 
+// «La solución»: cada solución sale de una regla, numeración consistente y con fuente
+async function revisarSoluciones(page, etiqueta) {
+  for (const [inst, anio] of [['imss', '2025'], ['imss', '2023'], ['issste', '2025'], ['estatal', '2025'], ['imssb', '2025']]) {
+    await page.selectOption('#sel-inst', inst);
+    if (inst !== 'imssb') await page.selectOption('#sel-anio', anio);
+    await page.selectOption('#sel-ent', '28');
+    const r = await page.evaluate(() => {
+      const D = window.DATOS, A = window.A, E = D.encig;
+      const inst = document.getElementById('sel-inst').value, anio = +document.getElementById('sel-anio').value;
+      const problemas = [];
+      const porEstado = E.entidades.map((e) => A.estrategia(inst, anio, e.clave));
+      const reglaPorId = Object.fromEntries(Object.values(D.reglas.reglas).map((x) => [x.id, x]));
+      // Conteo independiente por regla para comprobar la prioridad (R-12)
+      const cuenta = {};
+      porEstado.filter((x) => x.tipo === 'brecha').forEach((x) => { (cuenta[x.regla.id] = cuenta[x.regla.id] || []).push(x.aspecto.dif); });
+      const orden = Object.entries(cuenta).sort((a, b) => b[1].length - a[1].length || (a[1].reduce((s, v) => s + v, 0) / a[1].length) - (b[1].reduce((s, v) => s + v, 0) / b[1].length) || reglaPorId[a[0]].solucion.n - reglaPorId[b[0]].solucion.n);
+      const esperada = orden.length ? reglaPorId[orden[0][0]].solucion.n : null;
+      const bloques = {};
+      for (const modo of ['resumen', 'estrategia']) {
+        const cont = document.getElementById('solucion-' + modo);
+        const cards = [...cont.querySelectorAll('.sol')];
+        bloques[modo] = cards.map((c) => c.dataset.solucion + ':' + c.querySelector('h3').textContent.trim()).join('|');
+        let suma = 0;
+        cards.forEach((c) => {
+          const regla = reglaPorId[c.dataset.regla];
+          if (!regla) { problemas.push(`${modo}: tarjeta sin regla (${c.dataset.regla})`); return; }
+          if (+c.dataset.solucion !== regla.solucion.n) problemas.push(`${modo}: número ${c.dataset.solucion} distinto de la regla ${regla.id}`);
+          if (c.querySelector('h3').textContent.trim() !== `Solución ${regla.solucion.n}: ${regla.solucion.nombre}`) problemas.push(`${modo}: nombre distinto en la Solución ${c.dataset.solucion}`);
+          const practica = [...c.querySelectorAll('dt')].find((d) => d.textContent === 'Práctica de referencia');
+          if (!practica || !practica.nextElementSibling.querySelector('a[href^="http"]')) problemas.push(`${modo}: Solución ${c.dataset.solucion} sin fuente enlazada`);
+          const estados = [...c.querySelectorAll('.sol__estados span')].map((x) => x.textContent.replace(/ \(.*$/, ''));
+          suma += estados.length;
+          estados.forEach((nom) => { const x = porEstado.find((y) => y.ent.nombre === nom); if (!x || x.tipo !== 'brecha' || x.regla.id !== regla.id) problemas.push(`${modo}: ${nom} no corresponde a ${regla.id}`); });
+          if (estados.length !== (cuenta[regla.id] || []).length) problemas.push(`${modo}: conteo distinto en ${regla.id}`);
+          const fila = [...cont.querySelectorAll('.matriz__fila')].find((g) => g.dataset.fila === `Solución ${regla.solucion.n}`);
+          if (!fila || fila.querySelectorAll('.matriz__c--sol').length !== estados.length + 1) problemas.push(`${modo}: la matriz no cuenta igual la Solución ${regla.solucion.n}`);
+        });
+        const sinAsignar = porEstado.filter((x) => x.tipo !== 'brecha').length;
+        if (suma + sinAsignar !== 32) problemas.push(`${modo}: ${suma} estados en tarjetas + ${sinAsignar} sin solución no suman 32`);
+        const pr = cont.querySelector('.solucion__prioritaria');
+        if (esperada !== null && (!pr || +pr.dataset.prioritaria !== esperada || !pr.textContent.includes(D.reglas.prioridad_solucion.id))) problemas.push(`${modo}: prioritaria distinta de la esperada (${esperada}) o sin regla`);
+        if (esperada === null && (cards.length || !cont.textContent.includes('R-99'))) problemas.push(`${modo}: sin datos estatales debería decir R-99 y no mostrar tarjetas`);
+      }
+      if (bloques.resumen !== bloques.estrategia) problemas.push('Resumen y Estrategia muestran soluciones distintas');
+      // Estrategia del estado elegido y tabla del flujo con la misma numeración
+      const es = A.estrategia(inst, anio, document.getElementById('sel-ent').value);
+      const etq = document.querySelector('#estrategia-cuerpo .sol-etq').textContent.trim();
+      if (es.tipo === 'brecha' && etq !== `Solución ${es.regla.solucion.n}: ${es.regla.solucion.nombre}`) problemas.push(`Estrategia por estado dice «${etq}»`);
+      if (es.tipo !== 'brecha' && !etq.includes(es.regla.id)) problemas.push('Estrategia por estado sin regla de «sin solución»');
+      return { problemas, soluciones: document.querySelectorAll('#solucion-resumen .sol').length, prioritaria: esperada };
+    });
+    ok(`[${etiqueta}] «La solución» con ${inst.toUpperCase()}${inst === 'imssb' ? '' : ' ' + anio}: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12`, r.problemas.length === 0, `${r.soluciones} soluciones; prioritaria: ${r.prioritaria ?? 'ninguna'}${r.problemas.length ? '; ' + r.problemas.slice(0, 4).join(' / ') : ''}`);
+  }
+  await page.selectOption('#sel-inst', 'imss');
+  await page.selectOption('#sel-anio', '2025');
+  await page.selectOption('#sel-ent', '28');
+  const metodo = await page.evaluate(() => [...document.querySelectorAll('#metodo-cuerpo table tbody tr')].filter((tr) => /^R-(0[1-9]|1[01])$/.test(tr.querySelector('th').textContent)).every((tr) => tr.children[1].textContent.startsWith('Solución ' + (+tr.querySelector('th').textContent.slice(2)) + ':')));
+  ok(`[${etiqueta}] «Cómo se calculó» numera las soluciones igual que las reglas`, metodo);
+}
+
 for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 'celular-390']]) {
   const { ctx, page, errores } = await abrir(ancho, alto);
   // 1. Carga inicial con datos
@@ -126,6 +186,7 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   ok(`[${nombre}] Sin desplazamiento horizontal de la página`, desborde <= 0, `${desborde}px`);
   await page.screenshot({ path: path.join(CAPT, `${nombre}-resumen.png`), fullPage: true });
   await axe(page, `${nombre} Resumen`);
+  await revisarSoluciones(page, nombre);
 
   // 1a. Mapa mundial visible en cada pestaña, modo e indicador (servidor local)
   for (const ind of ['uhc', 'gasto', 'bolsillo']) { await page.selectOption('#m2-ind', ind); await revisarMundo(page, `${nombre} servidor, ${ind}`); }
