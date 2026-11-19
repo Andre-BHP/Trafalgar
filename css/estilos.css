@@ -654,3 +654,25 @@ thead th { font-size: .76rem; letter-spacing: .01em; }
   .sol dl.datos dd { margin-bottom: .45rem; }
 }
 .matriz svg { max-width: 1000px; }
+
+/* ---------- Financiamiento y ruta de despliegue ---------- */
+.financia > h2, .ruta > h2 { margin-bottom: .5rem; }
+.financia, .ruta { scroll-margin-top: 5rem; }
+.financia__tarjeta h3 { margin-top: 1.25rem; }
+.financia__razones, .financia__supuestos { padding-left: 1.1rem; }
+.financia__razones li, .financia__supuestos li, .ruta__reglas li { margin-bottom: .45rem; }
+.ruta__reglas { list-style: none; padding: 0; max-width: 92ch; }
+.ruta__reglas .chip { margin-right: .35rem; }
+.cifra-fin { font-variant-numeric: tabular-nums; }
+.solucion__financia { max-width: 92ch; margin: 0 0 1.25rem; }
+.sol-etapa { margin: .1rem 0 .35rem; font-size: .92rem; color: var(--tinta-2); }
+.sol__etapa { font-family: var(--mono); font-size: .8rem; font-weight: 700; color: var(--tinta-2); }
+.ruta__mapa svg { display: block; width: 100%; max-width: 760px; height: auto; margin-inline: auto; }
+.ruta__estado { stroke: var(--frontera); stroke-width: .9; cursor: pointer; }
+.ruta__estado:hover { stroke: var(--tinta); stroke-width: 1.5; }
+.ruta__estado:focus { outline: none; }
+.ruta__estado:focus-visible { stroke: var(--foco); stroke-width: 3; }
+.ruta__estado--sel { stroke: var(--foco); stroke-width: 2.6; }
+.ruta__num { font: 700 13px var(--mono); fill: var(--tinta); stroke: var(--papel); stroke-width: 3px; paint-order: stroke; pointer-events: none; }
+.olas td { min-width: 9rem; font-size: .88rem; }
+.olas th[scope="row"] { min-width: 14rem; }

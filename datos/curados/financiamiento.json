@@ -1,0 +1,75 @@
+{
+  "fuente": "pef_2026",
+  "anio": 2026,
+  "descripcion": "Cada solución se financia con una partida nacional dentro del presupuesto de la institución elegida; la institución la distribuye a los estados según la ruta de despliegue. No se asigna dinero por hospital.",
+  "instituciones": {
+    "imss": {
+      "etiqueta": "Instituto Mexicano del Seguro Social (IMSS)",
+      "monto": 1590308696623,
+      "concepto": "Gasto programable del IMSS (entidad de control presupuestario directo GYR)",
+      "ubicacion": "PEF 2026, Anexo 1, apartado D",
+      "nota": "Incluye pensiones, guarderías y prestaciones económicas, no solo atención médica. La partida saldría del gasto del Seguro de Enfermedades y Maternidad."
+    },
+    "issste": {
+      "etiqueta": "Instituto de Seguridad y Servicios Sociales de los Trabajadores del Estado (ISSSTE)",
+      "monto": 539020762386,
+      "concepto": "Gasto programable del ISSSTE (entidad de control presupuestario directo GYN)",
+      "ubicacion": "PEF 2026, Anexo 1, apartado D",
+      "nota": "Incluye pensiones y otras prestaciones, no solo atención médica."
+    },
+    "imssb": {
+      "etiqueta": "IMSS-Bienestar",
+      "monto": 172492400589,
+      "concepto": "Ramo 56, Servicios de Salud del Instituto Mexicano del Seguro Social para el Bienestar",
+      "ubicacion": "PEF 2026, Anexo 1, apartado B",
+      "nota": "Con IMSS-Bienestar no hay datos estatales comparables (regla R-99): antes de financiar una solución hay que medir."
+    },
+    "estatal": {
+      "etiqueta": "Servicios estatales de salud",
+      "monto": 84635885593,
+      "concepto": "Fondo de Aportaciones para los Servicios de Salud (FASSA), Ramo 33",
+      "ubicacion": "PEF 2026, Anexo 22",
+      "nota": "El FASSA es una aportación federal que se reparte entre los estados con reglas de la Ley de Coordinación Fiscal; los servicios estatales también se pagan con recursos propios de cada estado, que no se suman aquí. La partida nacional se acordaría con los estados."
+    }
+  },
+  "razones_nacional": [
+    {
+      "titulo": "Economías de escala en compras",
+      "texto": "Una sola compra consolidada de medicamentos, material de curación o equipo obtiene mejores precios y condiciones que 32 compras separadas."
+    },
+    {
+      "titulo": "Estándares únicos",
+      "texto": "El mismo protocolo, el mismo indicador y la misma medición en todos los estados permiten comparar el avance contra el dato de partida."
+    },
+    {
+      "titulo": "Evitar duplicar",
+      "texto": "Capacitación, sistemas de registro y contratos se diseñan una vez y se reutilizan; no cada hospital paga su propia versión."
+    }
+  ],
+  "supuestos": [
+    {
+      "id": "S-1",
+      "texto": "Cada etapa del despliegue incluye hasta 3 estados por solución, la cantidad que el equipo considera que una coordinación nacional puede acompañar a la vez.",
+      "tipo": "Supuesto del equipo"
+    },
+    {
+      "id": "S-2",
+      "texto": "Todas las soluciones arrancan su etapa 1 al mismo tiempo, cada una en sus propios estados, porque cada estado tiene una sola solución asignada.",
+      "tipo": "Supuesto del equipo"
+    }
+  ],
+  "costos": {
+    "R-01": "Número de consultorios y turnos por unidad, costo por hora de personal en horario adicional y la espera medida en la etapa 1.",
+    "R-02": "Personal de primer contacto por unidad y costo por persona del curso de trato digno.",
+    "R-03": "Número de unidades, costo de impresión o sistema para hojas de indicaciones y plantilla para equipos fijos.",
+    "R-04": "Inventario de equipo médico descompuesto por unidad y costo de reparación o reposición de cada equipo.",
+    "R-05": "Áreas por unidad, costo del servicio de limpieza y resultados de la lista de verificación.",
+    "R-06": "Claves de medicamento no surtidas por unidad, cantidades faltantes y precio de compra consolidada.",
+    "R-07": "Insumos que se piden al paciente por servicio, cantidades y precio de compra consolidada.",
+    "R-08": "Plazas vacantes por unidad y especialidad, sueldo de cada plaza e incentivo de permanencia.",
+    "R-09": "Plantilla estable por consultorio, población asignada y costo de la actualización clínica.",
+    "R-10": "Ocupación de urgencias y consulta, casos resolubles en primer nivel y costo de ampliar horarios.",
+    "R-11": "Servicios por los que se paga en el sector privado, frecuencia y costo de garantizarlos en la institución."
+  },
+  "sin_costo": "Por estimar"
+}

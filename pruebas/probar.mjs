@@ -143,7 +143,7 @@ async function revisarSoluciones(page, etiqueta) {
           if (c.querySelector('h3').textContent.trim() !== `Solución ${regla.solucion.n}: ${regla.solucion.nombre}`) problemas.push(`${modo}: nombre distinto en la Solución ${c.dataset.solucion}`);
           const practica = [...c.querySelectorAll('dt')].find((d) => d.textContent === 'Práctica de referencia');
           if (!practica || !practica.nextElementSibling.querySelector('a[href^="http"]')) problemas.push(`${modo}: Solución ${c.dataset.solucion} sin fuente enlazada`);
-          const estados = [...c.querySelectorAll('.sol__estados span')].map((x) => x.textContent.replace(/ \(.*$/, ''));
+          const estados = [...c.querySelectorAll('.sol__estados [data-clave]')].map((x) => x.textContent.replace(/ \(.*$/, ''));
           suma += estados.length;
           estados.forEach((nom) => { const x = porEstado.find((y) => y.ent.nombre === nom); if (!x || x.tipo !== 'brecha' || x.regla.id !== regla.id) problemas.push(`${modo}: ${nom} no corresponde a ${regla.id}`); });
           if (estados.length !== (cuenta[regla.id] || []).length) problemas.push(`${modo}: conteo distinto en ${regla.id}`);
@@ -162,9 +162,52 @@ async function revisarSoluciones(page, etiqueta) {
       const etq = document.querySelector('#estrategia-cuerpo .sol-etq').textContent.trim();
       if (es.tipo === 'brecha' && etq !== `Solución ${es.regla.solucion.n}: ${es.regla.solucion.nombre}`) problemas.push(`Estrategia por estado dice «${etq}»`);
       if (es.tipo !== 'brecha' && !etq.includes(es.regla.id)) problemas.push('Estrategia por estado sin regla de «sin solución»');
-      return { problemas, soluciones: document.querySelectorAll('#solucion-resumen .sol').length, prioritaria: esperada };
+      // Ruta de despliegue (R-13): orden reproducido de forma independiente, solo estados con brecha
+      const tam = D.reglas.despliegue.tam_etapa, esperadaEtapa = {};
+      Object.values(D.reglas.reglas).forEach((regla) => {
+        porEstado.filter((x) => x.tipo === 'brecha' && x.regla.id === regla.id)
+          .map((x) => ({ clave: x.ent.clave, dif: x.aspecto.dif, pob: (A.registro(inst, anio, x.ent.clave) || {}).poblacion || 0 }))
+          .sort((a, b) => a.dif - b.dif || b.pob - a.pob || a.clave.localeCompare(b.clave))
+          .forEach((x, k) => { esperadaEtapa[x.clave] = { n: regla.solucion.n, etapa: Math.floor(k / tam) + 1 }; });
+      });
+      const ruta = { mapa: 0, tabla: 0, tarjetas: 0 };
+      document.querySelectorAll('#ruta-mapa .ruta__estado').forEach((p) => {
+        const x = porEstado.find((y) => y.ent.clave === p.dataset.clave), e2 = esperadaEtapa[p.dataset.clave];
+        if (x.tipo !== 'brecha') { if (p.dataset.etapa) problemas.push(`mapa: ${x.ent.nombre} sin brecha tiene etapa`); if (p.dataset.tipo !== (x.tipo === 'sin_brecha' ? 'no' : 'sin')) problemas.push(`mapa: ${x.ent.nombre} mal rotulado`); return; }
+        ruta.mapa++;
+        if (+p.dataset.etapa !== e2.etapa || +p.dataset.solucion !== e2.n) problemas.push(`mapa: ${x.ent.nombre} en etapa ${p.dataset.etapa}, se esperaba ${e2.etapa}`);
+      });
+      for (const [sel, k] of [['#ruta .olas [data-clave]', 'tabla'], ['#solucion-estrategia .sol__estados [data-clave]', 'tarjetas']]) {
+        document.querySelectorAll(sel).forEach((el) => { ruta[k]++; const e2 = esperadaEtapa[el.dataset.clave]; if (!e2) problemas.push(`${k}: estado sin brecha incluido (${el.dataset.clave})`); else if (+el.dataset.etapa !== e2.etapa) problemas.push(`${k}: ${el.dataset.clave} en etapa ${el.dataset.etapa}, se esperaba ${e2.etapa}`); });
+      }
+      const nBrecha = Object.keys(esperadaEtapa).length;
+      if (ruta.mapa !== nBrecha || ruta.tabla !== nBrecha || ruta.tarjetas !== nBrecha) problemas.push(`ruta: ${JSON.stringify(ruta)} contra ${nBrecha} estados con brecha`);
+      const etapaTxt = document.querySelector('#estrategia-cuerpo .sol-etapa');
+      const e3 = esperadaEtapa[document.getElementById('sel-ent').value];
+      if (e3 ? !etapaTxt.textContent.includes(`etapa ${e3.etapa} de la Solución ${e3.n}`) : !/No requiere|Sin datos comparables/.test(etapaTxt.textContent)) problemas.push('estrategia por estado sin su etapa');
+      // Toda cifra en pesos lleva fuente enlazada o la etiqueta de supuesto
+      const F = D.fuentes.fuentes;
+      const zonas = [...document.querySelectorAll('#financia, #ruta, .solucion__financia, .sol dd[data-fuente-bloque]')];
+      let cifras = 0;
+      zonas.forEach((z) => {
+        const w = document.createTreeWalker(z, NodeFilter.SHOW_TEXT);
+        for (let t = w.nextNode(); t; t = w.nextNode()) {
+          if (!/\$\s?\d/.test(t.textContent)) continue;
+          cifras++;
+          const c = t.parentElement.closest('[data-cifra]');
+          const supuesto = t.parentElement.closest('[data-supuesto]');
+          if (supuesto) continue;
+          if (!c || !F[c.dataset.fuente]) { problemas.push(`cifra sin fuente: «${t.textContent.trim().slice(0, 40)}»`); continue; }
+          const bloque = c.closest('[data-fuente-bloque]');
+          if (!bloque || ![...bloque.querySelectorAll('a[href]')].some((a) => a.href.startsWith(F[c.dataset.fuente].url))) problemas.push(`cifra sin enlace a su fuente: «${t.textContent.trim().slice(0, 40)}»`);
+        }
+      });
+      const fin = document.querySelector('#financia');
+      if (!fin.textContent.includes('Por estimar')) problemas.push('financiamiento sin «Por estimar» para el costo');
+      if ([...fin.querySelectorAll('[data-supuesto]')].some((li) => !li.textContent.includes('Supuesto del equipo'))) problemas.push('supuesto sin etiqueta');
+      return { problemas, soluciones: document.querySelectorAll('#solucion-resumen .sol').length, prioritaria: esperada, cifras, conBrecha: nBrecha };
     });
-    ok(`[${etiqueta}] «La solución» con ${inst.toUpperCase()}${inst === 'imssb' ? '' : ' ' + anio}: soluciones de las reglas, numeración consistente, con fuente y prioridad R-12`, r.problemas.length === 0, `${r.soluciones} soluciones; prioritaria: ${r.prioritaria ?? 'ninguna'}${r.problemas.length ? '; ' + r.problemas.slice(0, 4).join(' / ') : ''}`);
+    ok(`[${etiqueta}] «La solución» con ${inst.toUpperCase()}${inst === 'imssb' ? '' : ' ' + anio}: soluciones de las reglas, numeración, prioridad R-12, etapas R-13 solo con brecha y cifras con fuente`, r.problemas.length === 0, `${r.soluciones} soluciones; prioritaria: ${r.prioritaria ?? 'ninguna'}; ${r.conBrecha} estados en la ruta; ${r.cifras} cifras en pesos${r.problemas.length ? '; ' + r.problemas.slice(0, 4).join(' / ') : ''}`);
   }
   await page.selectOption('#sel-inst', 'imss');
   await page.selectOption('#sel-anio', '2025');

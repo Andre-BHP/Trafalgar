@@ -133,6 +133,15 @@
     "regla": "La solución prioritaria es la que se activa en más estados para la institución y el año elegidos. Si dos o más empatan, gana la de brecha promedio más amplia (más negativa); si siguen empatadas, la de número menor.",
     "nota": "Aparte se señala la solución que corresponde a la mayor brecha individual, porque puede ser distinta."
   },
+  "despliegue": {
+    "id": "R-13",
+    "regla": "Cada solución se aplica solo en los estados donde se activa (los que tienen la brecha que la dispara). Se ordenan de la brecha desfavorable más grande a la más chica; en empate, primero el de mayor población usuaria de la institución según la ENCIG; si siguen empatados, la clave INEGI menor. Se agrupan en etapas de hasta 3 estados (supuesto S-1).",
+    "tam_etapa": 3
+  },
+  "avance": {
+    "id": "R-14",
+    "regla": "La siguiente etapa de una solución empieza cuando, en los estados de la etapa en curso, su indicador de gestión mejora frente al dato de partida (una medición inicial y al menos una de seguimiento). Si no mejora, se revisan las condiciones antes de pasar a otra etapa."
+  },
   "sin_prioridad": {
     "id": "R-00",
     "problema": "Ningún aspecto comparable está por debajo de la referencia nacional.",

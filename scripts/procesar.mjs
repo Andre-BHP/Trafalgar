@@ -372,6 +372,7 @@ const resultado = {
   geo: await geometrias(),
   practicas: leerJSON('practicas.json'),
   reglas: leerJSON('reglas.json'),
+  financiamiento: leerJSON('financiamiento.json'),
   imss: leerJSON('imss_2026.json'),
   pensiones: leerJSON('pensiones_salud.json')
 };

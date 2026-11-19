@@ -149,16 +149,34 @@
         practicas: regla.practicas.map((id) => D.practicas.practicas.find((p) => p.id === id)).filter(Boolean)
       };
     }).sort((a, b) => a.n - b.n);
+    // Regla R-13: despliegue por etapas solo en los estados con la brecha que activa la solución
+    const tam = R.despliegue.tam_etapa;
+    const etapaDe = {};
+    lista.forEach((s) => {
+      s.ruta = s.estados.map((x) => { const reg = A.registro(instId, anio, x.clave); return Object.assign({}, x, { poblacion: reg && reg.poblacion ? reg.poblacion : null }); })
+        .sort((a, b) => a.dif - b.dif || (b.poblacion || 0) - (a.poblacion || 0) || a.clave.localeCompare(b.clave))
+        .map((x, k) => Object.assign(x, { orden: k + 1, etapa: Math.floor(k / tam) + 1 }));
+      s.etapas = s.ruta.length ? s.ruta[s.ruta.length - 1].etapa : 0;
+      s.ruta.forEach((x) => { etapaDe[x.clave] = { n: s.n, etapa: x.etapa, orden: x.orden, de: s.ruta.length }; });
+    });
     const activas = lista.filter((s) => s.estados.length);
     // Regla R-12: más estados; empate, brecha promedio más negativa; luego número menor
     const prioritaria = activas.slice().sort((a, b) => b.estados.length - a.estados.length || a.media - b.media || a.n - b.n)[0] || null;
     const mayorBrecha = activas.slice().sort((a, b) => a.mayor.dif - b.mayor.dif || a.n - b.n)[0] || null;
     return {
-      instId, anio, lista, activas, prioritaria, mayorBrecha, reglaPrioridad: R.prioridad_solucion,
+      instId, anio, lista, activas, prioritaria, mayorBrecha, reglaPrioridad: R.prioridad_solucion, etapaDe,
+      etapas: Math.max(0, ...lista.map((s) => s.etapas)),
       sinBrecha: porEstado.filter((x) => x.tipo === 'sin_brecha').map((x) => x.ent),
       faltan: porEstado.filter((x) => x.tipo === 'faltan_datos').map((x) => x.ent),
       porEstado
     };
+  };
+
+  // Financiamiento: partida nacional dentro del presupuesto de la institución (PEF 2026)
+  A.financiamiento = (instId) => {
+    const F = D.financiamiento, f = F.instituciones[instId];
+    if (!f) return null;
+    return Object.assign({}, f, { fuente: F.fuente, escala: f.monto ? { uno: f.monto / 100, decimo: f.monto / 1000 } : null });
   };
 
   // ---------- Comparación mundial ----------

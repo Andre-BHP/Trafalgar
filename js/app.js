@@ -468,7 +468,8 @@
   function pintarEstrategia() {
     const es = A.estrategia(est.inst, est.anio, est.ent);
     const i = es.inst, e = es.ent;
-    const sol = es.tipo === 'brecha' ? `<p class="sol-etq" data-solucion="${es.regla.solucion.n}"><a href="#sol-estrategia-${es.regla.solucion.n}"><span class="sol__num">Solución ${es.regla.solucion.n}:</span> ${U.esc(es.regla.solucion.nombre)}</a></p>` : `<p class="sol-etq sol-etq--sin">Sin solución asignada (regla ${U.esc(es.regla.id)})</p>`;
+    const et = A.soluciones(est.inst, est.anio).etapaDe[e.clave];
+    const sol = es.tipo === 'brecha' ? `<p class="sol-etq" data-solucion="${es.regla.solucion.n}"><a href="#sol-estrategia-${es.regla.solucion.n}"><span class="sol__num">Solución ${es.regla.solucion.n}:</span> ${U.esc(es.regla.solucion.nombre)}</a></p><p class="sol-etapa" data-etapa="${et.etapa}">${U.esc(e.nombre)} está en la <strong>etapa ${et.etapa} de la Solución ${et.n}</strong> (lugar ${et.orden} de ${et.de} por tamaño de brecha, regla ${U.esc(D.reglas.despliegue.id)}). <a href="#ruta" data-ir="estrategia">Ver la ruta</a>.</p>` : `<p class="sol-etq sol-etq--sin">Sin solución asignada (regla ${U.esc(es.regla.id)})</p><p class="sol-etapa" data-etapa="0">${es.tipo === 'sin_brecha' ? 'No requiere: no tiene aspectos por debajo de la referencia.' : 'Sin datos comparables: no entra en la ruta de despliegue hasta tener datos estatales.'}</p>`;
     const cab = `<div class="estrategia__cab"><div>${sol}<h3 style="font-size:1.3rem">${U.esc(e.nombre)} · ${U.esc(i.corto)} · ${est.anio}</h3><p class="grafica__sub">Satisfacción ${U.pct(es.sat.obs)}; referencia nacional ${U.pct(es.sat.ref)}; brecha ${U.pp(es.sat.dif)}. ${U.estadoHTML(es.sat.estado)}</p></div><span class="chip">Regla ${U.esc(es.regla.id)}</span></div>`;
     let h = `<div class="tarjeta">${cab}${caminoEstrategia(es)}</div>`;
     if (es.tipo === 'faltan_datos') {
@@ -507,13 +508,90 @@
   function pintarSoluciones() {
     const S = A.soluciones(est.inst, est.anio), i = inst();
     ['resumen', 'estrategia'].forEach((modo) => { $('#solucion-' + modo).innerHTML = bloqueSoluciones(S, i, modo); });
+    $('#financia').innerHTML = bloqueFinancia(S, i);
+    $('#ruta').innerHTML = bloqueRuta(S, i);
+    mapaEtapas($('#ruta-mapa'), S);
+  }
+  // Cifras en pesos: siempre con su fuente (data-fuente) o con la etiqueta de supuesto
+  const pesos = (v) => '$' + U.n0(Math.round(v));
+  const millones = (v) => U.n0(Math.round(v / 1e6)) + ' millones de pesos';
+  const cifraPef = (v) => `<span class="cifra-fin" data-cifra data-fuente="pef_2026"><strong>${pesos(v)}</strong> (${millones(v)})</span>`;
+  const fuentePef = () => U.fuente('pef_2026', 'SHCP, PEF 2026, DOF del 21 de noviembre de 2025');
+  function lineaFinancia(S, i) {
+    const f = A.financiamiento(est.inst);
+    return `<p class="solucion__financia" data-fuente-bloque="pef_2026"><strong>Cómo se paga y por dónde empieza:</strong> con una partida nacional dentro del presupuesto de ${U.esc(f.etiqueta)} (${U.esc(f.concepto)}: ${cifraPef(f.monto)}; ${fuentePef()}), que la institución distribuye; y por etapas, solo en los estados con la brecha que activa cada solución, de la mayor a la menor. <a href="#financia" data-ir="estrategia">Ver el financiamiento y la ruta de despliegue</a>.</p>`;
+  }
+  function bloqueFinancia(S, i) {
+    const F = D.financiamiento, f = A.financiamiento(est.inst);
+    return `<h2 id="t-financia">Cómo se financia</h2>
+      <p class="destacado">${U.esc(F.descripcion)}</p>
+      <div class="tarjeta financia__tarjeta" data-fuente-bloque="pef_2026">
+      <dl class="datos">
+        <dt>De dónde saldría</dt><dd>${U.esc(f.concepto)}: ${cifraPef(f.monto)}. ${U.esc(f.ubicacion)}. Fuente: ${fuentePef()}. ${U.esc(f.nota)}</dd>
+        <dt>Costo de las soluciones</dt><dd><strong>${U.esc(F.sin_costo)}.</strong> Ninguna de las fuentes consultadas publica el costo de estas acciones por unidad o por estado; cada tarjeta de solución dice qué haría falta para calcularlo.</dd>
+        <dt>Qué proporción representaría</dt><dd><strong>${U.esc(F.sin_costo)}</strong> hasta conocer el costo: proporción = costo de la solución ÷ presupuesto de la institución. Referencia de escala, cálculo propio con la cifra oficial: 1% del presupuesto equivale a ${cifraPef(f.escala.uno)} y 0.1% a ${cifraPef(f.escala.decimo)}.</dd>
+      </dl>
+      <h3>Por qué una partida nacional y no por hospital</h3>
+      <ul class="financia__razones">${F.razones_nacional.map((r) => `<li><strong>${U.esc(r.titulo)}.</strong> ${U.esc(r.texto)}</li>`).join('')}</ul>
+      <h3>Supuestos</h3>
+      <ul class="financia__supuestos">${F.supuestos.map((x) => `<li data-supuesto="${x.id}"><span class="chip chip--aviso">${U.esc(x.tipo)}</span> ${x.id}. ${U.esc(x.texto)}</li>`).join('')}</ul>
+      </div>`;
+  }
+  const ETAPA_VAR = ['--s-5', '--s-3', '--s-2'];
+  function bloqueRuta(S, i) {
+    const R = D.reglas, tam = R.despliegue.tam_etapa;
+    const titulo = `<h2 id="t-ruta">Ruta de despliegue, de estado en estado</h2>
+      <p class="destacado">Cada solución se aplica solo donde falta: en los estados con la brecha que la activa, empezando por los de mayor brecha.</p>
+      <ul class="ruta__reglas"><li><span class="chip">Regla ${U.esc(R.despliegue.id)}</span> ${U.esc(R.despliegue.regla)}</li><li><span class="chip">Regla ${U.esc(R.avance.id)}</span> ${U.esc(R.avance.regla)}</li></ul>`;
+    const cols = Array.from({ length: Math.max(1, S.etapas) }, (_, k) => k + 1);
+    const olas = S.activas.length ? `<div class="tabla-cont" tabindex="0" role="region" aria-label="Tabla de etapas por solución"><table class="olas"><caption>Estados de cada etapa por solución, ${U.esc(i.corto)} ${S.anio}. Entre paréntesis, la brecha que activa la solución. Hasta ${tam} estados por etapa.</caption>
+      <thead><tr><th scope="col">Solución</th>${cols.map((c) => `<th scope="col">Etapa ${c}</th>`).join('')}</tr></thead>
+      <tbody>${S.activas.map((s) => `<tr data-solucion="${s.n}"><th scope="row">Solución ${s.n}: ${U.esc(s.nombre)}</th>${cols.map((c) => `<td>${s.ruta.filter((x) => x.etapa === c).map((x) => `<span data-clave="${x.clave}" data-etapa="${c}">${U.esc(x.nombre)} (${U.pp(x.dif)})</span>`).join('<br>') || '-'}</td>`).join('')}</tr>`).join('')}
+      <tr><th scope="row">No requiere (sin brecha, R-00)</th><td colspan="${cols.length}">${S.sinBrecha.length ? S.sinBrecha.map((e) => U.esc(e.nombre)).join(', ') : 'Ninguno'}</td></tr>
+      <tr><th scope="row">Sin datos comparables (R-99)</th><td colspan="${cols.length}">${S.faltan.length ? (S.faltan.length === 32 ? 'Los 32 estados' : S.faltan.map((e) => U.esc(e.nombre)).join(', ')) : 'Ninguno'}</td></tr>
+      </tbody></table></div>` : '';
+    const porEtapa = cols.map((c) => S.activas.reduce((t, s) => t + s.ruta.filter((x) => x.etapa === c).length, 0));
+    const hallazgo = S.activas.length
+      ? `La etapa 1 reúne ${porEtapa[0]} estados, los de mayor brecha de cada solución.${porEtapa.slice(1).map((n, k) => ` La etapa ${k + 2}, ${n}.`).join('')}${S.sinBrecha.length ? ` ${S.sinBrecha.length} no requieren ninguna solución.` : ''}`
+      : `Con ${U.esc(i.corto)} no hay ruta de despliegue por estado: faltan datos comparables (regla R-99).`;
+    const muestra = (estilo) => `<svg width="16" height="14" aria-hidden="true" focusable="false"><rect x="1" y="1" width="14" height="12" rx="2" style="${estilo}"/></svg>`;
+    return `${titulo}<article class="tarjeta grafica grafica--ancha" aria-labelledby="t-ruta-mapa">
+      <div class="grafica__cab"><div><h3 id="t-ruta-mapa">Etapa de cada estado</h3><p class="grafica__sub">${U.esc(i.corto)}, ${S.anio}. Número y color: etapa en la que cada estado recibe su solución. Pulse un estado o recórralos con Tab y Enter.</p></div></div>
+      <ul class="leyenda">${cols.map((c) => `<li>${muestra(`fill:var(${ETAPA_VAR[Math.min(c, 3) - 1]})`)}Etapa ${c}</li>`).join('')}<li>${muestra('fill:var(--linea-2);stroke:var(--eje)')}No requiere (sin brecha)</li><li>${muestra('fill:var(--trama-fondo);stroke:var(--trama-linea);stroke-dasharray:2 2')}Sin datos comparables (trama)</li></ul>
+      <div class="grafica__lienzo ruta__mapa" id="ruta-mapa"></div>
+      <div class="hallazgo"><h4>Hallazgo</h4><p>${hallazgo}</p></div>
+      <p class="fuente-nota">Fuente: reglas R-13 y R-14 de este sitio aplicadas a ${etiquetaFuenteEncig(S.anio, i.cuadro)}; población usuaria de la ENCIG para desempatar.</p>
+      ${olas}</article>`;
+  }
+  function mapaEtapas(cont, S) {
+    const geo = D.geo.mexico;
+    const datos = {};
+    E.entidades.forEach((e) => {
+      const x = S.etapaDe[e.clave];
+      const tipo = x ? 'etapa' : S.sinBrecha.some((y) => y.clave === e.clave) ? 'no' : 'sin';
+      datos[e.clave] = { nombre: e.nombre, tipo, x };
+    });
+    let s = `<svg viewBox="0 0 ${geo.ancho} ${geo.alto}" role="group" aria-label="Mapa de México por etapa de despliegue. Use Tab para recorrer los estados y Enter para elegir uno."><defs><pattern id="trama-ruta" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--trama-fondo)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--trama-linea)" stroke-width="1.6"/></pattern></defs><g>`;
+    geo.estados.forEach((g) => {
+      const d = datos[g.clave];
+      const relleno = d.tipo === 'etapa' ? `var(${ETAPA_VAR[Math.min(d.x.etapa, 3) - 1]})` : d.tipo === 'no' ? 'var(--linea-2)' : 'url(#trama-ruta)';
+      const etq = d.tipo === 'etapa' ? `${d.nombre}: etapa ${d.x.etapa} de la Solución ${d.x.n} (lugar ${d.x.orden} de ${d.x.de}).` : d.tipo === 'no' ? `${d.nombre}: no requiere, sin brecha desfavorable.` : `${d.nombre}: sin datos comparables.`;
+      s += `<path class="ruta__estado${g.clave === est.ent ? ' ruta__estado--sel' : ''}" d="${g.d}" data-clave="${g.clave}" data-tipo="${d.tipo}"${d.x ? ` data-etapa="${d.x.etapa}" data-solucion="${d.x.n}"` : ''} role="button" tabindex="0" aria-pressed="${g.clave === est.ent}" aria-label="${U.esc(etq)}" style="fill:${relleno}"><title>${U.esc(etq)}</title></path>`;
+    });
+    s += '</g><g aria-hidden="true">' + geo.estados.filter((g) => datos[g.clave].tipo === 'etapa').map((g) => `<text class="ruta__num" x="${g.cx}" y="${g.cy + 4}" text-anchor="middle">${datos[g.clave].x.etapa}</text>`).join('') + '</g></svg>';
+    cont.innerHTML = s;
+    const sel = cont.querySelector('.ruta__estado--sel'); if (sel) sel.parentNode.appendChild(sel);
+    U.$$('.ruta__estado', cont).forEach((p) => {
+      p.addEventListener('click', () => { est.ent = p.dataset.clave; actualizar(); });
+      p.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); est.ent = p.dataset.clave; actualizar(); const q = $(`#ruta-mapa .ruta__estado[data-clave="${p.dataset.clave}"]`); if (q) q.focus(); } });
+    });
   }
   function bloqueSoluciones(S, i, modo) {
     const tit = `<h2 id="t-sol-${modo}">La solución que propone Trafalgar</h2>`;
     if (!S.activas.length) {
       const r = D.reglas.faltan_datos;
       return `${tit}<p class="destacado solucion__frase">Con ${U.esc(i.corto)} no se propone una solución por estado: ${S.faltan.length === 32 ? 'INEGI publica este servicio solo por región, así que no hay brechas estatales comparables.' : 'ningún estado tiene un aspecto comparable por debajo de la referencia.'} La regla ${U.esc(r.id)} indica qué datos conseguir primero.</p>
-        <div class="aviso"><p>${U.esc(r.primero)}</p></div>`;
+        <div class="aviso"><p>${U.esc(r.primero)}</p></div>${modo === 'resumen' ? lineaFinancia(S, i) : ''}`;
     }
     const total = S.activas.reduce((s, x) => s + x.estados.length, 0);
     const P = S.prioritaria, M = S.mayorBrecha;
@@ -527,10 +605,10 @@
     const tarjetas = `<ol class="soluciones" aria-label="Soluciones numeradas">${S.activas.map((s) => tarjetaSolucion(s, S, modo, s === P)).join('')}</ol>`;
     const inactivas = S.lista.filter((x) => !x.estados.length);
     const resto = `<p class="fuente-nota">${total} de 32 estados tienen una solución asignada.${inactivas.length ? ` No se activan con ${U.esc(i.corto)} ${S.anio}: ${inactivas.map((x) => `Solución ${x.n} (${U.esc(x.nombre)})`).join('; ')}.` : ' Las 11 soluciones se activan en al menos un estado.'}${S.sinBrecha.length ? ` Sin brecha desfavorable (regla R-00): ${listaY(S.sinBrecha.map((e) => U.esc(e.nombre)))}.` : ''}${S.faltan.length ? ` Sin datos comparables (regla R-99): ${listaY(S.faltan.map((e) => U.esc(e.nombre)))}.` : ''}</p>`;
-    return tit + frase + prio + tarjetas + resto + matrizSoluciones(S, i, modo);
+    return tit + frase + prio + (modo === 'resumen' ? lineaFinancia(S, i) : '') + tarjetas + resto + matrizSoluciones(S, i, modo);
   }
   function tarjetaSolucion(s, S, modo, esPrioritaria) {
-    const r = s.regla, ej = S.porEstado.find((x) => x.tipo === 'brecha' && x.regla.id === r.id);
+    const r = s.regla, ej = S.porEstado.find((x) => x.tipo === 'brecha' && x.regla.id === r.id), fin = A.financiamiento(est.inst);
     const elegido = s.estados.find((x) => x.clave === est.ent);
     const min = s.estados[s.estados.length - 1], max = s.estados[0];
     const obs = s.estados.map((x) => x.obs);
@@ -542,6 +620,8 @@
         <dt>Dato de partida</dt><dd>${s.estados.length > 1 ? `de ${U.pct(Math.min(...obs))} a ${U.pct(Math.max(...obs))} según el estado` : U.pct(obs[0])}; nacional ${U.pct(s.estados[0].ref)} (${S.anio})${elegido ? `; ${U.esc(elegido.nombre)}: ${U.pct(elegido.obs)}` : ''}</dd>
         <dt>Indicador de gestión</dt><dd>${U.esc(r.indicador_operativo)}. Dato de partida: ${U.esc(ej.indicador.partidaOperativa)}</dd>
         <dt>Condiciones a revisar</dt><dd><ul>${r.condiciones.map((x) => `<li>${U.esc(x)}</li>`).join('')}</ul></dd>
+        <dt>Financiamiento</dt><dd data-fuente-bloque="pef_2026">Partida nacional de ${U.esc(fin.etiqueta)} (${cifraPef(fin.monto)}, ${fuentePef()}). Costo: <strong>${U.esc(D.financiamiento.sin_costo)}</strong>; para calcularlo hace falta: ${U.esc(D.financiamiento.costos[r.id])} Proporción del presupuesto: <strong>${U.esc(D.financiamiento.sin_costo)}</strong>.</dd>
+        <dt>Paso a la siguiente etapa</dt><dd>Cuando el indicador de gestión mejora frente a su dato de partida en los estados de la etapa en curso (regla ${U.esc(D.reglas.avance.id)}).</dd>
       </dl>`;
     return `<li class="tarjeta sol${esPrioritaria ? ' sol--prioritaria' : ''}" id="sol-${modo}-${s.n}" data-solucion="${s.n}" data-regla="${U.esc(r.id)}">
       <div class="sol__cab"><span class="sol__n" aria-hidden="true">${s.n}</span><div><h3><span class="sol__num">Solución ${s.n}:</span> ${U.esc(s.nombre)}</h3>
@@ -549,7 +629,7 @@
       <dl class="datos">
         <dt>Problema que ataca</dt><dd>${U.esc(r.problema)} Aspecto de la ENCIG: ${U.iconoAspecto(s.aspecto.id)} «${U.esc(s.aspecto.etiqueta_inegi || s.aspecto.etiqueta)}».</dd>
         <dt>Brecha que la activa</dt><dd>Es la mayor brecha desfavorable comparable del estado: ${s.estados.length > 1 ? `entre ${U.pp(max.dif)} y ${U.pp(min.dif)}, promedio ${U.pp(s.media)}` : U.pp(max.dif)}. Fuente: ${etiquetaFuenteEncig(S.anio, i_cuadro())}.</dd>
-        <dt>Estados (${s.estados.length})</dt><dd class="sol__estados">${s.estados.map((x) => `<span${x.clave === est.ent ? ' class="sol__elegido"' : ''}>${U.esc(x.nombre)} (${U.pp(x.dif)})</span>`).join(', ')}</dd>
+        <dt>Estados por etapa (${s.estados.length})</dt><dd class="sol__estados">${Array.from({ length: s.etapas }, (_, k) => k + 1).map((c) => `<span class="sol__etapa">Etapa ${c}:</span> ${s.ruta.filter((x) => x.etapa === c).map((x) => `<span data-clave="${x.clave}" data-etapa="${c}"${x.clave === est.ent ? ' class="sol__elegido"' : ''}>${U.esc(x.nombre)} (${U.pp(x.dif)})</span>`).join(', ')}`).join('<br>')}</dd>
         <dt>Práctica de referencia</dt><dd>${s.practicas.map((p) => `${U.esc(p.pais)}: ${U.esc(p.nombre)} (${p.fuentes.map((f) => U.fuente(f, D.fuentes.fuentes[f].institucion)).join(', ')})`).join('; ')}.${r.nivel_respaldo === 'general' ? ` <small>${U.esc(r.nota_respaldo)}</small>` : ''}</dd>
       </dl>
       ${modo === 'resumen' ? `<details class="equivalente"><summary>Pasos, responsables, indicador y condiciones</summary>${pasos}</details>` : pasos}
@@ -1061,6 +1141,15 @@
       if (!a) return;
       const sec = (a.getAttribute('href') || '').slice(1).split('?')[0];
       if (a.dataset.ent) { est.ent = a.dataset.ent; }
+      // Enlace a un bloque dentro de una sección (por ejemplo #ruta o #sol-estrategia-7): abre su sección y baja hasta él
+      const objetivo = !SECCIONES.includes(sec) && sec ? document.getElementById(sec) : null;
+      if (objetivo) {
+        e.preventDefault();
+        const sx = objetivo.closest('.seccion');
+        if (sx && sx.id !== est.seccion) { est.seccion = sx.id; mostrarSeccion(); escribirHash(); }
+        objetivo.setAttribute('tabindex', '-1'); objetivo.focus({ preventScroll: true }); objetivo.scrollIntoView();
+        return;
+      }
       if (SECCIONES.includes(sec)) {
         e.preventDefault();
         est.seccion = sec;
