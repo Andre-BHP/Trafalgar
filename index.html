@@ -7,7 +7,7 @@
   <meta name="description" content="Tablero para comparar la satisfacción con los servicios públicos de salud por estado en México (ENCIG 2025, INEGI), la comparación internacional de cobertura y gasto en salud, y estrategias de mejora basadas en datos.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%230f5c73%27/%3E%3Cpath d=%27M7 3h2v4h4v2H9v4H7V9H3V7h4z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
   <script>try { var t = localStorage.getItem('sec-tema'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}</script>
-  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/estilos.css?v=f05c7670c4">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -258,6 +258,27 @@
       <h2 id="t-mundial">Comparación mundial</h2>
       <p class="seccion__intro">Compara a México con otros países en tres indicadores de 2023: cobertura de servicios esenciales, gasto en salud por habitante y gasto de bolsillo. Las gráficas interactivas están en Resumen.</p>
       <div class="cifras" id="mundial-cifras"></div>
+      <article class="tarjeta grafica" aria-labelledby="m3-t">
+        <div class="grafica__cab">
+          <div>
+            <h3 id="m3-t">Mapa del mundo, 2023</h3>
+            <p class="grafica__sub">Pulse un país para ver sus tres indicadores. La selección se comparte con la dispersión y la tabla de Resumen.</p>
+          </div>
+          <div class="campo">
+            <label for="m3-ind">Indicador del mapa</label>
+            <select id="m3-ind">
+              <option value="uhc">Cobertura de servicios esenciales</option>
+              <option value="gasto">Gasto en salud por habitante</option>
+              <option value="bolsillo">Gasto de bolsillo</option>
+            </select>
+          </div>
+        </div>
+        <ul class="leyenda leyenda--rampa" id="m3-leyenda"></ul>
+        <div class="grafica__lienzo mapa-mundo" id="m3"></div>
+        <div class="tooltip" id="m3-tip" role="status" hidden></div>
+        <p class="detalle-pais" id="m3-detalle" aria-live="polite"></p>
+        <p class="fuente-nota" id="m3-fuente"></p>
+      </article>
       <div class="bloque">
         <h3>Países con cobertura igual o mayor que México y menor gasto por habitante</h3>
         <p id="mundial-favorables-intro"></p>
@@ -294,10 +315,10 @@
   </footer>
 
   <noscript><p style="padding:1rem">Este tablero necesita JavaScript para dibujar las gráficas.</p></noscript>
-  <script src="datos/datos.js"></script>
-  <script src="js/util.js"></script>
-  <script src="js/analisis.js"></script>
-  <script src="js/graficas.js"></script>
-  <script src="js/app.js"></script>
+  <script src="datos/datos.js?v=f05c7670c4"></script>
+  <script src="js/util.js?v=f05c7670c4"></script>
+  <script src="js/analisis.js?v=f05c7670c4"></script>
+  <script src="js/graficas.js?v=f05c7670c4"></script>
+  <script src="js/app.js?v=f05c7670c4"></script>
 </body>
 </html>

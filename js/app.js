@@ -605,37 +605,42 @@
     bolsillo: { cortes: [10, 20, 30, 40], fmt: (v) => U.n1(v) + '%', et: (c) => ['menos de 10%', '10 a 19%', '20 a 29%', '30 a 39%', '40% o más'][c], unidad: '% del gasto corriente en salud' }
   };
   est.indMapa = 'uhc';
-  function pintarM2() {
-    if (!A.mundialDisponible()) { sinMundial('#m2'); return; }
+  function pintarM2() { pintarMapaMundo('m2'); pintarMapaMundo('m3'); }
+  function pintarMapaMundo(k) {
+    if (!A.mundialDisponible()) { sinMundial('#' + k); return; }
     const ind = IND_MAPA[est.indMapa], meta = D.mundial.indicadores[est.indMapa];
     const porIso = Object.fromEntries(A.paises('todos').map((p) => [p.iso3, p]));
     const clase = (iso) => { const p = porIso[iso]; const v = p && p[est.indMapa]; if (v === null || v === undefined) return null; let c = 0; while (c < ind.cortes.length && v >= ind.cortes[c]) c++; return c; };
     const mex = A.mexico();
-    $('#m2-leyenda').innerHTML =
+    $('#' + k + '-leyenda').innerHTML =
       `<li><span class="rampa" aria-hidden="true">${[0, 1, 2, 3, 4].map((c) => `<span style="background:var(--s-${c + 1})"></span>`).join('')}</span></li>` +
       `<li class="rampa-et"><span>${[0, 1, 2, 3, 4].map(ind.et).join(' · ')}</span></li>` +
       '<li><svg width="18" height="12" aria-hidden="true" focusable="false"><rect x="1" y="1" width="16" height="10" fill="none" stroke="var(--tinta)" stroke-width="2"/></svg>México (contorno grueso)</li>' +
-      '<li><svg width="18" height="12" aria-hidden="true" focusable="false"><rect width="18" height="12" fill="url(#ley-trama)" stroke="var(--eje)"/></svg>Sin datos (no es cero)</li>';
-    G.mapaMundo($('#m2'), D.geo.mundo, {
+      `<li><svg width="18" height="12" aria-hidden="true" focusable="false"><defs><pattern id="ley-trama-${k}" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="var(--trama-fondo)"/><line x1="0" y1="0" x2="0" y2="5" stroke="var(--trama-linea)" stroke-width="1.6"/></pattern></defs><rect width="18" height="12" fill="url(#ley-trama-${k})" stroke="var(--eje)"/></svg>Sin datos (no es cero)</li>`;
+    G.mapaMundo($('#' + k), D.geo.mundo, {
       titulo: `Mapa del mundo: ${meta.etiqueta.toLowerCase()}, 2023. México: ${ind.fmt(mex[est.indMapa])}.`,
       clase, sel: est.pais,
       onSelect: (iso) => { if (porIso[iso]) { if (est.conjunto === 'clase' && !porIso[iso].clase) est.conjunto = 'todos'; elegirPais(iso); } },
       onTip: (iso, ev) => {
-        const tip = $('#m2-tip');
+        const tip = $('#' + k + '-tip');
         const geoP = iso && D.geo.mundo.paises.find((x) => x.iso3 === iso);
         if (!iso || !geoP) { tip.hidden = true; return; }
         const p = porIso[iso];
         tip.innerHTML = p
           ? `<strong>${U.esc(p.pais)}</strong>${U.esc(p.region)}<dl><dt>Cobertura</dt><dd>${U.n0(p.uhc)}</dd><dt>Gasto por persona</dt><dd>${U.dolares(p.gasto)}</dd><dt>Bolsillo</dt><dd>${U.n1(p.bolsillo)}%</dd></dl>`
           : `<strong>${U.esc(geoP.nombre)}</strong>Sin datos disponibles en el archivo de clase`;
-        const caja = $('#m2').closest('.grafica').getBoundingClientRect();
+        const caja = $('#' + k).closest('.grafica').getBoundingClientRect();
         let x = ev.clientX - caja.left + 14, y = ev.clientY - caja.top + 14;
         tip.hidden = false;
         if (x + tip.offsetWidth > caja.width) x = ev.clientX - caja.left - tip.offsetWidth - 14;
         tip.style.left = Math.max(4, x) + 'px'; tip.style.top = y + 'px';
       }
     });
-    $('#m2-fuente').innerHTML = `Unidad: ${U.esc(ind.unidad)}. Fuente: ${U.fuente(meta.fuente, 'Banco Mundial')} (vía archivo de clase), 2023. ${U.esc(D.geo.atribucion)} Para elegir un país con el teclado use la lista «País» de la dispersión.`;
+    if (k === 'm3') {
+      const p = porIso[est.pais] || mex;
+      $('#m3-detalle').innerHTML = `<strong>${U.esc(p.pais)}</strong> · ${U.esc(p.region)} · cobertura ${U.n0(p.uhc)} de 100 · gasto ${U.dolares(p.gasto)} PPA por persona · gasto de bolsillo ${U.n1(p.bolsillo)}% del gasto corriente en salud (2023)${A.favorable(p) ? ' · <span class="chip">Cobertura igual o mayor que México con menor gasto</span>' : ''}`;
+    }
+    $('#' + k + '-fuente').innerHTML = `Unidad: ${U.esc(ind.unidad)}. Fuente: ${U.fuente(meta.fuente, 'Banco Mundial')} (vía archivo de clase), 2023. ${U.esc(D.geo.atribucion)} Para elegir un país con el teclado use la lista «País» de la dispersión.`;
   }
 
   // ---------- Contexto del estado ----------
@@ -694,7 +699,7 @@
     $('#g3-pais').addEventListener('change', (e) => elegirPais(e.target.value));
     $('#g4-grupo').addEventListener('change', (e) => { est.g4grupo = e.target.value; pintarG4(); });
     $('#g4-orden').addEventListener('change', (e) => { est.g4orden = e.target.value; pintarG4(); });
-    $('#m2-ind').addEventListener('change', (e) => { est.indMapa = e.target.value; pintarM2(); });
+    ['#m2-ind', '#m3-ind'].forEach((sel) => $(sel).addEventListener('change', (e) => { est.indMapa = e.target.value; $('#m2-ind').value = est.indMapa; $('#m3-ind').value = est.indMapa; pintarM2(); }));
     $('#btn-tema').addEventListener('click', () => {
       const nuevo = U.tema.actual() === 'dark' ? 'light' : 'dark';
       document.documentElement.dataset.theme = nuevo; U.tema.guardar(nuevo); pintarTema();

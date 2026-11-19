@@ -220,7 +220,7 @@
     let svg = cont.querySelector('svg');
     if (!svg) {
       let s = `<svg xmlns="${NS}" viewBox="0 0 ${geo.ancho} ${geo.alto}" role="group" aria-label="Mapa de México por estado. Use Tab para recorrer los estados y Enter para elegir uno.">${TRAMA_MAPA('trama-mx')}<g class="capa-estados">`;
-      geo.estados.forEach((e) => { s += `<path class="estado-mapa" d="${e.d}" data-clave="${e.clave}" role="button" tabindex="0"><title></title></path>`; });
+      geo.estados.forEach((e) => { s += `<path class="estado-mapa" d="${e.d}" data-clave="${e.clave}" role="button" tabindex="0" style="fill:${G.colorBrecha(op.datos[e.clave].dif)}"><title></title></path>`; });
       s += '</g><g class="capa-iconos" aria-hidden="true"></g></svg>';
       cont.innerHTML = s;
       svg = cont.querySelector('svg');
@@ -246,11 +246,13 @@
     if (elegido) elegido.parentNode.appendChild(elegido);
     svg.querySelector('.capa-iconos').innerHTML = geo.estados.map((e) => iconoMapa(op.datos[e.clave].estado, e.cx, e.cy)).join('');
   };
+  const rellenoPais = (c, id) => (c === null ? `url(#trama-${id})` : `var(--s-${c + 1})`);
   G.mapaMundo = function (cont, geo, op) {
     let svg = cont.querySelector('svg');
     if (!svg) {
-      let s = `<svg xmlns="${NS}" viewBox="0 0 ${geo.ancho} ${geo.alto}" role="img" aria-labelledby="m2-svg-t"><title id="m2-svg-t"></title>${TRAMA_MAPA('trama-mundo')}<g>`;
-      geo.paises.forEach((p) => { s += `<path class="pais-mapa" d="${p.d}" data-iso="${p.iso3}"/>`; });
+      const id = cont.id;
+      let s = `<svg xmlns="${NS}" viewBox="0 0 ${geo.ancho} ${geo.alto}" role="img" aria-labelledby="${id}-svg-t"><title id="${id}-svg-t"></title>${TRAMA_MAPA('trama-' + id)}<g>`;
+      geo.paises.forEach((p) => { s += `<path class="pais-mapa" d="${p.d}" data-iso="${p.iso3}" style="fill:${rellenoPais(op.clase(p.iso3), id)}"/>`; });
       s += '</g></svg>';
       cont.innerHTML = s;
       svg = cont.querySelector('svg');
@@ -262,7 +264,7 @@
     svg.querySelector('title').textContent = op.titulo;
     U.$$('.pais-mapa', svg).forEach((p) => {
       const c = op.clase(p.dataset.iso);
-      p.style.fill = c === null ? 'url(#trama-mundo)' : `var(--s-${c + 1})`;
+      p.style.fill = rellenoPais(c, cont.id);
       p.classList.toggle('pais-mapa--mex', p.dataset.iso === 'MEX');
       p.classList.toggle('pais-mapa--sel', p.dataset.iso === op.sel && op.sel !== 'MEX');
     });

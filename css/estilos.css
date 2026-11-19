@@ -226,13 +226,13 @@ main { max-width: 1280px; margin: 0 auto; padding: 1.75rem 1.5rem 3.5rem; }
 .punto--atenuado { opacity: .16; }
 
 /* Mapas */
-.estado-mapa { cursor: pointer; stroke: var(--frontera); stroke-width: .9; transition: fill .45s var(--mov), stroke .2s; }
+.estado-mapa { fill: var(--trama-fondo); cursor: pointer; stroke: var(--frontera); stroke-width: .9; transition: fill .45s var(--mov), stroke .2s; }
 .estado-mapa:hover { stroke: var(--tinta); stroke-width: 1.5; }
 .estado-mapa:focus { outline: none; }
 .estado-mapa:focus-visible { stroke: var(--foco); stroke-width: 3; }
 .estado-mapa--sel { stroke: var(--tinta); stroke-width: 2.4; }
 .icono-mapa { pointer-events: none; transition: opacity .3s; }
-.pais-mapa { stroke: var(--frontera); stroke-width: .5; cursor: pointer; transition: fill .45s var(--mov); }
+.pais-mapa { fill: var(--trama-fondo); stroke: var(--frontera); stroke-width: .5; cursor: pointer; transition: fill .45s var(--mov); }
 .pais-mapa:hover { stroke: var(--tinta); stroke-width: 1; }
 .pais-mapa--mex { stroke: var(--tinta); stroke-width: 1.6; }
 .pais-mapa--sel { stroke: var(--foco); stroke-width: 2; }

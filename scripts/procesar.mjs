@@ -346,6 +346,14 @@ async function geometrias() {
   const g2 = d3.geoPath(pr2).digits(1);
   const iso = (p) => [p.ISO_A3, p.ISO_A3_EH, p.ADM0_A3].find((x) => x && x !== '-99');
   const paises = w.features.map((f) => ({ iso3: iso(f.properties), nombre: f.properties.NAME_ES || f.properties.NAME, d: g2(f) })).filter((p) => p.d);
+  // Control: ningún país ni estado puede ocupar una parte desproporcionada del mapa
+  // (si pasa, el polígono quedó invertido y taparía a todos los demás).
+  const revisar = (fc, gp, total, etiqueta, max) => fc.features.forEach((f) => {
+    const a = gp.area(f) / total;
+    if (a > max) throw new Error(`Geometría inválida: ${etiqueta} ${f.properties.NAME || f.properties.name} ocupa ${(a * 100).toFixed(0)}% del mapa`);
+  });
+  revisar(w, g2, W2 * H2, 'país', 0.2);
+  revisar(mx, g1, W1 * H1, 'estado', 0.25);
   log(`Geometrías: 32 estados (Natural Earth 10m) y ${paises.length} países (Natural Earth 50m).`);
   return {
     atribucion: 'Límites: Natural Earth (naturalearthdata.com), dominio público. Estados de México: admin 1, escala 1:10m; países: admin 0, escala 1:50m. Simplificados con mapshaper. Los límites son ilustrativos y no son oficiales.',
@@ -369,4 +377,15 @@ const resultado = {
 fs.mkdirSync(SALIDA, { recursive: true });
 for (const k of ['encig', 'mundial', 'contexto']) fs.writeFileSync(path.join(SALIDA, k + '.json'), JSON.stringify(resultado[k], null, 1));
 fs.writeFileSync(path.join(DATOS, 'datos.js'), '// Generado por scripts/procesar.mjs. No editar a mano.\nwindow.DATOS = ' + JSON.stringify(resultado) + ';\n');
-log('Listo: datos/datos.js y datos/procesados/*.json');
+// Marca de versión en index.html: obliga al navegador a descargar los archivos nuevos
+const crypto = await import('node:crypto');
+const archivos = ['datos/datos.js', 'css/estilos.css', 'js/util.js', 'js/analisis.js', 'js/graficas.js', 'js/app.js'];
+const huella = crypto.createHash('sha1');
+archivos.forEach((a) => huella.update(fs.readFileSync(path.join(RAIZ, a))));
+const v = huella.digest('hex').slice(0, 10);
+const INDEX = path.join(RAIZ, 'index.html');
+let html = fs.readFileSync(INDEX, 'utf8');
+const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\/]/g, (c) => '\\' + c);
+for (const a of archivos) html = html.replace(new RegExp('"' + escRe(a) + '(\\?v=[0-9a-f]+)?"', 'g'), `"${a}?v=${v}"`);
+fs.writeFileSync(INDEX, html);
+log(`Listo: datos/datos.js y datos/procesados/*.json. Versión de archivos: ${v}`);

@@ -1,8 +1,8 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 5:38:48 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 5:57:45 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
-Total: 81 pruebas, 81 correctas, 0 fallas.
+Total: 129 pruebas, 129 correctas, 0 fallas.
 
 | Resultado | Prueba | Detalle |
 |---|---|---|
@@ -11,6 +11,18 @@ Total: 81 pruebas, 81 correctas, 0 fallas.
 | Correcta | [escritorio-1440] Tabla internacional con 22 países de clase | 22 |
 | Correcta | [escritorio-1440] Sin desplazamiento horizontal de la página | 0px |
 | Correcta | axe sin violaciones: escritorio-1440 Resumen |  |
+| Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
 | Correcta | [escritorio-1440] Mapa de México con 32 estados e ícono por estado |  |
 | Correcta | [escritorio-1440] Mapa del mundo dibujado con México resaltado |  |
 | Correcta | [escritorio-1440] Clic en Yucatán en el mapa lo selecciona en todo el sitio |  |
@@ -43,6 +55,14 @@ Total: 81 pruebas, 81 correctas, 0 fallas.
 | Correcta | [escritorio-1440] Ordenar gasto de bolsillo de menor a mayor | Ruanda |
 | Correcta | [escritorio-1440] Búsqueda en tabla estatal («nuevo» encuentra Nuevo León) |  |
 | Correcta | [escritorio-1440] Ordenamiento en tabla internacional |  |
+| Correcta | [escritorio-1440 con filtros] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 con filtros] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 con filtros] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 con filtros] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [escritorio-1440 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 670px |
+| Correcta | [escritorio-1440 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 670px |
+| Correcta | [escritorio-1440 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 670px |
+| Correcta | [escritorio-1440 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 670px |
 | Correcta | [escritorio-1440] Vista «Cómo se calculó» con reglas y fuentes |  |
 | Correcta | axe sin violaciones: escritorio-1440 Cómo se calculó |  |
 | Correcta | [escritorio-1440] Sin errores en consola |  |
@@ -51,6 +71,18 @@ Total: 81 pruebas, 81 correctas, 0 fallas.
 | Correcta | [celular-390] Tabla internacional con 22 países de clase | 22 |
 | Correcta | [celular-390] Sin desplazamiento horizontal de la página | 0px |
 | Correcta | axe sin violaciones: celular-390 Resumen |  |
+| Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, uhc] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, gasto] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 servidor, bolsillo] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [celular-390] Mapa de México con 32 estados e ícono por estado |  |
 | Correcta | [celular-390] Mapa del mundo dibujado con México resaltado |  |
 | Correcta | [celular-390] Clic en Yucatán en el mapa lo selecciona en todo el sitio |  |
@@ -83,7 +115,23 @@ Total: 81 pruebas, 81 correctas, 0 fallas.
 | Correcta | [celular-390] Ordenar gasto de bolsillo de menor a mayor | Ruanda |
 | Correcta | [celular-390] Búsqueda en tabla estatal («nuevo» encuentra Nuevo León) |  |
 | Correcta | [celular-390] Ordenamiento en tabla internacional |  |
+| Correcta | [celular-390 con filtros] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 con filtros] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 con filtros] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 con filtros] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [celular-390 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1110px |
+| Correcta | [celular-390 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1110px |
+| Correcta | [celular-390 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1110px |
+| Correcta | [celular-390 tras cambiar el tamaño] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1110px |
 | Correcta | [celular-390] Vista «Cómo se calculó» con reglas y fuentes |  |
 | Correcta | axe sin violaciones: celular-390 Cómo se calculó |  |
 | Correcta | [celular-390] Sin errores en consola |  |
 | Correcta | [archivo local] Abre con las cuatro gráficas sin servidor |  |
+| Correcta | [archivo local 1280] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [archivo local 1280] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [archivo local 1280] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [archivo local 1280] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 1190px |
+| Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
+| Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |

@@ -54,6 +54,33 @@ async function axe(page, etiqueta) {
 
 async function texto(page, sel) { return (await page.textContent(sel)) || ''; }
 
+// Cuenta países del mapa mundial con relleno visible: ni transparente, ni negro por omisión, ni igual al fondo,
+// y que ninguno tape el mapa (polígono invertido).
+async function paisesVisibles(page, sel) {
+  return page.$eval(sel, (cont) => {
+    const svg = cont.querySelector('svg'); if (!svg) return { n: 0, gigantes: 0, motivo: 'sin svg' };
+    const fondo = getComputedStyle(cont.closest('.tarjeta')).backgroundColor;
+    const caja = svg.getBoundingClientRect();
+    const ps = [...svg.querySelectorAll('.pais-mapa')];
+    const n = ps.filter((p) => { const f = getComputedStyle(p).fill; const r = p.getBoundingClientRect(); return f && f !== 'none' && f !== 'rgb(0, 0, 0)' && f !== fondo && !/rgba\(0, 0, 0, 0\)/.test(f) && r.width > 0; }).length;
+    const gigantes = ps.filter((p) => { const r = p.getBoundingClientRect(); return r.width * r.height > 0.6 * caja.width * caja.height; }).length;
+    return { n, gigantes, ancho: Math.round(caja.width) };
+  });
+}
+async function revisarMundo(page, etiqueta) {
+  for (const tema of ['light', 'dark']) {
+    await page.evaluate((t) => { document.documentElement.dataset.theme = t; }, tema);
+    for (const [sec, sel] of [['resumen', '#m2'], ['mundial', '#m3']]) {
+      await page.click(`a[data-seccion="${sec}"]`);
+      await page.waitForTimeout(700);
+      const r = await paisesVisibles(page, sel);
+      ok(`[${etiqueta}] Mapa mundial con 150 países o más con relleno: pestaña ${sec}, modo ${tema === 'dark' ? 'oscuro' : 'claro'}`, r.n >= 150 && r.gigantes === 0 && r.ancho > 200, `${r.n} con relleno, ${r.gigantes} que tapan el mapa, ancho ${r.ancho}px`);
+    }
+  }
+  await page.evaluate(() => { delete document.documentElement.dataset.theme; });
+  await page.click('a[data-seccion="resumen"]');
+}
+
 for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 'celular-390']]) {
   const { ctx, page, errores } = await abrir(ancho, alto);
   // 1. Carga inicial con datos
@@ -67,6 +94,10 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   ok(`[${nombre}] Sin desplazamiento horizontal de la página`, desborde <= 0, `${desborde}px`);
   await page.screenshot({ path: path.join(CAPT, `${nombre}-resumen.png`), fullPage: true });
   await axe(page, `${nombre} Resumen`);
+
+  // 1a. Mapa mundial visible en cada pestaña, modo e indicador (servidor local)
+  for (const ind of ['uhc', 'gasto', 'bolsillo']) { await page.selectOption('#m2-ind', ind); await revisarMundo(page, `${nombre} servidor, ${ind}`); }
+  await page.selectOption('#m2-ind', 'uhc');
 
   // 1b. Mapas
   ok(`[${nombre}] Mapa de México con 32 estados e ícono por estado`, (await page.$$eval('#m1 .estado-mapa', (l) => l.length)) === 32 && (await page.$$eval('#m1 .capa-iconos > *', (l) => l.length)) === 32);
@@ -162,6 +193,11 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   await page.click('#tabla-int th button[data-col="bolsillo"]');
   ok(`[${nombre}] Ordenamiento en tabla internacional`, (await page.getAttribute('#tabla-int th[aria-sort="ascending"] button', 'data-col')) === 'bolsillo');
 
+  await revisarMundo(page, `${nombre} con filtros`);
+  await page.setViewportSize({ width: ancho === 1440 ? 760 : 1200, height: alto });
+  await revisarMundo(page, `${nombre} tras cambiar el tamaño`);
+  await page.setViewportSize({ width: ancho, height: alto });
+
   // 10. Cómo se calculó
   await page.click('a[data-seccion="metodo"]');
   ok(`[${nombre}] Vista «Cómo se calculó» con reglas y fuentes`, (await texto(page, '#metodo-cuerpo')).includes('R-06') && (await page.$$eval('#metodo .fuentes-lista a', (l) => l.length)) >= 10);
@@ -176,6 +212,9 @@ for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 
   const { ctx, page, errores } = await abrir(1280, 800, pathToFileURL(path.join(RAIZ, 'index.html')).href);
   const svgs = await page.$$eval('#g1 svg, #g2 svg, #g3 svg, #g4 svg', (l) => l.length);
   ok('[archivo local] Abre con las cuatro gráficas sin servidor', svgs === 4 && errores.length === 0, errores.join(' | '));
+  await revisarMundo(page, 'archivo local 1280');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await revisarMundo(page, 'archivo local 390');
   await ctx.close();
 }
 
