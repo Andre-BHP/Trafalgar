@@ -1,6 +1,6 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 6:18:59 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 7:03:56 a.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
 Total: 137 pruebas, 137 correctas, 0 fallas.
 

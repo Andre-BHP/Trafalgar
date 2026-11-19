@@ -489,3 +489,8 @@ dl.datos dd { margin: 0; font-weight: 600; }
 
 tbody th[scope="row"] a { display: inline-flex; align-items: center; min-height: 44px; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cartilla__titulo { fill: var(--acento); } }
+@media (max-width: 640px) {
+  .navegacion ul { flex-wrap: wrap; overflow: visible; gap: .1rem; }
+  .navegacion a { padding: .5rem .6rem; border-radius: var(--radio); }
+  .navegacion a[aria-current="page"] { border-radius: var(--radio) var(--radio) 0 0; }
+}
