@@ -15,11 +15,17 @@ Estado: dirección aprobada por André el 18 de noviembre de 2026 («Sí, Cartil
 
 **Se rechaza:** serif editorial, fondo crema, borde lateral grueso de color, tarjetas idénticas como estructura, rótulos pequeños sobre los títulos, glifos Unicode como íconos.
 
+## Logo y marca
+
+Logo oficial: `logo-trafalgar.webp` (raíz), vectorizado con potrace en tres capas (`scripts/logo.py`) a `img/logo-trafalgar.svg`, con los colores muestreados del archivo (mediana por capa): petróleo `#0c645a`, turquesa `#3fb6a3` y naranja `#ee9c02`. Se usa en el encabezado (sobre una placa clara de esquinas redondeadas, igual en los dos modos), como favicon (SVG y PNG de 32 px), ícono para iPhone (180 px), imagen para compartir (`img/compartir.png`, 1200 x 630, `og:image`) y al centro del QR de planta (placa de 9 x 9 módulos con corrección H). PNG con `node scripts/marca.mjs`.
+
+Paleta ajustada al logo: el encabezado y el acento pasan al petróleo del logo, el acento oscuro al turquesa y el foco y el ámbar al naranja. Contraste: blanco sobre `#0c645a` 7.0:1; `#0c645a` sobre papel 6.85:1; `#3fb6a3` sobre la superficie oscura 7.0:1; el naranja solo como relleno o anillo de foco, y el texto ámbar sigue en `#8a5a00` (5.8:1). Las paletas de las gráficas no cambian (validadas con dataviz).
+
 ## Tokens de color
 
 | Rol | Claro | Oscuro |
 |---|---|---|
-| Encabezado (verde salud) | `#0e4a42` | `#0b2f2a` |
+| Encabezado (petróleo del logo) | `#0c645a` | `#0b3a35` |
 | Superficie secundaria | `#f6f8f7` | `#202120` |
 | Fondo de página | `#f2f5f3` | `#0f1413` |
 | Superficie | `#fcfcfb` | `#1a1a19` |
@@ -27,8 +33,8 @@ Estado: dirección aprobada por André el 18 de noviembre de 2026 («Sí, Cartil
 | Tinta secundaria | `#4a524f` | `#c3c2b7` |
 | Tinta tenue (ejes) | `#6b6f6c` | `#9a9a92` |
 | Línea fina | `#e1e0d9` | `#2c2c2a` |
-| Acento (enlaces, foco del encabezado) | `#0e6b5e` | `#4fc2ad` |
-| Foco | `#f2a900` | `#f2a900` |
+| Acento (enlaces, sello, tarjetas) | `#0c645a` | `#3fb6a3` (turquesa del logo) |
+| Foco y ámbar de relleno (naranja del logo) | `#ee9c02` | `#ee9c02` |
 
 **Gráficas** (skill `dataviz`; validar con `validate_palette.js` en ambos modos):
 - Brecha divergente: rojo `#d03b3b` (debajo) y azul `#2a78d6` (encima); en oscuro `#e66767` y `#3987e5`. Validado con `validate_palette.js` en ambos modos (todas las pruebas pasan). Mapa de México: tres tonos por brazo (`--d-1..3`, `--a-1..3`), sin clase de punto medio; los cortes son −8, −3, 0, 3 y 8 pp.

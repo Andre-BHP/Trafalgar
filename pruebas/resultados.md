@@ -1,6 +1,6 @@
 # Resultados de pruebas
 
-Fecha: 19/11/2026, 3:39:48 p.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
+Fecha: 19/11/2026, 3:53:42 p.m.. Navegador: Microsoft Edge (C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe). Anchos: 1440 px y 390 px. Accesibilidad: axe-core 4.10.3 (WCAG 2.1 A y AA, buenas prácticas).
 
 Total: 246 pruebas, 246 correctas, 0 fallas.
 
@@ -223,18 +223,18 @@ Total: 246 pruebas, 246 correctas, 0 fallas.
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo claro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña resumen, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
 | Correcta | [archivo local 390] Mapa mundial con 150 países o más con relleno: pestaña mundial, modo oscuro | 238 con relleno, 0 que tapan el mapa, ancho 326px |
-| Correcta | [QR] Matriz versión 5 con corrección H hacia la dirección del sitio | versión 5, 37x37, 586 hojas |
+| Correcta | [QR] Matriz versión 5 con corrección H hacia la dirección del sitio | versión 5, 37x37, 545 hojas |
 | Correcta | [QR] Ilustrada: zona de silencio de 4 módulos sin marcas oscuras | ninguna hoja ni rama oscura fuera del código |
-| Correcta | [QR] Animada (1440 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1784 ms medidos en la página (2989 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (1440 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1781 ms medidos en la página (2987 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (1440 px, claro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (1440 px, claro): sin errores en consola |  |
-| Correcta | [QR] Animada (1440 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1781 ms medidos en la página (2990 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (1440 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1781 ms medidos en la página (2984 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (1440 px, oscuro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (1440 px, oscuro): sin errores en consola |  |
-| Correcta | [QR] Animada (390 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1784 ms medidos en la página (3043 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (390 px, claro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1784 ms medidos en la página (3039 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (390 px, claro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (390 px, claro): sin errores en consola |  |
-| Correcta | [QR] Animada (390 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1784 ms medidos en la página (3044 ms con la espera de la prueba) |
+| Correcta | [QR] Animada (390 px, oscuro): espera fuera de pantalla, crece al entrar y termina en menos de 2 s | línea de tiempo de 1.78 s; 1784 ms medidos en la página (3036 ms con la espera de la prueba) |
 | Correcta | [QR] Animada (390 px, oscuro): tarjeta clara también en modo oscuro | rgb(252, 252, 251) |
 | Correcta | [QR] Animada (390 px, oscuro): sin errores en consola |  |
 | Correcta | [QR] Con reduced-motion el QR queda fijo, sin botón de repetir | {"estado":"fijo","boton":true,"red":true} |

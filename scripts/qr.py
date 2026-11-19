@@ -89,6 +89,23 @@ for p in puntos:
     tipo = 1 if rnd.random() < .07 else 0
     hojas.append([r2(p[0]), r2(p[1]), orient, tipo, rnd.randrange(len(VERDES)), prof, r2(padre[0]), r2(padre[1])])
 
+# Logo oficial al centro: placa clara de 9 x 9 módulos con el logo de 7 x 7. Las hojas que quedan
+# debajo no se dibujan; la corrección H (hasta 30%) recupera esos módulos.
+import re as _re
+LOGO_SVG = open(os.path.join(RAIZ, 'img', 'logo-trafalgar.svg'), encoding='utf-8').read()
+LOGO_VB = [float(v) for v in _re.search(r'viewBox="([^"]+)"', LOGO_SVG).group(1).split()]
+LOGO_PATHS = [{'fill': f, 'd': d} for f, d in _re.findall(r'fill="(#[0-9a-f]{6})" d="([^"]+)"', LOGO_SVG)]
+PLACA, LOGO_LADO = 9, 7
+LC = Q + N / 2
+PX0 = LC - PLACA / 2
+hojas = [h for h in hojas if not (PX0 < h[0] < PX0 + PLACA and PX0 < h[1] < PX0 + PLACA)]
+
+def logo_svg():
+    k = LOGO_LADO / LOGO_VB[2]
+    x = LC - LOGO_LADO / 2
+    return (f'<rect x="{PX0}" y="{PX0}" width="{PLACA}" height="{PLACA}" rx="1.6" fill="#fcfcfb" stroke="#d3e4da" stroke-width=".15"/>'
+            f'<g transform="translate({x} {x}) scale({k:.6f}) translate({-LOGO_VB[0]} {-LOGO_VB[1]})">' + ''.join(f'<path fill="{p["fill"]}" d="{p["d"]}"/>' for p in LOGO_PATHS) + '</g>')
+
 def hoja_d(x, y, o, h=.6):
     if o == 0:
         a, b, c1, c2 = (x - h, y + h), (x + h, y - h), (x - h, y - h), (x + h, y + h)
@@ -140,6 +157,7 @@ def svg_completo():
         partes.append(flor_svg(x, y) if t else f'<path d="{hoja_d(x, y, o)}" fill="{VERDES[col]}"/>')
     partes += [ojo_svg(c, f) for c, f in ojos]
     partes += [alin_svg(c, f) for c, f in alineaciones]
+    partes.append(logo_svg())
     partes.append(f'<text x="{W / 2}" y="{H - 1.1}" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="1.45" font-weight="700" fill="{VERDES[1]}">andre-bhp.github.io/Trafalgar</text>')
     partes.append('</svg>')
     return '\n'.join(partes)
@@ -154,6 +172,7 @@ datos = {
     'tronco': TRONCO_D, 'suelo': SUELO_D,
     'ojos': [[c + Q, f + Q] for c, f in ojos], 'alineaciones': [[c + Q, f + Q] for c, f in alineaciones],
     'ramas': ramas, 'hojas': hojas,
+    'logo': {'placa': [PX0, PLACA], 'lado': LOGO_LADO, 'centro': LC, 'viewBox': LOGO_VB, 'paths': LOGO_PATHS},
     'matriz': [''.join('1' if v else '0' for v in fila) for fila in M],
 }
 with open(os.path.join(RAIZ, 'qr', 'trafalgar-qr.json'), 'w', encoding='utf-8') as fh:

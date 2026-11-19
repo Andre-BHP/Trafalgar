@@ -34,6 +34,12 @@
   };
   const alin = ([c, f]) => `<g class="qr-ojo"><path d="${caja(c - 2, f - 2, 5, 5, 1)}${caja(c - 1, f - 1, 3, 3, 0.5)}" fill="${C.verdes[0]}" fill-rule="evenodd"/><circle cx="${c + 0.5}" cy="${f + 0.5}" r=".55" fill="${C.carmin}"/></g>`;
 
+  // Logo oficial al centro, sobre una placa clara (las hojas de debajo ya no vienen en los datos)
+  const logo = () => {
+    const L = D.logo; if (!L) return '';
+    const k = L.lado / L.viewBox[2], x = L.centro - L.lado / 2;
+    return `<g class="qr-logo"><rect x="${L.placa[0]}" y="${L.placa[0]}" width="${L.placa[1]}" height="${L.placa[1]}" rx="1.6" fill="${C.papel}" stroke="${C.rama}" stroke-width=".15"/><g transform="translate(${x} ${x}) scale(${k.toFixed(6)}) translate(${-L.viewBox[0]} ${-L.viewBox[1]})">${L.paths.map((p) => `<path fill="${p.fill}" d="${p.d}"/>`).join('')}</g></g>`;
+  };
   // Ramas agrupadas por profundidad para abrirlas por orden
   const porProf = {};
   for (const r of D.ramas) (porProf[r[7]] = porProf[r[7]] || []).push(r);
@@ -49,6 +55,7 @@
     <g class="qr-ramas" fill="none" stroke="${C.rama}" stroke-linecap="round">${ramasSvg}</g>
     <g class="qr-hojas">${D.hojas.map(([x, y, o, t, col]) => (t ? flor(x, y) : `<path class="qr-hoja" d="${hojaD(x, y, o)}" fill="${C.verdes[col]}"/>`)).join('')}</g>
     ${D.ojos.map(ojo).join('')}${D.alineaciones.map(alin).join('')}
+    ${logo()}
     <text x="${W / 2}" y="${H - 1.1}" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="1.45" font-weight="700" fill="${C.verdes[1]}">andre-bhp.github.io/Trafalgar</text>
   </svg>`;
 
@@ -82,6 +89,8 @@
   const orden = hojas.map((h, i) => [h, Math.hypot(D.hojas[i][0] - cx, D.hojas[i][1] - cy)]).sort((a, b) => a[1] - b[1]).map((a) => a[0]);
   tl.to(orden, { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.42, ease: 'power3.inOut', stagger: { amount: 0.14 } }, 1.22);
   ojos.forEach((o) => tl.from(o, { scale: 0, transformOrigin: '50% 50%', duration: 0.45, ease: 'back.out(1.7)' }, 1.28));
+  const logoEl = svg.querySelector('.qr-logo');
+  if (logoEl) tl.from(logoEl, { scale: 0, transformOrigin: '50% 50%', duration: 0.42, ease: 'back.out(1.6)' }, 1.3);
   window.QR_ANIM.duracion = tl.duration();
   window.QR_ANIM.estado = 'espera';
   tl.progress(0);

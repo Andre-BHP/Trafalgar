@@ -3,8 +3,8 @@
 /* ---------- Tokens: modo claro ---------- */
 :root {
   color-scheme: light;
-  --cabecera: #0e4a42;
-  --cabecera-2: #0a3a34;
+  --cabecera: #0c645a;
+  --cabecera-2: #094d45;
   --cabecera-tinta: #ffffff;
   --cabecera-tinta-2: #cfe3de;
   --fondo: #f2f5f3;
@@ -16,11 +16,11 @@
   --linea: #dfe3e0;
   --linea-2: #ebeeec;
   --eje: #c3c7c4;
-  --acento: #0e6b5e;
-  --acento-2: #0a5248;
-  --acento-suave: #e1efec;
-  --sello: #0e6b5e;
-  --foco: #f2a900;
+  --acento: #0c645a;
+  --acento-2: #094b44;
+  --acento-suave: #dff1ec;
+  --sello: #0c645a;
+  --foco: #ee9c02;
   /* Datos: divergente rojo-azul (validado con dataviz) */
   --debajo: #d03b3b;
   --arriba: #2a78d6;
@@ -45,8 +45,8 @@
   --resorte: linear(0, .062, .209, .391, .574, .737, .869, .966, 1.031, 1.067, 1.082, 1.082, 1.072, 1.058, 1.043, 1.028, 1.016, 1.006, 1, .996, .994, .993, .994, .995, .996, .997, .998, .999, 1);
   --mono: "Cascadia Mono", "Cascadia Code", Consolas, ui-monospace, "SFMono-Regular", Menlo, monospace;
   --formula: "Cambria Math", Cambria, "Times New Roman", serif;
-  --ambar: #c98500; --ambar-tinta: #8a5a00;
-  --luz-1: #2a78d6; --luz-2: #1baf7a; --luz-mezcla: multiply;
+  --ambar: #ee9c02; --ambar-tinta: #8a5a00;
+  --luz-1: #3fb6a3; --luz-2: #ee9c02; --luz-mezcla: multiply;
   /* (lambda) pintarrón de día */
   --piz-fondo: #f8f8f4; --piz-tinta: #141410; --piz-tinta-2: #585848; --piz-gis: #1a60c0; --piz-linea: #c8c8b8;
 }
@@ -55,11 +55,11 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --cabecera: #0b2f2a; --cabecera-2: #082420; --cabecera-tinta: #f0efec; --cabecera-tinta-2: #b9d2cc;
+    --cabecera: #0b3a35; --cabecera-2: #082b27; --cabecera-tinta: #f0efec; --cabecera-tinta-2: #b9d2cc;
     --fondo: #0f1413; --papel: #1a1a19; --papel-2: #202120;
     --tinta: #f0efec; --tinta-2: #c3c2b7; --tinta-3: #b0b0a7;
     --linea: #2f3130; --linea-2: #262726; --eje: #45474a;
-    --acento: #4fc2ad; --acento-2: #7fd6c5; --acento-suave: #173a34; --sello: #4fc2ad;
+    --acento: #3fb6a3; --acento-2: #7fd6c5; --acento-suave: #143a34; --sello: #3fb6a3;
     --debajo: #e66767; --arriba: #3987e5; --sin: #9a9a92; --ref: #f0efec;
     --d-3: #f08a80; --d-2: #c24a42; --d-1: #6e2c28;
     --a-1: #1f3f66; --a-2: #2f6fbf; --a-3: #86b6ef;
@@ -67,18 +67,18 @@
     --mexico: #e66767; --favorable: #3fbf7f; --c-1: #3987e5; --c-2: #d95926; --c-3: #199e70; --neutro: #8a98a0;
     --trama-fondo: #262726; --trama-linea: #5b5e5c; --frontera: #1a1a19;
     --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 20px -10px rgba(0, 0, 0, .6);
-    --ambar: #e0a52a; --ambar-tinta: #f0bf55;
-    --luz-1: #3987e5; --luz-2: #199e70; --luz-mezcla: screen;
+    --ambar: #ee9c02; --ambar-tinta: #f0bf55;
+    --luz-1: #3fb6a3; --luz-2: #ee9c02; --luz-mezcla: screen;
     --piz-fondo: #1a2420; --piz-tinta: #eee8dc; --piz-tinta-2: #a59e87; --piz-gis: #a8c8e8; --piz-linea: #304038;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --cabecera: #0b2f2a; --cabecera-2: #082420; --cabecera-tinta: #f0efec; --cabecera-tinta-2: #b9d2cc;
+  --cabecera: #0b3a35; --cabecera-2: #082b27; --cabecera-tinta: #f0efec; --cabecera-tinta-2: #b9d2cc;
   --fondo: #0f1413; --papel: #1a1a19; --papel-2: #202120;
   --tinta: #f0efec; --tinta-2: #c3c2b7; --tinta-3: #b0b0a7;
   --linea: #2f3130; --linea-2: #262726; --eje: #45474a;
-  --acento: #4fc2ad; --acento-2: #7fd6c5; --acento-suave: #173a34; --sello: #4fc2ad;
+  --acento: #3fb6a3; --acento-2: #7fd6c5; --acento-suave: #143a34; --sello: #3fb6a3;
   --debajo: #e66767; --arriba: #3987e5; --sin: #9a9a92; --ref: #f0efec;
   --d-3: #f08a80; --d-2: #c24a42; --d-1: #6e2c28;
   --a-1: #1f3f66; --a-2: #2f6fbf; --a-3: #86b6ef;
@@ -86,8 +86,8 @@
   --mexico: #e66767; --favorable: #3fbf7f; --c-1: #3987e5; --c-2: #d95926; --c-3: #199e70; --neutro: #8a98a0;
   --trama-fondo: #262726; --trama-linea: #5b5e5c; --frontera: #1a1a19;
   --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 20px -10px rgba(0, 0, 0, .6);
-  --ambar: #e0a52a; --ambar-tinta: #f0bf55;
-  --luz-1: #3987e5; --luz-2: #199e70; --luz-mezcla: screen;
+  --ambar: #ee9c02; --ambar-tinta: #f0bf55;
+  --luz-1: #3fb6a3; --luz-2: #ee9c02; --luz-mezcla: screen;
   --piz-fondo: #1a2420; --piz-tinta: #eee8dc; --piz-tinta-2: #a59e87; --piz-gis: #a8c8e8; --piz-linea: #304038;
 }
 
@@ -685,3 +685,9 @@ thead th { font-size: .76rem; letter-spacing: .01em; }
 #v-mapapriv-sub { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: flex-end; }
 #v-mapapriv-sub select { max-width: 100%; }
 .subrogacion > h2 { margin-bottom: .5rem; }
+
+/* ---------- Logo en el encabezado ---------- */
+.marca h1 { display: flex; align-items: center; gap: .6rem; }
+.marca__logo { display: inline-grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 12px; background: #fcfcfb; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); flex: none; }
+.marca__logo img { width: 2.1rem; height: 2.1rem; display: block; }
+@media (max-width: 640px) { .marca__logo { width: 2.2rem; height: 2.2rem; } .marca__logo img { width: 1.8rem; height: 1.8rem; } }
