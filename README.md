@@ -11,6 +11,8 @@ Tablero web estático, en español, para responder cuatro preguntas sobre el sis
 
 Secciones: **Resumen** (mapa de México por estado, mapa del mundo, 4 gráficas y 2 tablas), **México por estado** (incluye el caso IMSS 2026), **Comparación mundial**, **Estrategia de mejora** y **Cómo se calculó**.
 
+Sitio publicado: https://andre-bhp.github.io/Trafalgar/ · Repositorio: https://github.com/Andre-BHP/Trafalgar
+
 ## Cómo abrirlo
 
 No necesita instalar nada para verlo:
