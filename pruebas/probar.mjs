@@ -1,0 +1,189 @@
+// Pruebas de funcionamiento, diseño adaptable y accesibilidad (axe) en Microsoft Edge.
+// Uso: npm run probar     Resultados: pruebas/resultados.md y pruebas/capturas/*.png
+import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { chromium } = require('playwright-core');
+const AXE = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
+
+const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const CAPT = path.join(RAIZ, 'pruebas', 'capturas');
+const EDGE = process.env.EDGE || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+fs.mkdirSync(CAPT, { recursive: true });
+
+// Servidor estático mínimo
+const TIPOS = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.png': 'image/png' };
+const servidor = http.createServer((req, res) => {
+  const ruta = path.join(RAIZ, decodeURIComponent(req.url.split('?')[0]).replace(/\/$/, '/index.html'));
+  if (!ruta.startsWith(RAIZ) || !fs.existsSync(ruta)) { res.writeHead(404); return res.end(); }
+  res.writeHead(200, { 'Content-Type': TIPOS[path.extname(ruta)] || 'application/octet-stream' });
+  fs.createReadStream(ruta).pipe(res);
+});
+await new Promise((r) => servidor.listen(0, '127.0.0.1', r));
+const BASE = `http://127.0.0.1:${servidor.address().port}/`;
+
+const resultados = [];
+const ok = (nombre, cond, detalle = '') => { resultados.push({ nombre, ok: !!cond, detalle }); console.log(`${cond ? 'OK  ' : 'FALLA'} ${nombre}${detalle ? ' - ' + detalle : ''}`); };
+
+const navegador = await chromium.launch({ executablePath: EDGE, headless: true });
+
+async function abrir(ancho, alto, url = BASE) {
+  const ctx = await navegador.newContext({ viewport: { width: ancho, height: alto }, deviceScaleFactor: 1, locale: 'es-MX' });
+  const page = await ctx.newPage();
+  const errores = [];
+  page.on('pageerror', (e) => errores.push(e.message));
+  page.on('console', (m) => { if (m.type() === 'error') errores.push(m.text()); });
+  await page.goto(url);
+  await page.waitForSelector('#g1 svg', { state: 'attached' });
+  return { ctx, page, errores };
+}
+
+async function axe(page, etiqueta) {
+  await page.waitForTimeout(600); // deja terminar transiciones de color antes de medir contraste
+  await page.addScriptTag({ content: AXE });
+  const r = await page.evaluate(async () => {
+    const res = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'] } });
+    return res.violations.map((v) => ({ id: v.id, impacto: v.impact, n: v.nodes.length, ejemplo: v.nodes[0] && v.nodes[0].target.join(' ') }));
+  });
+  ok(`axe sin violaciones: ${etiqueta}`, r.length === 0, r.map((v) => `${v.id} (${v.impacto}, ${v.n}) ${v.ejemplo}`).join(' | '));
+}
+
+async function texto(page, sel) { return (await page.textContent(sel)) || ''; }
+
+for (const [ancho, alto, nombre] of [[1440, 900, 'escritorio-1440'], [390, 844, 'celular-390']]) {
+  const { ctx, page, errores } = await abrir(ancho, alto);
+  // 1. Carga inicial con datos
+  const svgs = await page.$$eval('#g1 svg, #g2 svg, #g3 svg, #g4 svg', (l) => l.length);
+  ok(`[${nombre}] Cuatro gráficas dibujadas al abrir`, svgs === 4, `${svgs} gráficas`);
+  const filasEst = await page.$$eval('#tabla-est tbody tr', (l) => l.length);
+  const filasInt = await page.$$eval('#tabla-int tbody tr', (l) => l.length);
+  ok(`[${nombre}] Tabla estatal con 32 filas`, filasEst === 32, `${filasEst}`);
+  ok(`[${nombre}] Tabla internacional con 22 países de clase`, filasInt === 22, `${filasInt}`);
+  const desborde = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  ok(`[${nombre}] Sin desplazamiento horizontal de la página`, desborde <= 0, `${desborde}px`);
+  await page.screenshot({ path: path.join(CAPT, `${nombre}-resumen.png`), fullPage: true });
+  await axe(page, `${nombre} Resumen`);
+
+  // 1b. Mapas
+  ok(`[${nombre}] Mapa de México con 32 estados e ícono por estado`, (await page.$$eval('#m1 .estado-mapa', (l) => l.length)) === 32 && (await page.$$eval('#m1 .capa-iconos > *', (l) => l.length)) === 32);
+  ok(`[${nombre}] Mapa del mundo dibujado con México resaltado`, (await page.$$eval('#m2 .pais-mapa', (l) => l.length)) > 180 && (await page.$$eval('#m2 .pais-mapa--mex', (l) => l.length)) === 1);
+  await page.$eval('#m1 .estado-mapa[data-clave="31"]', (el) => { el.scrollIntoView({ block: 'center' }); el.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
+  ok(`[${nombre}] Clic en Yucatán en el mapa lo selecciona en todo el sitio`, (await page.inputValue('#sel-ent')) === '31' && (await texto(page, '#m1-ficha')).includes('Yucatán') && (await texto(page, '#g2-sub')).includes('Yucatán') && (await texto(page, '#estrategia-cuerpo')).includes('Yucatán'));
+  await page.focus('#m1 .estado-mapa[data-clave="20"]');
+  await page.keyboard.press('Enter');
+  ok(`[${nombre}] El mapa de México funciona con teclado (Enter en Oaxaca)`, (await page.inputValue('#sel-ent')) === '20');
+  await page.$eval('#m2 .pais-mapa[data-iso="CRI"]', (el) => el.dispatchEvent(new MouseEvent('click', { bubbles: true })));
+  ok(`[${nombre}] Clic en Costa Rica en el mapa del mundo sincroniza dispersión y tabla`, (await texto(page, '#g3-detalle')).includes('Costa Rica') && (await page.$$eval('#tabla-int tr.fila--sel', (l) => l.map((t) => t.textContent).join(''))).includes('Costa Rica'));
+  await page.selectOption('#m2-ind', 'bolsillo');
+  ok(`[${nombre}] Selector de indicador del mapa del mundo`, (await page.textContent('#m2-leyenda')).includes('40% o más'));
+  const trama = await page.$$eval('#m2 .pais-mapa', (l) => l.filter((p) => p.style.fill.includes('trama')).length);
+  ok(`[${nombre}] Países sin dato con trama, no como cero`, trama > 0, `${trama} con trama`);
+  await page.click('#btn-tema');
+  ok(`[${nombre}] Cambio a modo oscuro`, (await page.getAttribute('html', 'data-theme')) === 'dark');
+  await page.screenshot({ path: path.join(CAPT, `${nombre}-resumen-oscuro.png`), fullPage: true });
+  await axe(page, `${nombre} Resumen en modo oscuro`);
+  await page.click('#btn-tema');
+  await page.selectOption('#sel-ent', '28');
+
+  // 2. Seleccionar un estado desde la gráfica
+  const antesG2 = await texto(page, '#g2-sub');
+  await page.click('#g1 .barra[data-clave="14"]');
+  const ent = await page.inputValue('#sel-ent');
+  ok(`[${nombre}] Clic en la barra de Jalisco selecciona el estado`, ent === '14', ent);
+  ok(`[${nombre}] La gráfica 2 se actualiza con el estado`, (await texto(page, '#g2-sub')).includes('Jalisco') && antesG2 !== (await texto(page, '#g2-sub')));
+
+  // 3. Cambiar de institución actualiza indicadores y estrategia
+  await page.selectOption('#sel-inst', 'issste');
+  ok(`[${nombre}] Cambio a ISSSTE actualiza la gráfica 1`, (await texto(page, '#g1-sub')).includes('ISSSTE'));
+  ok(`[${nombre}] Cambio a ISSSTE actualiza la estrategia`, (await texto(page, '#estrategia-cuerpo')).includes('ISSSTE'));
+
+  // 4. Entidad con indicadores de precisión baja (ISSSTE, Querétaro): se excluyen de la prioridad
+  await page.selectOption('#sel-ent', '22');
+  const h2 = await texto(page, '#g2-hallazgo');
+  ok(`[${nombre}] Querétaro-ISSSTE: aspectos con precisión baja excluidos y nombrados`, /Excluidos/.test(h2) && /saturaci/i.test(h2), h2.slice(0, 160));
+
+  // 5. Institución sin datos estatales (IMSS-Bienestar): «Sin datos comparables» y regla R-99
+  await page.selectOption('#sel-inst', 'imssb');
+  const h1 = await texto(page, '#g1-hallazgo');
+  ok(`[${nombre}] IMSS-Bienestar muestra «Sin datos comparables»`, h1.includes('Sin datos comparables'), h1.slice(0, 120));
+  await page.click('a[data-seccion="estrategia"]');
+  const estr = await texto(page, '#estrategia-cuerpo');
+  ok(`[${nombre}] IMSS-Bienestar: la estrategia explica qué información conseguir primero (R-99)`, estr.includes('R-99') && estr.includes('conseguir primero'));
+  await page.screenshot({ path: path.join(CAPT, `${nombre}-estrategia-sin-datos.png`), fullPage: true });
+
+  // 6. Estrategia con brecha (IMSS, Tamaulipas)
+  await page.selectOption('#sel-inst', 'imss');
+  await page.selectOption('#sel-ent', '28');
+  const e2 = await texto(page, '#estrategia-cuerpo');
+  ok(`[${nombre}] IMSS-Tamaulipas: estrategia con dato observado, referencia, brecha, práctica e indicador`,
+    /Dato observado/.test(e2) && /Referencia/.test(e2) && /pp/.test(e2) && /Indicador de resultado/.test(e2) && /Regla R-\d\d/.test(e2));
+  const enlacesPract = await page.$$eval('#estrategia a[href^="http"]', (l) => l.length);
+  ok(`[${nombre}] La estrategia enlaza fuentes de prácticas`, enlacesPract > 0, `${enlacesPract} enlaces`);
+  await page.screenshot({ path: path.join(CAPT, `${nombre}-estrategia.png`), fullPage: true });
+  await axe(page, `${nombre} Estrategia`);
+
+  // 7. México por estado
+  await page.click('a[data-seccion="mexico"]');
+  ok(`[${nombre}] México por estado incluye el caso IMSS con periodo`, (await texto(page, '#caso-imss')).includes('12 de octubre de 2026'));
+  ok(`[${nombre}] Modalidad 40 identificada como esquema de retiro`, (await texto(page, '#caso-imss')).includes('cotización voluntaria para el retiro'));
+  ok(`[${nombre}] Contexto del estado con 5 indicadores y fuente`, (await page.$$eval('#contexto .contexto__fila', (l) => l.length)) === 5 && (await page.$$eval('#contexto a[href^="http"]', (l) => l.length)) >= 5);
+  await page.screenshot({ path: path.join(CAPT, `${nombre}-mexico.png`), fullPage: true });
+  await axe(page, `${nombre} México por estado`);
+
+  // 8. Comparación mundial
+  await page.click('a[data-seccion="mundial"]');
+  const pract = await page.$$eval('#practicas .practica', (l) => l.length);
+  ok(`[${nombre}] Fichas de prácticas con enlace a la fuente`, pract >= 2 && (await page.$$eval('#practicas a[href^="http"]', (l) => l.length)) >= pract, `${pract} fichas`);
+  await page.screenshot({ path: path.join(CAPT, `${nombre}-mundial.png`), fullPage: true });
+  await axe(page, `${nombre} Comparación mundial`);
+
+  // 9. Filtros de país y región en Resumen
+  await page.click('a[data-seccion="resumen"]');
+  await page.click('[data-conjunto="todos"]');
+  const puntos = await page.$$eval('#g3 .punto', (l) => l.length);
+  ok(`[${nombre}] Conjunto completo: 191 países en la dispersión`, puntos === 191, `${puntos}`);
+  await page.selectOption('#g3-region', 'Asia oriental y Pacífico');
+  const atenuados = await page.$$eval('#g3 .punto--atenuado', (l) => l.length);
+  ok(`[${nombre}] Filtro por región atenúa los demás países`, atenuados > 100, `${atenuados} atenuados`);
+  await page.selectOption('#g3-pais', 'THA');
+  ok(`[${nombre}] Elegir país muestra su detalle`, (await texto(page, '#g3-detalle')).includes('Tailandia'));
+  await page.click('#g3 .punto[data-iso="MEX"]', { force: true });
+  ok(`[${nombre}] Clic en el punto de México muestra su detalle`, (await texto(page, '#g3-detalle')).includes('México'));
+  await page.selectOption('#g4-orden', 'asc');
+  const primero = await page.$eval('#g4 svg g:nth-of-type(2) text', (t) => t.textContent);
+  ok(`[${nombre}] Ordenar gasto de bolsillo de menor a mayor`, !!primero, primero);
+  await page.fill('#buscar-est', 'nuevo');
+  await page.waitForFunction(() => document.querySelectorAll('#tabla-est tbody tr').length === 1, null, { timeout: 3000 }).catch(() => {});
+  ok(`[${nombre}] Búsqueda en tabla estatal («nuevo» encuentra Nuevo León)`, (await page.$$eval('#tabla-est tbody tr', (l) => l.length)) === 1);
+  await page.click('#tabla-int th button[data-col="bolsillo"]');
+  ok(`[${nombre}] Ordenamiento en tabla internacional`, (await page.getAttribute('#tabla-int th[aria-sort="ascending"] button', 'data-col')) === 'bolsillo');
+
+  // 10. Cómo se calculó
+  await page.click('a[data-seccion="metodo"]');
+  ok(`[${nombre}] Vista «Cómo se calculó» con reglas y fuentes`, (await texto(page, '#metodo-cuerpo')).includes('R-06') && (await page.$$eval('#metodo .fuentes-lista a', (l) => l.length)) >= 10);
+  await axe(page, `${nombre} Cómo se calculó`);
+
+  ok(`[${nombre}] Sin errores en consola`, errores.length === 0, errores.join(' | '));
+  await ctx.close();
+}
+
+// 11. Abrir el archivo directamente (sin servidor)
+{
+  const { ctx, page, errores } = await abrir(1280, 800, pathToFileURL(path.join(RAIZ, 'index.html')).href);
+  const svgs = await page.$$eval('#g1 svg, #g2 svg, #g3 svg, #g4 svg', (l) => l.length);
+  ok('[archivo local] Abre con las cuatro gráficas sin servidor', svgs === 4 && errores.length === 0, errores.join(' | '));
+  await ctx.close();
+}
+
+await navegador.close();
+servidor.close();
+
+const fallas = resultados.filter((r) => !r.ok);
+const md = `# Resultados de pruebas\n\nFecha: ${new Date().toLocaleString('es-MX')}. Navegador: Microsoft Edge (${EDGE}). Anchos: 1440 px y 390 px. Accesibilidad: axe-core ${require('axe-core/package.json').version} (WCAG 2.1 A y AA, buenas prácticas).\n\nTotal: ${resultados.length} pruebas, ${resultados.length - fallas.length} correctas, ${fallas.length} fallas.\n\n| Resultado | Prueba | Detalle |\n|---|---|---|\n${resultados.map((r) => `| ${r.ok ? 'Correcta' : 'Falla'} | ${r.nombre} | ${String(r.detalle).replace(/\|/g, '/').slice(0, 300)} |`).join('\n')}\n`;
+fs.writeFileSync(path.join(RAIZ, 'pruebas', 'resultados.md'), md);
+console.log(`\n${resultados.length - fallas.length}/${resultados.length} correctas`);
+process.exit(fallas.length ? 1 : 0);

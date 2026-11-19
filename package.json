@@ -1,0 +1,22 @@
+{
+  "name": "salud-en-comparacion",
+  "version": "1.0.0",
+  "description": "Salud en Comparación: tablero estático sobre el sistema de salud en México",
+  "scripts": {
+    "datos": "node scripts/procesar.mjs",
+    "servir": "npx --yes http-server -p 8080 -c-1 .",
+    "probar": "node pruebas/probar.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "axe-core": "^4.10.3",
+    "d3-geo": "^3.1.1",
+    "exceljs": "^4.4.0",
+    "mapshaper": "^0.6.102",
+    "playwright-core": "^1.56.1",
+    "xlsx": "^0.18.5"
+  },
+  "private": true
+}

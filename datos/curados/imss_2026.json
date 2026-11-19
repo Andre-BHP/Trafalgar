@@ -1,0 +1,43 @@
+{
+  "actividad_quirurgica": {
+    "tipo": "Indicador de atención médica",
+    "fuente": "imss_boletin_593",
+    "periodo": "Acumulado del 12 de octubre de 2026 a la fecha del boletín 593/2026, publicado el 18 de noviembre de 2026",
+    "cifras": [
+      { "concepto": "Cirugías adicionales en turnos nocturnos y fines de semana", "valor": 6294, "unidad": "intervenciones" },
+      { "concepto": "De ellas, cirugías de cataratas", "valor": 3072, "unidad": "intervenciones" },
+      { "concepto": "Equipos médicos de alta tecnología en operación", "valor": 64, "unidad": "equipos" },
+      { "concepto": "Equipos instalados (aún sin operar)", "valor": 81, "unidad": "equipos" },
+      { "concepto": "Equipos en pruebas y capacitación del personal", "valor": 69, "unidad": "equipos" },
+      { "concepto": "Surtimiento completo de recetas", "valor": 94, "unidad": "%" },
+      { "concepto": "Personal de seguridad capacitado en trato digno", "valor": 5854, "unidad": "personas (88% de lo previsto)" },
+      { "concepto": "Trabajadoras y trabajadores que obtuvieron su base", "valor": 4119, "unidad": "personas (38% de la meta de 10 939 plazas al 1 de enero de 2027)" },
+      { "concepto": "Meta de contratación de especialistas en la segunda jornada", "valor": 2500, "unidad": "profesionales (1 688 aspirantes registrados)" }
+    ],
+    "contexto": "El boletín presenta los primeros resultados del plan «12 acciones en 120 días» (día 21 de 120). El IMSS informó que dará seguimiento semanal hasta el 24 de febrero de 2027 con reportes hospital por hospital.",
+    "evaluacion_rezago": {
+      "estado": "Sin datos disponibles",
+      "explicacion": "El boletín reporta cirugías adicionales, pero no publica el número de pacientes en lista de espera, el tiempo de espera ni la meta de reducción. Sin ese denominador no es posible saber qué parte del rezago se atendió. Las 6 294 cirugías no deben leerse como reducción porcentual del rezago."
+    }
+  },
+  "modalidad_40": {
+    "tipo": "Esquema de cotización voluntaria para el retiro (no es un indicador de atención médica)",
+    "fuente": "dof_5801708",
+    "nombre_oficial": "Continuación Voluntaria en el Régimen Obligatorio del Seguro Social (conocida como Modalidad 40)",
+    "acuerdo": "ACDO.AS2.HCT.101026/302.P.DG",
+    "fechas": [
+      { "concepto": "Sesión extraordinaria del H. Consejo Técnico", "fecha": "10 de octubre de 2026" },
+      { "concepto": "Publicación en el DOF", "fecha": "21 de octubre de 2026" },
+      { "concepto": "Entrada en vigor", "fecha": "Día hábil siguiente a su publicación" }
+    ],
+    "puntos": [
+      "Instruye a la Dirección de Finanzas a analizar, en un plazo máximo de 6 meses, el efecto de la Continuación Voluntaria en la situación financiera del IMSS.",
+      "Como medida temporal, quienes ya están inscritos permanecen en las condiciones actuales hasta concluir el periodo contratado.",
+      "Las nuevas inscripciones cotizarán con el último salario base de cotización registrado al causar baja, o hasta ese importe más una UMA; nunca por debajo de un salario mínimo general.",
+      "Los nuevos aseguramientos cuentan solo a partir de la fecha de la solicitud y la inscripción será únicamente por medios digitales.",
+      "Quienes estén en la incorporación voluntaria del artículo 13, fracción I, de la Ley del Seguro Social no podrán contratar la Continuación Voluntaria.",
+      "Se conservan las semanas y salarios cotizados efectivamente pagados para el cálculo de pensiones."
+    ],
+    "relacion_con_atencion": "La Modalidad 40 se refiere a derechos pensionarios. No mide ni modifica directamente la atención médica, por lo que no se usa para calcular brechas ni estrategias de servicio."
+  }
+}

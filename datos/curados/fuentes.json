@@ -1,0 +1,138 @@
+{
+  "consulta": "2026-11-18",
+  "fuentes": {
+    "encig_2025": {
+      "titulo": "Encuesta Nacional de Calidad e Impacto Gubernamental (ENCIG) 2025. Tabulados básicos, II. Evaluación de servicios públicos bajo demanda (cuadros 2.3 a 2.6)",
+      "institucion": "INEGI",
+      "anio": 2025,
+      "publicacion": "21 de mayo de 2026",
+      "url": "https://www.inegi.org.mx/programas/encig/2025/",
+      "archivo": "https://www.inegi.org.mx/contenidos/programas/encig/2025/tabulados/II_evaluacion_servicios_bajo_demanda_encig2025_est.xlsx",
+      "archivo_cv": "https://www.inegi.org.mx/contenidos/programas/encig/2025/tabulados/II_evaluacion_servicios_bajo_demanda_encig2025_cv.xlsx",
+      "alcance": "Población de 18 años y más que reside en áreas urbanas de 100 mil habitantes o más. Cobertura: nacional urbano y por entidad federativa en dominio urbano. Periodo de referencia: enero a diciembre de 2025."
+    },
+    "encig_2023": {
+      "titulo": "Encuesta Nacional de Calidad e Impacto Gubernamental (ENCIG) 2023. Tabulados básicos, II. Evaluación de servicios públicos bajo demanda",
+      "institucion": "INEGI",
+      "anio": 2023,
+      "url": "https://www.inegi.org.mx/programas/encig/2023/",
+      "archivo": "https://www.inegi.org.mx/contenidos/programas/encig/2023/tabulados/II_evaluacion_servicios_bajo_demanda_encig2023_est.xlsx",
+      "archivo_cv": "https://www.inegi.org.mx/contenidos/programas/encig/2023/tabulados/II_evaluacion_servicios_bajo_demanda_encig2023_cv.xlsx",
+      "alcance": "Población de 18 años y más que habita en áreas urbanas de 100 mil habitantes y más, por entidad federativa en dominio urbano."
+    },
+    "encig_2025_resultados": {
+      "titulo": "ENCIG 2025. Principales resultados",
+      "institucion": "INEGI",
+      "anio": 2026,
+      "url": "https://www.inegi.org.mx/contenidos/programas/encig/2025/doc/encig2025_principales_resultados.pdf"
+    },
+    "encig_2025_cuestionario": {
+      "titulo": "ENCIG 2025. Cuestionario general (preguntas 5.4 a 5.7)",
+      "institucion": "INEGI",
+      "anio": 2026,
+      "url": "https://www.inegi.org.mx/contenidos/programas/encig/2025/doc/encig25_cuestionario.pdf"
+    },
+    "bm_uhc": {
+      "titulo": "UHC service coverage index (SH_UHC_SCI)",
+      "institucion": "Banco Mundial, con datos de la OMS",
+      "url": "https://data.worldbank.org/indicator/SH_UHC_SCI",
+      "unidad": "Índice de 0 a 100"
+    },
+    "bm_gasto": {
+      "titulo": "Current health expenditure per capita, PPP (current international $) (SH.XPD.CHEX.PP.CD)",
+      "institucion": "Banco Mundial, con datos de la OMS (Global Health Expenditure Database)",
+      "url": "https://data.worldbank.org/indicator/SH.XPD.CHEX.PP.CD",
+      "unidad": "Dólares internacionales corrientes, ajustados por paridad de poder adquisitivo (PPA), por habitante"
+    },
+    "bm_bolsillo": {
+      "titulo": "Out-of-pocket expenditure (% of current health expenditure) (SH.XPD.OOPC.CH.ZS)",
+      "institucion": "Banco Mundial, con datos de la OMS (Global Health Expenditure Database)",
+      "url": "https://data.worldbank.org/indicator/SH.XPD.OOPC.CH.ZS",
+      "unidad": "Porcentaje del gasto corriente total en salud"
+    },
+    "csv_clase": {
+      "titulo": "Sistemas_de_salud_2023_Oracle.csv (archivo proporcionado para la clase)",
+      "institucion": "Compilación de la clase a partir de los indicadores del Banco Mundial",
+      "anio": 2023
+    },
+    "imss_boletin_593": {
+      "titulo": "IMSS reduce listas de espera con más de 6 mil cirugías adicionales y pone en operación 64 equipos de alta tecnología: Zoé Robledo. Boletín No. 593/2026",
+      "institucion": "Instituto Mexicano del Seguro Social",
+      "anio": 2026,
+      "publicacion": "18 de noviembre de 2026",
+      "url": "https://www.imss.gob.mx/prensa/archivo/202611/593"
+    },
+    "dof_5801708": {
+      "titulo": "Acuerdo ACDO.AS2.HCT.101026/302.P.DG del H. Consejo Técnico del IMSS relativo al análisis del efecto de la Continuación Voluntaria en el Régimen Obligatorio y medidas temporales",
+      "institucion": "Diario Oficial de la Federación",
+      "anio": 2026,
+      "publicacion": "21 de octubre de 2026",
+      "url": "https://sidof.segob.gob.mx/notas/5801708"
+    },
+    "ccss_2021": {
+      "titulo": "Organización y establecimientos de salud de la CCSS al 31-12-2021",
+      "institucion": "Caja Costarricense de Seguro Social (consultado en la Biblioteca Virtual en Salud de la OPS)",
+      "anio": 2021,
+      "url": "https://docs.bvsalud.org/biblioref/2023/01/1411945/organizacion-y-establecimientos-de-salud-de-la-ccss-al-31-12-2021.pdf"
+    },
+    "phcpi_2018": {
+      "titulo": "Population Health Management: Costa Rica. Improvement Strategies",
+      "institucion": "Primary Health Care Performance Initiative (PHCPI)",
+      "anio": 2018,
+      "url": "https://improvingphc.org/costa-rica-population-health-management"
+    },
+    "who_primasys_2017": {
+      "titulo": "Primary Health Care Systems (PRIMASYS): Case study from Thailand. Abridged version (WHO/HIS/HSR/17.2)",
+      "institucion": "Organización Mundial de la Salud, Alianza para la Investigación en Políticas y Sistemas de Salud",
+      "anio": 2017,
+      "url": "https://ahpsr.who.int/docs/librariesprovider11/primasys/alliancehpsr_thailandabridgedprimasys.pdf"
+    },
+    "who_2018_tailandia": {
+      "titulo": "Thailand: the development of primary health care. Technical series on primary health care",
+      "institucion": "Organización Mundial de la Salud",
+      "anio": 2018,
+      "url": "https://www.who.int/teams/primary-health-care/evidence-and-innovation/primary-health-care-case-study-compendium/detail/country-case-studies-on-primary-health-care--thailand--the-development-of-primary-health-care"
+    },
+    "pm_2024": {
+      "titulo": "Pobreza multidimensional 2024. Indicadores de pobreza según entidad federativa (tabulado pm_ef_2024)",
+      "institucion": "INEGI, con la metodología del CONEVAL",
+      "anio": 2024,
+      "publicacion": "13 de agosto de 2025",
+      "url": "https://www.inegi.org.mx/desarrollosocial/pm/",
+      "archivo": "https://www.inegi.org.mx/contenidos/desarrollosocial/pm/tabulados/pm_ef_2024.xlsx",
+      "unidad": "Porcentaje de la población",
+      "alcance": "Población total de cada entidad, con base en la ENIGH 2024."
+    },
+    "enigh_2024": {
+      "titulo": "Encuesta Nacional de Ingresos y Gastos de los Hogares (ENIGH) 2024. Tabulados por entidad federativa, cuadros 1.1 y 4.5",
+      "institucion": "INEGI",
+      "anio": 2024,
+      "publicacion": "30 de julio de 2025",
+      "url": "https://www.inegi.org.mx/programas/enigh/nc/2024/",
+      "archivo": "https://www.inegi.org.mx/contenidos/programas/enigh/nc/2024/tabulados/enigh2024_ns_ef_tabulados.xlsx",
+      "unidad": "Pesos por hogar, promedio trimestral; porcentaje del gasto corriente monetario",
+      "alcance": "Hogares de cada entidad, urbanos y rurales."
+    },
+    "dgis_2024": {
+      "titulo": "Datos abiertos. Recursos en Salud Sectorial 2024 (cierre anual)",
+      "institucion": "Secretaría de Salud, Dirección General de Información en Salud (DGIS)",
+      "anio": 2024,
+      "url": "http://www.dgis.salud.gob.mx/contenidos/basesdedatos/da_recursos_gobmx.html",
+      "archivo": "http://www.dgis.salud.gob.mx/descargas/datosabiertos/recursosSalud/Recursos_Salud_Sectorial_2024.zip",
+      "unidad": "Médicos y camas por cada 1 000 habitantes (cálculo propio con población ENIGH 2024)",
+      "alcance": "23 749 establecimientos del sector público."
+    },
+    "natural_earth": {
+      "titulo": "Natural Earth: Admin 0 Countries (1:50m) y Admin 1 States, Provinces (1:10m)",
+      "institucion": "Natural Earth, dominio público",
+      "url": "https://www.naturalearthdata.com/",
+      "unidad": "Geometrías simplificadas para los mapas"
+    },
+    "oms_eml_2025": {
+      "titulo": "WHO Model Lists of Essential Medicines",
+      "institucion": "Organización Mundial de la Salud",
+      "anio": 2025,
+      "url": "https://www.who.int/groups/expert-committee-on-selection-and-use-of-essential-medicines/essential-medicines-lists"
+    }
+  }
+}

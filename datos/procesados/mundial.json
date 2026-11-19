@@ -1,0 +1,1939 @@
+{
+ "disponible": true,
+ "archivo": "Sistemas_de_salud_2023_Oracle.csv",
+ "fuente": [
+  "csv_clase",
+  "bm_uhc",
+  "bm_gasto",
+  "bm_bolsillo"
+ ],
+ "indicadores": {
+  "uhc": {
+   "etiqueta": "Cobertura de servicios esenciales",
+   "unidad": "índice 0 a 100",
+   "fuente": "bm_uhc"
+  },
+  "gasto": {
+   "etiqueta": "Gasto en salud por habitante",
+   "unidad": "dólares internacionales PPA por habitante",
+   "fuente": "bm_gasto"
+  },
+  "bolsillo": {
+   "etiqueta": "Gasto de bolsillo",
+   "unidad": "% del gasto corriente total en salud",
+   "fuente": "bm_bolsillo"
+  }
+ },
+ "paises": [
+  {
+   "pais": "México",
+   "iso3": "MEX",
+   "anio": 2023,
+   "uhc": 79,
+   "gasto": 1367.99,
+   "bolsillo": 41.24,
+   "region": "América Latina y el Caribe",
+   "clase": true
+  },
+  {
+   "pais": "Brasil",
+   "iso3": "BRA",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 2070.44,
+   "bolsillo": 26.23,
+   "region": "América Latina y el Caribe",
+   "clase": true
+  },
+  {
+   "pais": "Chile",
+   "iso3": "CHL",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 3337.44,
+   "bolsillo": 34.59,
+   "region": "América Latina y el Caribe",
+   "clase": true
+  },
+  {
+   "pais": "Costa Rica",
+   "iso3": "CRI",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 1927.74,
+   "bolsillo": 24.13,
+   "region": "América Latina y el Caribe",
+   "clase": true
+  },
+  {
+   "pais": "Canadá",
+   "iso3": "CAN",
+   "anio": 2023,
+   "uhc": 92,
+   "gasto": 7355.36,
+   "bolsillo": 15.2,
+   "region": "América del Norte",
+   "clase": true
+  },
+  {
+   "pais": "Estados Unidos",
+   "iso3": "USA",
+   "anio": 2023,
+   "uhc": 88,
+   "gasto": 13473.19,
+   "bolsillo": 10.93,
+   "region": "América del Norte",
+   "clase": true
+  },
+  {
+   "pais": "Bangladés",
+   "iso3": "BGD",
+   "anio": 2023,
+   "uhc": 54,
+   "gasto": 198.52,
+   "bolsillo": 79.31,
+   "region": "Asia meridional",
+   "clase": true
+  },
+  {
+   "pais": "India",
+   "iso3": "IND",
+   "anio": 2023,
+   "uhc": 69,
+   "gasto": 346.25,
+   "bolsillo": 43.89,
+   "region": "Asia meridional",
+   "clase": true
+  },
+  {
+   "pais": "Australia",
+   "iso3": "AUS",
+   "anio": 2023,
+   "uhc": 89,
+   "gasto": 7690.82,
+   "bolsillo": 15.85,
+   "region": "Asia oriental y Pacífico",
+   "clase": true
+  },
+  {
+   "pais": "Corea del Sur",
+   "iso3": "KOR",
+   "anio": 2023,
+   "uhc": 88,
+   "gasto": 4797.58,
+   "bolsillo": 31.75,
+   "region": "Asia oriental y Pacífico",
+   "clase": true
+  },
+  {
+   "pais": "Japón",
+   "iso3": "JPN",
+   "anio": 2023,
+   "uhc": 86,
+   "gasto": 5365.08,
+   "bolsillo": 12.24,
+   "region": "Asia oriental y Pacífico",
+   "clase": true
+  },
+  {
+   "pais": "Nueva Zelanda",
+   "iso3": "NZL",
+   "anio": 2023,
+   "uhc": 89,
+   "gasto": 5531.25,
+   "bolsillo": 12.6,
+   "region": "Asia oriental y Pacífico",
+   "clase": true
+  },
+  {
+   "pais": "Tailandia",
+   "iso3": "THA",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 1066.75,
+   "bolsillo": 9.93,
+   "region": "Asia oriental y Pacífico",
+   "clase": true
+  },
+  {
+   "pais": "Alemania",
+   "iso3": "DEU",
+   "anio": 2023,
+   "uhc": 87,
+   "gasto": 8306.18,
+   "bolsillo": 11.05,
+   "region": "Europa y Asia central",
+   "clase": true
+  },
+  {
+   "pais": "España",
+   "iso3": "ESP",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 4934.95,
+   "bolsillo": 20.86,
+   "region": "Europa y Asia central",
+   "clase": true
+  },
+  {
+   "pais": "Reino Unido",
+   "iso3": "GBR",
+   "anio": 2023,
+   "uhc": 88,
+   "gasto": 6364.92,
+   "bolsillo": 14.63,
+   "region": "Europa y Asia central",
+   "clase": true
+  },
+  {
+   "pais": "Egipto",
+   "iso3": "EGY",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 904.67,
+   "bolsillo": 57.2,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": true
+  },
+  {
+   "pais": "Marruecos",
+   "iso3": "MAR",
+   "anio": 2023,
+   "uhc": 65,
+   "gasto": 606.04,
+   "bolsillo": 37.25,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": true
+  },
+  {
+   "pais": "Chad",
+   "iso3": "TCD",
+   "anio": 2023,
+   "uhc": 26,
+   "gasto": 129.91,
+   "bolsillo": 51.68,
+   "region": "África subsahariana",
+   "clase": true
+  },
+  {
+   "pais": "República Centroafricana",
+   "iso3": "CAF",
+   "anio": 2023,
+   "uhc": 39,
+   "gasto": 136.68,
+   "bolsillo": 45.02,
+   "region": "África subsahariana",
+   "clase": true
+  },
+  {
+   "pais": "Ruanda",
+   "iso3": "RWA",
+   "anio": 2023,
+   "uhc": 59,
+   "gasto": 177.01,
+   "bolsillo": 4.1,
+   "region": "África subsahariana",
+   "clase": true
+  },
+  {
+   "pais": "Sudáfrica",
+   "iso3": "ZAF",
+   "anio": 2023,
+   "uhc": 74,
+   "gasto": 1353.75,
+   "bolsillo": 6.69,
+   "region": "África subsahariana",
+   "clase": true
+  },
+  {
+   "pais": "Antigua y Barbuda",
+   "iso3": "ATG",
+   "anio": 2023,
+   "uhc": 81,
+   "gasto": 1241.35,
+   "bolsillo": 20.81,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Argentina",
+   "iso3": "ARG",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 3089.31,
+   "bolsillo": 24.47,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Bahamas",
+   "iso3": "BHS",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 2315.62,
+   "bolsillo": 27.48,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Barbados",
+   "iso3": "BRB",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 1153.1,
+   "bolsillo": 49.49,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Belice",
+   "iso3": "BLZ",
+   "anio": 2023,
+   "uhc": 70,
+   "gasto": 573.34,
+   "bolsillo": 26.78,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Bolivia",
+   "iso3": "BOL",
+   "anio": 2023,
+   "uhc": 67,
+   "gasto": 755.88,
+   "bolsillo": 27.32,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Colombia",
+   "iso3": "COL",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 1708.73,
+   "bolsillo": 14.63,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Cuba",
+   "iso3": "CUB",
+   "anio": 2023,
+   "uhc": 86,
+   "gasto": 2575.41,
+   "bolsillo": 16.58,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Dominica",
+   "iso3": "DMA",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 968.27,
+   "bolsillo": 29.33,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Ecuador",
+   "iso3": "ECU",
+   "anio": 2023,
+   "uhc": 78,
+   "gasto": 1238.09,
+   "bolsillo": 30.89,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "El Salvador",
+   "iso3": "SLV",
+   "anio": 2023,
+   "uhc": 79,
+   "gasto": 1175.52,
+   "bolsillo": 32.49,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Granada",
+   "iso3": "GRD",
+   "anio": 2023,
+   "uhc": 78,
+   "gasto": 880.32,
+   "bolsillo": 48.48,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Guatemala",
+   "iso3": "GTM",
+   "anio": 2023,
+   "uhc": 58,
+   "gasto": 935.35,
+   "bolsillo": 57.18,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Guyana",
+   "iso3": "GUY",
+   "anio": 2023,
+   "uhc": 73,
+   "gasto": 1331.14,
+   "bolsillo": 26.33,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Haití",
+   "iso3": "HTI",
+   "anio": 2023,
+   "uhc": 44,
+   "gasto": 104.72,
+   "bolsillo": 52.4,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Honduras",
+   "iso3": "HND",
+   "anio": 2023,
+   "uhc": 64,
+   "gasto": 553.47,
+   "bolsillo": 53.06,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Jamaica",
+   "iso3": "JAM",
+   "anio": 2023,
+   "uhc": 74,
+   "gasto": 868.62,
+   "bolsillo": 20.25,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Nicaragua",
+   "iso3": "NIC",
+   "anio": 2023,
+   "uhc": 70,
+   "gasto": 688.67,
+   "bolsillo": 37.63,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Panamá",
+   "iso3": "PAN",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 3318.25,
+   "bolsillo": 40.46,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Paraguay",
+   "iso3": "PRY",
+   "anio": 2023,
+   "uhc": 79,
+   "gasto": 1469.45,
+   "bolsillo": 36.32,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Perú",
+   "iso3": "PER",
+   "anio": 2023,
+   "uhc": 68,
+   "gasto": 956.48,
+   "bolsillo": 26.98,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "República Dominicana",
+   "iso3": "DOM",
+   "anio": 2023,
+   "uhc": 73,
+   "gasto": 1168.81,
+   "bolsillo": 25.06,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "San Cristóbal y Nieves",
+   "iso3": "KNA",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 1935.97,
+   "bolsillo": 41.8,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "San Vicente y las Granadinas",
+   "iso3": "VCT",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 907.57,
+   "bolsillo": 26.57,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Santa Lucía",
+   "iso3": "LCA",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 1228.46,
+   "bolsillo": 37.14,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Surinám",
+   "iso3": "SUR",
+   "anio": 2023,
+   "uhc": 74,
+   "gasto": 1142.73,
+   "bolsillo": 19.72,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Trinidad y Tobago",
+   "iso3": "TTO",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 2243.81,
+   "bolsillo": 45.27,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Uruguay",
+   "iso3": "URY",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 3135.28,
+   "bolsillo": 17.1,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Venezuela",
+   "iso3": "VEN",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 112.41,
+   "bolsillo": 29.69,
+   "region": "América Latina y el Caribe",
+   "clase": false
+  },
+  {
+   "pais": "Bután",
+   "iso3": "BTN",
+   "anio": 2023,
+   "uhc": 69,
+   "gasto": 676.7,
+   "bolsillo": 25.46,
+   "region": "Asia meridional",
+   "clase": false
+  },
+  {
+   "pais": "Islas Maldivas",
+   "iso3": "MDV",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 2287.94,
+   "bolsillo": 18.05,
+   "region": "Asia meridional",
+   "clase": false
+  },
+  {
+   "pais": "Nepal",
+   "iso3": "NPL",
+   "anio": 2023,
+   "uhc": 58,
+   "gasto": 332.16,
+   "bolsillo": 59.39,
+   "region": "Asia meridional",
+   "clase": false
+  },
+  {
+   "pais": "Sri Lanka",
+   "iso3": "LKA",
+   "anio": 2023,
+   "uhc": 72,
+   "gasto": 507.06,
+   "bolsillo": 54.81,
+   "region": "Asia meridional",
+   "clase": false
+  },
+  {
+   "pais": "Birmania",
+   "iso3": "MMR",
+   "anio": 2023,
+   "uhc": 52,
+   "gasto": 283.19,
+   "bolsillo": 71.13,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Brunei Darussalam",
+   "iso3": "BRN",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 1896.12,
+   "bolsillo": 7.41,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Camboya",
+   "iso3": "KHM",
+   "anio": 2023,
+   "uhc": 62,
+   "gasto": 350.11,
+   "bolsillo": 60.6,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "China",
+   "iso3": "CHN",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 1486.88,
+   "bolsillo": 32.17,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Filipinas",
+   "iso3": "PHL",
+   "anio": 2023,
+   "uhc": 69,
+   "gasto": 560.42,
+   "bolsillo": 44.36,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Fiyi",
+   "iso3": "FJI",
+   "anio": 2023,
+   "uhc": 69,
+   "gasto": 547.77,
+   "bolsillo": 8.31,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Indonesia",
+   "iso3": "IDN",
+   "anio": 2023,
+   "uhc": 67,
+   "gasto": 416.59,
+   "bolsillo": 31.08,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Islas Marshall",
+   "iso3": "MHL",
+   "anio": 2023,
+   "uhc": 66,
+   "gasto": 874.11,
+   "bolsillo": 1.05,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Islas Salomón",
+   "iso3": "SLB",
+   "anio": 2023,
+   "uhc": 47,
+   "gasto": 153.39,
+   "bolsillo": 3.16,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Kiribati",
+   "iso3": "KIR",
+   "anio": 2023,
+   "uhc": 51,
+   "gasto": 400.91,
+   "bolsillo": 2.91,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Laos",
+   "iso3": "LAO",
+   "anio": 2023,
+   "uhc": 64,
+   "gasto": 123.25,
+   "bolsillo": 44.84,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Malasia",
+   "iso3": "MYS",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 1441.22,
+   "bolsillo": 37.09,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Micronesia, Estados Federados de",
+   "iso3": "FSM",
+   "anio": 2023,
+   "uhc": 65,
+   "gasto": 481.76,
+   "bolsillo": 2.58,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Mongolia",
+   "iso3": "MNG",
+   "anio": 2023,
+   "uhc": 70,
+   "gasto": 1108.95,
+   "bolsillo": 48.8,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Nauru",
+   "iso3": "NRU",
+   "anio": 2023,
+   "uhc": 62,
+   "gasto": 2474.2,
+   "bolsillo": 0.73,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Palaos",
+   "iso3": "PLW",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 1856.71,
+   "bolsillo": 12.1,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Papúa Nueva Guinea",
+   "iso3": "PNG",
+   "anio": 2023,
+   "uhc": 32,
+   "gasto": 133,
+   "bolsillo": 8.55,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Samoa",
+   "iso3": "WSM",
+   "anio": 2023,
+   "uhc": 62,
+   "gasto": 474.51,
+   "bolsillo": 13.42,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Singapur",
+   "iso3": "SGP",
+   "anio": 2023,
+   "uhc": 88,
+   "gasto": 6551.26,
+   "bolsillo": 25.42,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Timor Oriental",
+   "iso3": "TLS",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 461.09,
+   "bolsillo": 6.99,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Tonga",
+   "iso3": "TON",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 512.2,
+   "bolsillo": 5.86,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Tuvalu",
+   "iso3": "TUV",
+   "anio": 2023,
+   "uhc": 65,
+   "gasto": 1670.93,
+   "bolsillo": 0.04,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Vanuatu",
+   "iso3": "VUT",
+   "anio": 2023,
+   "uhc": 52,
+   "gasto": 141.22,
+   "bolsillo": 8.38,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Vietnam",
+   "iso3": "VNM",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 689.55,
+   "bolsillo": 39.2,
+   "region": "Asia oriental y Pacífico",
+   "clase": false
+  },
+  {
+   "pais": "Albania",
+   "iso3": "ALB",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 1464.54,
+   "bolsillo": 48.27,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Andorra",
+   "iso3": "AND",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 5519.41,
+   "bolsillo": 11.15,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Armenia",
+   "iso3": "ARM",
+   "anio": 2023,
+   "uhc": 69,
+   "gasto": 2032.62,
+   "bolsillo": 80.47,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Austria",
+   "iso3": "AUT",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 7883.78,
+   "bolsillo": 16.48,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Azerbaiyán",
+   "iso3": "AZE",
+   "anio": 2023,
+   "uhc": 67,
+   "gasto": 992.84,
+   "bolsillo": 64.63,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Bielorrusia",
+   "iso3": "BLR",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 2193.5,
+   "bolsillo": 28.48,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Bosnia y Herzegovina",
+   "iso3": "BIH",
+   "anio": 2023,
+   "uhc": 64,
+   "gasto": 1989.06,
+   "bolsillo": 30.96,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Bulgaria",
+   "iso3": "BGR",
+   "anio": 2023,
+   "uhc": 73,
+   "gasto": 2969.55,
+   "bolsillo": 35.5,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Bélgica",
+   "iso3": "BEL",
+   "anio": 2023,
+   "uhc": 86,
+   "gasto": 7489.31,
+   "bolsillo": 21.51,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Chequia",
+   "iso3": "CZE",
+   "anio": 2023,
+   "uhc": 83,
+   "gasto": 4499.62,
+   "bolsillo": 14.6,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Chipre",
+   "iso3": "CYP",
+   "anio": 2023,
+   "uhc": 76,
+   "gasto": 4537.68,
+   "bolsillo": 17.94,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Croacia",
+   "iso3": "HRV",
+   "anio": 2023,
+   "uhc": 76,
+   "gasto": 3229.34,
+   "bolsillo": 9.38,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Dinamarca",
+   "iso3": "DNK",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 7097.51,
+   "bolsillo": 13.98,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Eslovaquia",
+   "iso3": "SVK",
+   "anio": 2023,
+   "uhc": 78,
+   "gasto": 3230.25,
+   "bolsillo": 20.15,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Eslovenia",
+   "iso3": "SVN",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 4948.57,
+   "bolsillo": 12.39,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Estonia",
+   "iso3": "EST",
+   "anio": 2023,
+   "uhc": 79,
+   "gasto": 3506.88,
+   "bolsillo": 22.1,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Federación Rusa",
+   "iso3": "RUS",
+   "anio": 2023,
+   "uhc": 81,
+   "gasto": 3203.81,
+   "bolsillo": 28.39,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Finlandia",
+   "iso3": "FIN",
+   "anio": 2023,
+   "uhc": 86,
+   "gasto": 6433.37,
+   "bolsillo": 14.09,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Francia",
+   "iso3": "FRA",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 6719.08,
+   "bolsillo": 9.26,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Georgia",
+   "iso3": "GEO",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 1679.04,
+   "bolsillo": 58.76,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Grecia",
+   "iso3": "GRC",
+   "anio": 2023,
+   "uhc": 77,
+   "gasto": 3453.89,
+   "bolsillo": 34.3,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Hungría",
+   "iso3": "HUN",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 2875.21,
+   "bolsillo": 23.06,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Irlanda",
+   "iso3": "IRL",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 8269.12,
+   "bolsillo": 11.3,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Islandia",
+   "iso3": "ISL",
+   "anio": 2023,
+   "uhc": 90,
+   "gasto": 6618.19,
+   "bolsillo": 14.69,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Italia",
+   "iso3": "ITA",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 4865.98,
+   "bolsillo": 23.65,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Kazajistán",
+   "iso3": "KAZ",
+   "anio": 2023,
+   "uhc": 83,
+   "gasto": 1459.99,
+   "bolsillo": 27.64,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Kirguistán",
+   "iso3": "KGZ",
+   "anio": 2023,
+   "uhc": 74,
+   "gasto": 348.63,
+   "bolsillo": 42.26,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Letonia",
+   "iso3": "LVA",
+   "anio": 2023,
+   "uhc": 77,
+   "gasto": 3033.87,
+   "bolsillo": 35.06,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Lituania",
+   "iso3": "LTU",
+   "anio": 2023,
+   "uhc": 78,
+   "gasto": 3818.7,
+   "bolsillo": 31.02,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Luxemburgo",
+   "iso3": "LUX",
+   "anio": 2023,
+   "uhc": 83,
+   "gasto": 8329.1,
+   "bolsillo": 8.77,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Macedonia del Norte",
+   "iso3": "MKD",
+   "anio": 2023,
+   "uhc": 69,
+   "gasto": 1807.61,
+   "bolsillo": 39.57,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Moldavia",
+   "iso3": "MDA",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 1181.24,
+   "bolsillo": 27.47,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Montenegro",
+   "iso3": "MNE",
+   "anio": 2023,
+   "uhc": 70,
+   "gasto": 2908,
+   "bolsillo": 26.33,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Mónaco",
+   "iso3": "MCO",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 9797.17,
+   "bolsillo": 8.45,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Noruega",
+   "iso3": "NOR",
+   "anio": 2023,
+   "uhc": 89,
+   "gasto": 9523.31,
+   "bolsillo": 13.69,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Países Bajos",
+   "iso3": "NLD",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 7727.04,
+   "bolsillo": 12.03,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Polonia",
+   "iso3": "POL",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 3331.75,
+   "bolsillo": 15.85,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Portugal",
+   "iso3": "PRT",
+   "anio": 2023,
+   "uhc": 83,
+   "gasto": 4678.85,
+   "bolsillo": 29.31,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Rumanía",
+   "iso3": "ROU",
+   "anio": 2023,
+   "uhc": 77,
+   "gasto": 2614.09,
+   "bolsillo": 22.96,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "San Marino",
+   "iso3": "SMR",
+   "anio": 2023,
+   "uhc": 74,
+   "gasto": 5231.15,
+   "bolsillo": 13.09,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Serbia",
+   "iso3": "SRB",
+   "anio": 2023,
+   "uhc": 73,
+   "gasto": 2302.62,
+   "bolsillo": 32.14,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Suecia",
+   "iso3": "SWE",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 7512.07,
+   "bolsillo": 12.96,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Suiza",
+   "iso3": "CHE",
+   "anio": 2023,
+   "uhc": 87,
+   "gasto": 10601.93,
+   "bolsillo": 22.03,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Tayikistán",
+   "iso3": "TJK",
+   "anio": 2023,
+   "uhc": 72,
+   "gasto": 364.08,
+   "bolsillo": 62.36,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Turkmenistán",
+   "iso3": "TKM",
+   "anio": 2023,
+   "uhc": 81,
+   "gasto": 1263.87,
+   "bolsillo": 77.39,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Turquía",
+   "iso3": "TUR",
+   "anio": 2023,
+   "uhc": 77,
+   "gasto": 1769.23,
+   "bolsillo": 19.05,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Uzbekistán",
+   "iso3": "UZB",
+   "anio": 2023,
+   "uhc": 79,
+   "gasto": 748.96,
+   "bolsillo": 64.06,
+   "region": "Europa y Asia central",
+   "clase": false
+  },
+  {
+   "pais": "Afganistán",
+   "iso3": "AFG",
+   "anio": 2023,
+   "uhc": 42,
+   "gasto": 329.82,
+   "bolsillo": 77.14,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Algeria",
+   "iso3": "DZA",
+   "anio": 2023,
+   "uhc": 70,
+   "gasto": 732,
+   "bolsillo": 45,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Arabia Saudí",
+   "iso3": "SAU",
+   "anio": 2023,
+   "uhc": 83,
+   "gasto": 3475.06,
+   "bolsillo": 14.12,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Baréin",
+   "iso3": "BHR",
+   "anio": 2023,
+   "uhc": 78,
+   "gasto": 2555.25,
+   "bolsillo": 28.66,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Catar",
+   "iso3": "QAT",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 2900.58,
+   "bolsillo": 7.43,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Emiratos Árabes Unidos",
+   "iso3": "ARE",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 3727.12,
+   "bolsillo": 9.67,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Irak",
+   "iso3": "IRQ",
+   "anio": 2023,
+   "uhc": 64,
+   "gasto": 842.79,
+   "bolsillo": 53.98,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Irán",
+   "iso3": "IRN",
+   "anio": 2023,
+   "uhc": 81,
+   "gasto": 1064.08,
+   "bolsillo": 43.15,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Israel",
+   "iso3": "ISR",
+   "anio": 2023,
+   "uhc": 85,
+   "gasto": 4033.24,
+   "bolsillo": 20.49,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Jordania",
+   "iso3": "JOR",
+   "anio": 2023,
+   "uhc": 74,
+   "gasto": 797.85,
+   "bolsillo": 34.47,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Kuwait",
+   "iso3": "KWT",
+   "anio": 2023,
+   "uhc": 84,
+   "gasto": 2566.81,
+   "bolsillo": 10,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Libia",
+   "iso3": "LBY",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 1055.36,
+   "bolsillo": 19.18,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Líbano",
+   "iso3": "LBN",
+   "anio": 2023,
+   "uhc": 67,
+   "gasto": 643.85,
+   "bolsillo": 29.7,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Malta",
+   "iso3": "MLT",
+   "anio": 2023,
+   "uhc": 82,
+   "gasto": 5706.09,
+   "bolsillo": 30.93,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Omán",
+   "iso3": "OMN",
+   "anio": 2023,
+   "uhc": 73,
+   "gasto": 1444.38,
+   "bolsillo": 6.31,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Pakistán",
+   "iso3": "PAK",
+   "anio": 2023,
+   "uhc": 56,
+   "gasto": 152.1,
+   "bolsillo": 52.93,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Palestina, Estado de",
+   "iso3": "PSE",
+   "anio": 2023,
+   "uhc": 65,
+   "gasto": 604.44,
+   "bolsillo": 42.07,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Siria",
+   "iso3": "SYR",
+   "anio": 2023,
+   "uhc": 70,
+   "gasto": 122.45,
+   "bolsillo": 72.4,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Tunez",
+   "iso3": "TUN",
+   "anio": 2023,
+   "uhc": 76,
+   "gasto": 1112.51,
+   "bolsillo": 37.94,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Yemen",
+   "iso3": "YEM",
+   "anio": 2023,
+   "uhc": 43,
+   "gasto": 168.81,
+   "bolsillo": 69.13,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Yibuti",
+   "iso3": "DJI",
+   "anio": 2023,
+   "uhc": 47,
+   "gasto": 155.01,
+   "bolsillo": 28.84,
+   "region": "Oriente Medio, Norte de África, Afganistán y Pakistán",
+   "clase": false
+  },
+  {
+   "pais": "Angola",
+   "iso3": "AGO",
+   "anio": 2023,
+   "uhc": 44,
+   "gasto": 248.39,
+   "bolsillo": 32.55,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Benín",
+   "iso3": "BEN",
+   "anio": 2023,
+   "uhc": 38,
+   "gasto": 137.83,
+   "bolsillo": 42.41,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Botsuana",
+   "iso3": "BWA",
+   "anio": 2023,
+   "uhc": 60,
+   "gasto": 1309.5,
+   "bolsillo": 4.26,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Burquina Faso",
+   "iso3": "BFA",
+   "anio": 2023,
+   "uhc": 47,
+   "gasto": 223.87,
+   "bolsillo": 43.82,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Burundi",
+   "iso3": "BDI",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 100.06,
+   "bolsillo": 24.49,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Cabo Verde",
+   "iso3": "CPV",
+   "anio": 2023,
+   "uhc": 71,
+   "gasto": 616.54,
+   "bolsillo": 25.74,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Camerún",
+   "iso3": "CMR",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 246.18,
+   "bolsillo": 67.65,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Comores, Islas",
+   "iso3": "COM",
+   "anio": 2023,
+   "uhc": 52,
+   "gasto": 249.62,
+   "bolsillo": 56.57,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Congo",
+   "iso3": "COG",
+   "anio": 2023,
+   "uhc": 45,
+   "gasto": 208.86,
+   "bolsillo": 27.97,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Congo, República Democrática del",
+   "iso3": "COD",
+   "anio": 2023,
+   "uhc": 41,
+   "gasto": 57.76,
+   "bolsillo": 38,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Costa de Marfíl",
+   "iso3": "CIV",
+   "anio": 2023,
+   "uhc": 46,
+   "gasto": 249.36,
+   "bolsillo": 31.99,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Eritrea",
+   "iso3": "ERI",
+   "anio": 2023,
+   "uhc": 40,
+   "gasto": 86.56,
+   "bolsillo": 48.45,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Esuatini",
+   "iso3": "SWZ",
+   "anio": 2023,
+   "uhc": 72,
+   "gasto": 922.03,
+   "bolsillo": 11.02,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Etiopía",
+   "iso3": "ETH",
+   "anio": 2023,
+   "uhc": 33,
+   "gasto": 85.73,
+   "bolsillo": 46.27,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Gabón",
+   "iso3": "GAB",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 672.98,
+   "bolsillo": 17.27,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Gambia",
+   "iso3": "GMB",
+   "anio": 2023,
+   "uhc": 53,
+   "gasto": 94.13,
+   "bolsillo": 33.78,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Ghana",
+   "iso3": "GHA",
+   "anio": 2023,
+   "uhc": 56,
+   "gasto": 234.46,
+   "bolsillo": 26.68,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Guinea",
+   "iso3": "GIN",
+   "anio": 2023,
+   "uhc": 43,
+   "gasto": 168.74,
+   "bolsillo": 54.42,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Guinea Ecuatorial",
+   "iso3": "GNQ",
+   "anio": 2023,
+   "uhc": 49,
+   "gasto": 609.3,
+   "bolsillo": 65.98,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Guinea-Bisáu",
+   "iso3": "GNB",
+   "anio": 2023,
+   "uhc": 43,
+   "gasto": 247.13,
+   "bolsillo": 61.56,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Kenia",
+   "iso3": "KEN",
+   "anio": 2023,
+   "uhc": 57,
+   "gasto": 274.47,
+   "bolsillo": 24.25,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Lesoto",
+   "iso3": "LSO",
+   "anio": 2023,
+   "uhc": 55,
+   "gasto": 385.6,
+   "bolsillo": 13.2,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Liberia",
+   "iso3": "LBR",
+   "anio": 2023,
+   "uhc": 49,
+   "gasto": 233.05,
+   "bolsillo": 63.24,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Madagascar",
+   "iso3": "MDG",
+   "anio": 2023,
+   "uhc": 33,
+   "gasto": 62.84,
+   "bolsillo": 27.42,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Malaui",
+   "iso3": "MWI",
+   "anio": 2023,
+   "uhc": 52,
+   "gasto": 125.34,
+   "bolsillo": 12,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Malí",
+   "iso3": "MLI",
+   "anio": 2023,
+   "uhc": 41,
+   "gasto": 103.89,
+   "bolsillo": 47.23,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Mauricio",
+   "iso3": "MUS",
+   "anio": 2023,
+   "uhc": 75,
+   "gasto": 1565.91,
+   "bolsillo": 45.24,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Mauritania",
+   "iso3": "MRT",
+   "anio": 2023,
+   "uhc": 40,
+   "gasto": 301.7,
+   "bolsillo": 43.77,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Mozambique",
+   "iso3": "MOZ",
+   "anio": 2023,
+   "uhc": 50,
+   "gasto": 142.62,
+   "bolsillo": 10.37,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Namibia",
+   "iso3": "NAM",
+   "anio": 2023,
+   "uhc": 66,
+   "gasto": 1068.45,
+   "bolsillo": 7.49,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Niger",
+   "iso3": "NER",
+   "anio": 2023,
+   "uhc": 39,
+   "gasto": 76.49,
+   "bolsillo": 51.48,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Nigeria",
+   "iso3": "NGA",
+   "anio": 2023,
+   "uhc": 47,
+   "gasto": 260.14,
+   "bolsillo": 71.9,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Santo Tomé y Príncipe",
+   "iso3": "STP",
+   "anio": 2023,
+   "uhc": 60,
+   "gasto": 355.03,
+   "bolsillo": 16.66,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Senegal",
+   "iso3": "SEN",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 205.61,
+   "bolsillo": 44.33,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Seychelles",
+   "iso3": "SYC",
+   "anio": 2023,
+   "uhc": 80,
+   "gasto": 1401.75,
+   "bolsillo": 27.96,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Sierra Leona",
+   "iso3": "SLE",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 158.91,
+   "bolsillo": 54.47,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Somalia",
+   "iso3": "SOM",
+   "anio": 2023,
+   "uhc": 30,
+   "gasto": 52.07,
+   "bolsillo": 30.78,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Sudán",
+   "iso3": "SDN",
+   "anio": 2023,
+   "uhc": 48,
+   "gasto": 28.26,
+   "bolsillo": 57.37,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Sudán del Sur",
+   "iso3": "SSD",
+   "anio": 2023,
+   "uhc": 41,
+   "gasto": 158.06,
+   "bolsillo": 27.14,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Tanzania",
+   "iso3": "TZA",
+   "anio": 2023,
+   "uhc": 49,
+   "gasto": 119.03,
+   "bolsillo": 27.93,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Togo",
+   "iso3": "TGO",
+   "anio": 2023,
+   "uhc": 42,
+   "gasto": 185.73,
+   "bolsillo": 64.34,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Uganda",
+   "iso3": "UGA",
+   "anio": 2023,
+   "uhc": 54,
+   "gasto": 138.75,
+   "bolsillo": 32.17,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Zambia",
+   "iso3": "ZMB",
+   "anio": 2023,
+   "uhc": 62,
+   "gasto": 243.74,
+   "bolsillo": 10.29,
+   "region": "África subsahariana",
+   "clase": false
+  },
+  {
+   "pais": "Zimbabue",
+   "iso3": "ZWE",
+   "anio": 2023,
+   "uhc": 59,
+   "gasto": 103.11,
+   "bolsillo": 10.63,
+   "region": "África subsahariana",
+   "clase": false
+  }
+ ]
+}

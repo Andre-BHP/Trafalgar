@@ -1,0 +1,278 @@
+{
+ "nota": "Datos de contexto. No se usan para calcular la brecha ni la prioridad y no explican por sí solos la satisfacción reportada.",
+ "indicadores": {
+  "carencia_salud": {
+   "etiqueta": "Población con carencia por acceso a los servicios de salud",
+   "unidad": "% de la población total",
+   "anio": 2024,
+   "fuente": "pm_2024",
+   "alcance": "Toda la población de la entidad (urbana y rural). Metodología CONEVAL, cálculo de INEGI con la ENIGH 2024.",
+   "sentido": "menor es mejor"
+  },
+  "medicos_1000": {
+   "etiqueta": "Médicos generales, especialistas y odontólogos del sector público",
+   "unidad": "por cada 1 000 habitantes",
+   "anio": 2024,
+   "fuente": "dgis_2024",
+   "alcance": "Establecimientos públicos registrados por la DGIS (cierre 2024). Denominador: población total ENIGH 2024. No incluye el sector privado.",
+   "sentido": "mayor es mejor"
+  },
+  "camas_1000": {
+   "etiqueta": "Camas en área de hospitalización (censables) del sector público",
+   "unidad": "por cada 1 000 habitantes",
+   "anio": 2024,
+   "fuente": "dgis_2024",
+   "alcance": "Establecimientos públicos registrados por la DGIS (cierre 2024). Denominador: población total ENIGH 2024. No incluye el sector privado.",
+   "sentido": "mayor es mejor"
+  },
+  "gasto_salud_hogar": {
+   "etiqueta": "Gasto monetario de los hogares en cuidados de la salud",
+   "unidad": "pesos por hogar, promedio trimestral (precios de 2024)",
+   "anio": 2024,
+   "fuente": "enigh_2024",
+   "alcance": "Todos los hogares de la entidad. Incluye consultas, medicamentos y otros pagos de salud de los hogares.",
+   "sentido": "sin sentido de mejora (depende de ingreso y necesidad)"
+  },
+  "gasto_salud_pct": {
+   "etiqueta": "Peso del gasto en salud en el gasto corriente monetario de los hogares",
+   "unidad": "% del gasto corriente monetario",
+   "anio": 2024,
+   "fuente": "enigh_2024",
+   "alcance": "Todos los hogares de la entidad.",
+   "sentido": "sin sentido de mejora"
+  }
+ },
+ "datos": {
+  "10": {
+   "carencia_salud": 30.45,
+   "gasto_salud_hogar": 1507,
+   "gasto_salud_pct": 3.55,
+   "medicos_1000": 1.69,
+   "camas_1000": 0.86
+  },
+  "11": {
+   "carencia_salud": 33.71,
+   "gasto_salud_hogar": 1584,
+   "gasto_salud_pct": 3.48,
+   "medicos_1000": 1.31,
+   "camas_1000": 0.61
+  },
+  "12": {
+   "carencia_salud": 38.86,
+   "gasto_salud_hogar": 1705,
+   "gasto_salud_pct": 4.93,
+   "medicos_1000": 1.96,
+   "camas_1000": 0.57
+  },
+  "13": {
+   "carencia_salud": 43.53,
+   "gasto_salud_hogar": 1597,
+   "gasto_salud_pct": 4.38,
+   "medicos_1000": 1.52,
+   "camas_1000": 0.5
+  },
+  "14": {
+   "carencia_salud": 32.04,
+   "gasto_salud_hogar": 1882,
+   "gasto_salud_pct": 3.36,
+   "medicos_1000": 1.4,
+   "camas_1000": 0.82
+  },
+  "15": {
+   "carencia_salud": 40.24,
+   "gasto_salud_hogar": 1246,
+   "gasto_salud_pct": 2.51,
+   "medicos_1000": 1.1,
+   "camas_1000": 0.53
+  },
+  "16": {
+   "carencia_salud": 46.05,
+   "gasto_salud_hogar": 2033,
+   "gasto_salud_pct": 4.45,
+   "medicos_1000": 1.35,
+   "camas_1000": 0.57
+  },
+  "17": {
+   "carencia_salud": 43.99,
+   "gasto_salud_hogar": 1638,
+   "gasto_salud_pct": 3.88,
+   "medicos_1000": 1.64,
+   "camas_1000": 0.62
+  },
+  "18": {
+   "carencia_salud": 25.7,
+   "gasto_salud_hogar": 1430,
+   "gasto_salud_pct": 3.2,
+   "medicos_1000": 2.42,
+   "camas_1000": 0.85
+  },
+  "19": {
+   "carencia_salud": 15.82,
+   "gasto_salud_hogar": 1368,
+   "gasto_salud_pct": 2.31,
+   "medicos_1000": 1.25,
+   "camas_1000": 0.71
+  },
+  "20": {
+   "carencia_salud": 43.85,
+   "gasto_salud_hogar": 2145,
+   "gasto_salud_pct": 6.29,
+   "medicos_1000": 1.38,
+   "camas_1000": 0.52
+  },
+  "21": {
+   "carencia_salud": 47.31,
+   "gasto_salud_hogar": 1496,
+   "gasto_salud_pct": 3.58,
+   "medicos_1000": 1.33,
+   "camas_1000": 0.61
+  },
+  "22": {
+   "carencia_salud": 24.14,
+   "gasto_salud_hogar": 2160,
+   "gasto_salud_pct": 3.51,
+   "medicos_1000": 1.33,
+   "camas_1000": 0.53
+  },
+  "23": {
+   "carencia_salud": 30.35,
+   "gasto_salud_hogar": 1214,
+   "gasto_salud_pct": 2.26,
+   "medicos_1000": 1.38,
+   "camas_1000": 0.63
+  },
+  "24": {
+   "carencia_salud": 33.43,
+   "gasto_salud_hogar": 2091,
+   "gasto_salud_pct": 4.44,
+   "medicos_1000": 1.25,
+   "camas_1000": 0.78
+  },
+  "25": {
+   "carencia_salud": 24.71,
+   "gasto_salud_hogar": 1640,
+   "gasto_salud_pct": 3.38,
+   "medicos_1000": 1.89,
+   "camas_1000": 0.82
+  },
+  "26": {
+   "carencia_salud": 24.12,
+   "gasto_salud_hogar": 1767,
+   "gasto_salud_pct": 3.44,
+   "medicos_1000": 1.99,
+   "camas_1000": 1.01
+  },
+  "27": {
+   "carencia_salud": 35.08,
+   "gasto_salud_hogar": 1516,
+   "gasto_salud_pct": 3.84,
+   "medicos_1000": 2.3,
+   "camas_1000": 0.72
+  },
+  "28": {
+   "carencia_salud": 25.12,
+   "gasto_salud_hogar": 1373,
+   "gasto_salud_pct": 3.06,
+   "medicos_1000": 1.74,
+   "camas_1000": 0.95
+  },
+  "29": {
+   "carencia_salud": 39.27,
+   "gasto_salud_hogar": 1360,
+   "gasto_salud_pct": 3.4,
+   "medicos_1000": 1.86,
+   "camas_1000": 0.5
+  },
+  "30": {
+   "carencia_salud": 40.72,
+   "gasto_salud_hogar": 1219,
+   "gasto_salud_pct": 3.54,
+   "medicos_1000": 1.54,
+   "camas_1000": 0.67
+  },
+  "31": {
+   "carencia_salud": 26.06,
+   "gasto_salud_hogar": 2087,
+   "gasto_salud_pct": 4.07,
+   "medicos_1000": 1.75,
+   "camas_1000": 0.84
+  },
+  "32": {
+   "carencia_salud": 33.78,
+   "gasto_salud_hogar": 2193,
+   "gasto_salud_pct": 5.5,
+   "medicos_1000": 1.76,
+   "camas_1000": 0.64
+  },
+  "nac": {
+   "carencia_salud": 34.17,
+   "gasto_salud_hogar": 1605,
+   "gasto_salud_pct": 3.37,
+   "medicos_1000": 1.58,
+   "camas_1000": 0.74
+  },
+  "01": {
+   "carencia_salud": 25.2,
+   "gasto_salud_hogar": 1821,
+   "gasto_salud_pct": 3.38,
+   "medicos_1000": 1.83,
+   "camas_1000": 0.72
+  },
+  "02": {
+   "carencia_salud": 23.26,
+   "gasto_salud_hogar": 1129,
+   "gasto_salud_pct": 2.04,
+   "medicos_1000": 1.31,
+   "camas_1000": 0.69
+  },
+  "03": {
+   "carencia_salud": 19.62,
+   "gasto_salud_hogar": 1433,
+   "gasto_salud_pct": 2.56,
+   "medicos_1000": 2.21,
+   "camas_1000": 1.02
+  },
+  "04": {
+   "carencia_salud": 28.5,
+   "gasto_salud_hogar": 1330,
+   "gasto_salud_pct": 3.2,
+   "medicos_1000": 2.16,
+   "camas_1000": 0.9
+  },
+  "05": {
+   "carencia_salud": 20.3,
+   "gasto_salud_hogar": 1459,
+   "gasto_salud_pct": 2.89,
+   "medicos_1000": 1.56,
+   "camas_1000": 0.9
+  },
+  "06": {
+   "carencia_salud": 24.03,
+   "gasto_salud_hogar": 2026,
+   "gasto_salud_pct": 3.9,
+   "medicos_1000": 2.38,
+   "camas_1000": 0.97
+  },
+  "07": {
+   "carencia_salud": 63.34,
+   "gasto_salud_hogar": 966,
+   "gasto_salud_pct": 3.56,
+   "medicos_1000": 1.2,
+   "camas_1000": 0.41
+  },
+  "08": {
+   "carencia_salud": 20.89,
+   "gasto_salud_hogar": 1283,
+   "gasto_salud_pct": 2.74,
+   "medicos_1000": 1.56,
+   "camas_1000": 0.83
+  },
+  "09": {
+   "carencia_salud": 21.79,
+   "gasto_salud_hogar": 2424,
+   "gasto_salud_pct": 3.65,
+   "medicos_1000": 3.01,
+   "camas_1000": 1.67
+  }
+ }
+}

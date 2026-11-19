@@ -1,0 +1,192 @@
+Pais,ISO3,Anio,Cobertura_UHC_0_100,Gasto_salud_por_habitante_PPA,Gasto_de_bolsillo_pct,Region_Banco_Mundial,Comparacion_en_clase
+México,MEX,2023,79.00,1367.99,41.24,América Latina y el Caribe,Sí
+Brasil,BRA,2023,84.00,2070.44,26.23,América Latina y el Caribe,Sí
+Chile,CHL,2023,84.00,3337.44,34.59,América Latina y el Caribe,Sí
+Costa Rica,CRI,2023,84.00,1927.74,24.13,América Latina y el Caribe,Sí
+Canadá,CAN,2023,92.00,7355.36,15.20,América del Norte,Sí
+Estados Unidos,USA,2023,88.00,13473.19,10.93,América del Norte,Sí
+Bangladés,BGD,2023,54.00,198.52,79.31,Asia meridional,Sí
+India,IND,2023,69.00,346.25,43.89,Asia meridional,Sí
+Australia,AUS,2023,89.00,7690.82,15.85,Asia oriental y Pacífico,Sí
+Corea del Sur,KOR,2023,88.00,4797.58,31.75,Asia oriental y Pacífico,Sí
+Japón,JPN,2023,86.00,5365.08,12.24,Asia oriental y Pacífico,Sí
+Nueva Zelanda,NZL,2023,89.00,5531.25,12.60,Asia oriental y Pacífico,Sí
+Tailandia,THA,2023,82.00,1066.75,9.93,Asia oriental y Pacífico,Sí
+Alemania,DEU,2023,87.00,8306.18,11.05,Europa y Asia central,Sí
+España,ESP,2023,84.00,4934.95,20.86,Europa y Asia central,Sí
+Reino Unido,GBR,2023,88.00,6364.92,14.63,Europa y Asia central,Sí
+Egipto,EGY,2023,71.00,904.67,57.20,"Oriente Medio, Norte de África, Afganistán y Pakistán",Sí
+Marruecos,MAR,2023,65.00,606.04,37.25,"Oriente Medio, Norte de África, Afganistán y Pakistán",Sí
+Chad,TCD,2023,26.00,129.91,51.68,África subsahariana,Sí
+República Centroafricana,CAF,2023,39.00,136.68,45.02,África subsahariana,Sí
+Ruanda,RWA,2023,59.00,177.01,4.10,África subsahariana,Sí
+Sudáfrica,ZAF,2023,74.00,1353.75,6.69,África subsahariana,Sí
+Antigua y Barbuda,ATG,2023,81.00,1241.35,20.81,América Latina y el Caribe,No
+Argentina,ARG,2023,80.00,3089.31,24.47,América Latina y el Caribe,No
+Bahamas,BHS,2023,80.00,2315.62,27.48,América Latina y el Caribe,No
+Barbados,BRB,2023,82.00,1153.10,49.49,América Latina y el Caribe,No
+Belice,BLZ,2023,70.00,573.34,26.78,América Latina y el Caribe,No
+Bolivia,BOL,2023,67.00,755.88,27.32,América Latina y el Caribe,No
+Colombia,COL,2023,82.00,1708.73,14.63,América Latina y el Caribe,No
+Cuba,CUB,2023,86.00,2575.41,16.58,América Latina y el Caribe,No
+Dominica,DMA,2023,75.00,968.27,29.33,América Latina y el Caribe,No
+Ecuador,ECU,2023,78.00,1238.09,30.89,América Latina y el Caribe,No
+El Salvador,SLV,2023,79.00,1175.52,32.49,América Latina y el Caribe,No
+Granada,GRD,2023,78.00,880.32,48.48,América Latina y el Caribe,No
+Guatemala,GTM,2023,58.00,935.35,57.18,América Latina y el Caribe,No
+Guyana,GUY,2023,73.00,1331.14,26.33,América Latina y el Caribe,No
+Haití,HTI,2023,44.00,104.72,52.40,América Latina y el Caribe,No
+Honduras,HND,2023,64.00,553.47,53.06,América Latina y el Caribe,No
+Jamaica,JAM,2023,74.00,868.62,20.25,América Latina y el Caribe,No
+Nicaragua,NIC,2023,70.00,688.67,37.63,América Latina y el Caribe,No
+Panamá,PAN,2023,82.00,3318.25,40.46,América Latina y el Caribe,No
+Paraguay,PRY,2023,79.00,1469.45,36.32,América Latina y el Caribe,No
+Perú,PER,2023,68.00,956.48,26.98,América Latina y el Caribe,No
+República Dominicana,DOM,2023,73.00,1168.81,25.06,América Latina y el Caribe,No
+San Cristóbal y Nieves,KNA,2023,80.00,1935.97,41.80,América Latina y el Caribe,No
+San Vicente y las Granadinas,VCT,2023,80.00,907.57,26.57,América Latina y el Caribe,No
+Santa Lucía,LCA,2023,75.00,1228.46,37.14,América Latina y el Caribe,No
+Surinám,SUR,2023,74.00,1142.73,19.72,América Latina y el Caribe,No
+Trinidad y Tobago,TTO,2023,75.00,2243.81,45.27,América Latina y el Caribe,No
+Uruguay,URY,2023,85.00,3135.28,17.10,América Latina y el Caribe,No
+Venezuela,VEN,2023,75.00,112.41,29.69,América Latina y el Caribe,No
+Bután,BTN,2023,69.00,676.70,25.46,Asia meridional,No
+Islas Maldivas,MDV,2023,71.00,2287.94,18.05,Asia meridional,No
+Nepal,NPL,2023,58.00,332.16,59.39,Asia meridional,No
+Sri Lanka,LKA,2023,72.00,507.06,54.81,Asia meridional,No
+Birmania,MMR,2023,52.00,283.19,71.13,Asia oriental y Pacífico,No
+Brunei Darussalam,BRN,2023,84.00,1896.12,7.41,Asia oriental y Pacífico,No
+Camboya,KHM,2023,62.00,350.11,60.60,Asia oriental y Pacífico,No
+China,CHN,2023,85.00,1486.88,32.17,Asia oriental y Pacífico,No
+Filipinas,PHL,2023,69.00,560.42,44.36,Asia oriental y Pacífico,No
+Fiyi,FJI,2023,69.00,547.77,8.31,Asia oriental y Pacífico,No
+Indonesia,IDN,2023,67.00,416.59,31.08,Asia oriental y Pacífico,No
+Islas Marshall,MHL,2023,66.00,874.11,1.05,Asia oriental y Pacífico,No
+Islas Salomón,SLB,2023,47.00,153.39,3.16,Asia oriental y Pacífico,No
+Kiribati,KIR,2023,51.00,400.91,2.91,Asia oriental y Pacífico,No
+Laos,LAO,2023,64.00,123.25,44.84,Asia oriental y Pacífico,No
+Malasia,MYS,2023,80.00,1441.22,37.09,Asia oriental y Pacífico,No
+"Micronesia, Estados Federados de",FSM,2023,65.00,481.76,2.58,Asia oriental y Pacífico,No
+Mongolia,MNG,2023,70.00,1108.95,48.80,Asia oriental y Pacífico,No
+Nauru,NRU,2023,62.00,2474.20,0.73,Asia oriental y Pacífico,No
+Palaos,PLW,2023,75.00,1856.71,12.10,Asia oriental y Pacífico,No
+Papúa Nueva Guinea,PNG,2023,32.00,133.00,8.55,Asia oriental y Pacífico,No
+Samoa,WSM,2023,62.00,474.51,13.42,Asia oriental y Pacífico,No
+Singapur,SGP,2023,88.00,6551.26,25.42,Asia oriental y Pacífico,No
+Timor Oriental,TLS,2023,48.00,461.09,6.99,Asia oriental y Pacífico,No
+Tonga,TON,2023,71.00,512.20,5.86,Asia oriental y Pacífico,No
+Tuvalu,TUV,2023,65.00,1670.93,0.04,Asia oriental y Pacífico,No
+Vanuatu,VUT,2023,52.00,141.22,8.38,Asia oriental y Pacífico,No
+Vietnam,VNM,2023,71.00,689.55,39.20,Asia oriental y Pacífico,No
+Albania,ALB,2023,71.00,1464.54,48.27,Europa y Asia central,No
+Andorra,AND,2023,75.00,5519.41,11.15,Europa y Asia central,No
+Armenia,ARM,2023,69.00,2032.62,80.47,Europa y Asia central,No
+Austria,AUT,2023,84.00,7883.78,16.48,Europa y Asia central,No
+Azerbaiyán,AZE,2023,67.00,992.84,64.63,Europa y Asia central,No
+Bielorrusia,BLR,2023,80.00,2193.50,28.48,Europa y Asia central,No
+Bosnia y Herzegovina,BIH,2023,64.00,1989.06,30.96,Europa y Asia central,No
+Bulgaria,BGR,2023,73.00,2969.55,35.50,Europa y Asia central,No
+Bélgica,BEL,2023,86.00,7489.31,21.51,Europa y Asia central,No
+Chequia,CZE,2023,83.00,4499.62,14.60,Europa y Asia central,No
+Chipre,CYP,2023,76.00,4537.68,17.94,Europa y Asia central,No
+Croacia,HRV,2023,76.00,3229.34,9.38,Europa y Asia central,No
+Dinamarca,DNK,2023,85.00,7097.51,13.98,Europa y Asia central,No
+Eslovaquia,SVK,2023,78.00,3230.25,20.15,Europa y Asia central,No
+Eslovenia,SVN,2023,84.00,4948.57,12.39,Europa y Asia central,No
+Estonia,EST,2023,79.00,3506.88,22.10,Europa y Asia central,No
+Federación Rusa,RUS,2023,81.00,3203.81,28.39,Europa y Asia central,No
+Finlandia,FIN,2023,86.00,6433.37,14.09,Europa y Asia central,No
+Francia,FRA,2023,82.00,6719.08,9.26,Europa y Asia central,No
+Georgia,GEO,2023,71.00,1679.04,58.76,Europa y Asia central,No
+Grecia,GRC,2023,77.00,3453.89,34.30,Europa y Asia central,No
+Hungría,HUN,2023,80.00,2875.21,23.06,Europa y Asia central,No
+Irlanda,IRL,2023,82.00,8269.12,11.30,Europa y Asia central,No
+Islandia,ISL,2023,90.00,6618.19,14.69,Europa y Asia central,No
+Italia,ITA,2023,82.00,4865.98,23.65,Europa y Asia central,No
+Kazajistán,KAZ,2023,83.00,1459.99,27.64,Europa y Asia central,No
+Kirguistán,KGZ,2023,74.00,348.63,42.26,Europa y Asia central,No
+Letonia,LVA,2023,77.00,3033.87,35.06,Europa y Asia central,No
+Lituania,LTU,2023,78.00,3818.70,31.02,Europa y Asia central,No
+Luxemburgo,LUX,2023,83.00,8329.10,8.77,Europa y Asia central,No
+Macedonia del Norte,MKD,2023,69.00,1807.61,39.57,Europa y Asia central,No
+Moldavia,MDA,2023,71.00,1181.24,27.47,Europa y Asia central,No
+Montenegro,MNE,2023,70.00,2908.00,26.33,Europa y Asia central,No
+Mónaco,MCO,2023,85.00,9797.17,8.45,Europa y Asia central,No
+Noruega,NOR,2023,89.00,9523.31,13.69,Europa y Asia central,No
+Países Bajos,NLD,2023,85.00,7727.04,12.03,Europa y Asia central,No
+Polonia,POL,2023,82.00,3331.75,15.85,Europa y Asia central,No
+Portugal,PRT,2023,83.00,4678.85,29.31,Europa y Asia central,No
+Rumanía,ROU,2023,77.00,2614.09,22.96,Europa y Asia central,No
+San Marino,SMR,2023,74.00,5231.15,13.09,Europa y Asia central,No
+Serbia,SRB,2023,73.00,2302.62,32.14,Europa y Asia central,No
+Suecia,SWE,2023,85.00,7512.07,12.96,Europa y Asia central,No
+Suiza,CHE,2023,87.00,10601.93,22.03,Europa y Asia central,No
+Tayikistán,TJK,2023,72.00,364.08,62.36,Europa y Asia central,No
+Turkmenistán,TKM,2023,81.00,1263.87,77.39,Europa y Asia central,No
+Turquía,TUR,2023,77.00,1769.23,19.05,Europa y Asia central,No
+Uzbekistán,UZB,2023,79.00,748.96,64.06,Europa y Asia central,No
+Afganistán,AFG,2023,42.00,329.82,77.14,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Algeria,DZA,2023,70.00,732.00,45.00,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Arabia Saudí,SAU,2023,83.00,3475.06,14.12,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Baréin,BHR,2023,78.00,2555.25,28.66,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Catar,QAT,2023,84.00,2900.58,7.43,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Emiratos Árabes Unidos,ARE,2023,84.00,3727.12,9.67,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Irak,IRQ,2023,64.00,842.79,53.98,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Irán,IRN,2023,81.00,1064.08,43.15,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Israel,ISR,2023,85.00,4033.24,20.49,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Jordania,JOR,2023,74.00,797.85,34.47,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Kuwait,KWT,2023,84.00,2566.81,10.00,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Libia,LBY,2023,71.00,1055.36,19.18,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Líbano,LBN,2023,67.00,643.85,29.70,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Malta,MLT,2023,82.00,5706.09,30.93,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Omán,OMN,2023,73.00,1444.38,6.31,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Pakistán,PAK,2023,56.00,152.10,52.93,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+"Palestina, Estado de",PSE,2023,65.00,604.44,42.07,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Siria,SYR,2023,70.00,122.45,72.40,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Tunez,TUN,2023,76.00,1112.51,37.94,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Yemen,YEM,2023,43.00,168.81,69.13,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Yibuti,DJI,2023,47.00,155.01,28.84,"Oriente Medio, Norte de África, Afganistán y Pakistán",No
+Angola,AGO,2023,44.00,248.39,32.55,África subsahariana,No
+Benín,BEN,2023,38.00,137.83,42.41,África subsahariana,No
+Botsuana,BWA,2023,60.00,1309.50,4.26,África subsahariana,No
+Burquina Faso,BFA,2023,47.00,223.87,43.82,África subsahariana,No
+Burundi,BDI,2023,48.00,100.06,24.49,África subsahariana,No
+Cabo Verde,CPV,2023,71.00,616.54,25.74,África subsahariana,No
+Camerún,CMR,2023,48.00,246.18,67.65,África subsahariana,No
+"Comores, Islas",COM,2023,52.00,249.62,56.57,África subsahariana,No
+Congo,COG,2023,45.00,208.86,27.97,África subsahariana,No
+"Congo, República Democrática del",COD,2023,41.00,57.76,38.00,África subsahariana,No
+Costa de Marfíl,CIV,2023,46.00,249.36,31.99,África subsahariana,No
+Eritrea,ERI,2023,40.00,86.56,48.45,África subsahariana,No
+Esuatini,SWZ,2023,72.00,922.03,11.02,África subsahariana,No
+Etiopía,ETH,2023,33.00,85.73,46.27,África subsahariana,No
+Gabón,GAB,2023,48.00,672.98,17.27,África subsahariana,No
+Gambia,GMB,2023,53.00,94.13,33.78,África subsahariana,No
+Ghana,GHA,2023,56.00,234.46,26.68,África subsahariana,No
+Guinea,GIN,2023,43.00,168.74,54.42,África subsahariana,No
+Guinea Ecuatorial,GNQ,2023,49.00,609.30,65.98,África subsahariana,No
+Guinea-Bisáu,GNB,2023,43.00,247.13,61.56,África subsahariana,No
+Kenia,KEN,2023,57.00,274.47,24.25,África subsahariana,No
+Lesoto,LSO,2023,55.00,385.60,13.20,África subsahariana,No
+Liberia,LBR,2023,49.00,233.05,63.24,África subsahariana,No
+Madagascar,MDG,2023,33.00,62.84,27.42,África subsahariana,No
+Malaui,MWI,2023,52.00,125.34,12.00,África subsahariana,No
+Malí,MLI,2023,41.00,103.89,47.23,África subsahariana,No
+Mauricio,MUS,2023,75.00,1565.91,45.24,África subsahariana,No
+Mauritania,MRT,2023,40.00,301.70,43.77,África subsahariana,No
+Mozambique,MOZ,2023,50.00,142.62,10.37,África subsahariana,No
+Namibia,NAM,2023,66.00,1068.45,7.49,África subsahariana,No
+Niger,NER,2023,39.00,76.49,51.48,África subsahariana,No
+Nigeria,NGA,2023,47.00,260.14,71.90,África subsahariana,No
+Santo Tomé y Príncipe,STP,2023,60.00,355.03,16.66,África subsahariana,No
+Senegal,SEN,2023,48.00,205.61,44.33,África subsahariana,No
+Seychelles,SYC,2023,80.00,1401.75,27.96,África subsahariana,No
+Sierra Leona,SLE,2023,48.00,158.91,54.47,África subsahariana,No
+Somalia,SOM,2023,30.00,52.07,30.78,África subsahariana,No
+Sudán,SDN,2023,48.00,28.26,57.37,África subsahariana,No
+Sudán del Sur,SSD,2023,41.00,158.06,27.14,África subsahariana,No
+Tanzania,TZA,2023,49.00,119.03,27.93,África subsahariana,No
+Togo,TGO,2023,42.00,185.73,64.34,África subsahariana,No
+Uganda,UGA,2023,54.00,138.75,32.17,África subsahariana,No
+Zambia,ZMB,2023,62.00,243.74,10.29,África subsahariana,No
+Zimbabue,ZWE,2023,59.00,103.11,10.63,África subsahariana,No

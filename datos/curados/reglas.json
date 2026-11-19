@@ -1,0 +1,133 @@
+{
+  "version": "1.0",
+  "descripcion": "Reglas que relacionan el aspecto con la mayor brecha desfavorable con acciones y prácticas documentadas. Cada regla se activa solo cuando su aspecto es el de mayor brecha desfavorable comparable en la entidad e institución elegidas.",
+  "reglas": {
+    "atencion_inmediata": {
+      "id": "R-01",
+      "problema": "Menos personas usuarias reportan haber recibido atención inmediata que en la referencia nacional.",
+      "practicas": ["cr_ebais", "mx_imss_plan_2026"],
+      "primero": "Medir durante 4 semanas el tiempo de espera para consulta y urgencias por unidad y turno, para ubicar dónde se concentra la demora.",
+      "despues": "Asignar población fija a cada consultorio o equipo de primer contacto, como los sectores EBAIS, y abrir horarios adicionales en las unidades con mayor espera; revisar avances cada semana.",
+      "areas": ["Dirección médica de cada unidad", "Jefaturas de consulta externa y urgencias", "Área de planeación de servicios"],
+      "indicador_operativo": "Tiempo promedio de espera para consulta, en minutos, por unidad",
+      "condiciones": ["Personal disponible para turnos adicionales", "Espacio físico y consultorios", "Sistema de citas o registro de llegada que permita medir la espera"]
+    },
+    "trato_respetuoso": {
+      "id": "R-02",
+      "problema": "Menos personas usuarias reportan trato respetuoso que en la referencia nacional.",
+      "practicas": ["mx_imss_plan_2026", "cr_ebais"],
+      "primero": "Revisar quejas y comentarios por unidad y área (recepción, urgencias, consulta) para identificar en qué punto del recorrido se concentra el mal trato.",
+      "despues": "Capacitar en trato digno al personal de primer contacto, como hizo el IMSS en Urgencias, y aplicar una encuesta breve de salida cada mes.",
+      "areas": ["Atención y orientación al derechohabiente", "Capacitación y recursos humanos", "Dirección médica de cada unidad"],
+      "indicador_operativo": "Porcentaje del personal de primer contacto capacitado en trato digno",
+      "condiciones": ["Tiempo protegido para capacitación", "Buzón o encuesta de salida con registro por unidad"]
+    },
+    "informacion_oportuna": {
+      "id": "R-03",
+      "problema": "Menos personas usuarias reportan haber recibido información oportuna y comprensible sobre su salud.",
+      "practicas": ["cr_ebais", "th_red_distrital"],
+      "primero": "Identificar los motivos de consulta más frecuentes y revisar qué información recibe la persona al salir (diagnóstico, tratamiento, próxima cita).",
+      "despues": "Usar hojas de indicaciones en lenguaje claro y asignar un equipo fijo que dé seguimiento a la misma población, como los equipos EBAIS y los equipos de atención familiar de Tailandia.",
+      "areas": ["Dirección médica de cada unidad", "Enfermería", "Comunicación y educación para la salud"],
+      "indicador_operativo": "Porcentaje de consultas con indicaciones escritas entregadas al paciente",
+      "condiciones": ["Tiempo de consulta suficiente", "Material impreso o digital validado por el área médica"]
+    },
+    "instalaciones_equipo": {
+      "id": "R-04",
+      "problema": "Menos personas usuarias reportan instalaciones adecuadas y con el equipo necesario.",
+      "practicas": ["mx_imss_plan_2026"],
+      "primero": "Hacer un inventario del equipo médico por unidad que distinga equipo en operación, instalado sin operar y descompuesto.",
+      "despues": "Priorizar la reparación o reposición del equipo que detiene más consultas o cirugías y dar seguimiento público al avance, como el reporte del IMSS de equipos en operación.",
+      "areas": ["Conservación y mantenimiento", "Ingeniería biomédica", "Finanzas"],
+      "indicador_operativo": "Porcentaje del equipo médico crítico en operación",
+      "condiciones": ["Presupuesto de mantenimiento", "Contratos de servicio con proveedores", "Personal capacitado para operar el equipo"]
+    },
+    "instalaciones_limpias": {
+      "id": "R-05",
+      "problema": "Menos personas usuarias reportan instalaciones limpias y ordenadas.",
+      "practicas": ["cr_ebais"],
+      "nivel_respaldo": "general",
+      "nota_respaldo": "No se encontró una práctica internacional específica sobre limpieza; se usa como referencia general el seguimiento de metas por equipo de los EBAIS.",
+      "primero": "Aplicar una lista de verificación de limpieza por área y turno durante un mes.",
+      "despues": "Fijar metas por unidad y devolver los resultados a cada equipo cada mes, como en el modelo de retroalimentación de desempeño de los EBAIS.",
+      "areas": ["Servicios generales e higiene", "Dirección administrativa de cada unidad"],
+      "indicador_operativo": "Porcentaje de verificaciones de limpieza aprobadas",
+      "condiciones": ["Personal e insumos de limpieza suficientes", "Supervisión por turno"]
+    },
+    "medicamentos": {
+      "id": "R-06",
+      "problema": "Menos personas usuarias reportan disponibilidad de medicamentos.",
+      "practicas": ["oms_medicamentos_esenciales", "mx_imss_plan_2026"],
+      "primero": "Identificar los medicamentos que faltan con más frecuencia y revisar los inventarios de cada unidad.",
+      "despues": "Priorizar la compra y distribución de esos medicamentos con una lista de medicamentos esenciales por unidad, y publicar cada mes el porcentaje de recetas surtidas por completo.",
+      "areas": ["Abasto y farmacia", "Dirección médica de cada unidad", "Finanzas"],
+      "indicador_operativo": "Porcentaje de recetas surtidas por completo",
+      "condiciones": ["Registro de recetas no surtidas por clave de medicamento", "Contratos de compra vigentes", "Almacén y distribución hacia las unidades"]
+    },
+    "sin_materiales": {
+      "id": "R-07",
+      "problema": "Menos personas usuarias reportan ser atendidas sin que se les pidan materiales de curación o equipo médico.",
+      "practicas": ["oms_medicamentos_esenciales", "mx_imss_plan_2026"],
+      "nivel_respaldo": "general",
+      "nota_respaldo": "Se usa como referencia general la priorización de insumos esenciales y la medición del abasto; no se encontró una práctica específica sobre materiales de curación.",
+      "primero": "Registrar en qué servicios se pide a los pacientes comprar material y qué insumos son.",
+      "despues": "Incluir esos insumos en el abasto prioritario de la unidad y medir cada mes cuántas veces se le pidió material al paciente.",
+      "areas": ["Abasto", "Enfermería", "Dirección administrativa de cada unidad"],
+      "indicador_operativo": "Número de solicitudes de material al paciente por cada 100 atenciones",
+      "condiciones": ["Inventario de material de curación", "Canal para que el paciente reporte el cobro o la solicitud"]
+    },
+    "personal_suficiente": {
+      "id": "R-08",
+      "problema": "Menos personas usuarias reportan que hay médicos suficientes.",
+      "practicas": ["th_retencion", "mx_imss_plan_2026"],
+      "primero": "Hacer un diagnóstico de plazas vacantes y ausencias por unidad, turno y especialidad.",
+      "despues": "Cubrir primero las vacantes de las unidades con más espera y diseñar incentivos de permanencia en zonas con carencia, como la política de retención de Tailandia.",
+      "areas": ["Recursos humanos", "Dirección médica", "Finanzas"],
+      "indicador_operativo": "Porcentaje de plazas médicas ocupadas por unidad",
+      "condiciones": ["Presupuesto para plazas e incentivos", "Disponibilidad de especialistas en la región", "Acuerdos con instituciones formadoras"]
+    },
+    "confianza_personal": {
+      "id": "R-09",
+      "problema": "Menos personas usuarias reportan contar con médicos en quienes confían por su capacidad.",
+      "practicas": ["cr_ebais", "th_red_distrital"],
+      "primero": "Medir cuántas personas son atendidas por el mismo médico o equipo en consultas sucesivas.",
+      "despues": "Asignar a cada persona un equipo de cabecera estable, como los sectores EBAIS, y ofrecer actualización clínica al personal.",
+      "areas": ["Dirección médica", "Enseñanza e investigación", "Recursos humanos"],
+      "indicador_operativo": "Porcentaje de consultas atendidas por el mismo médico o equipo de cabecera",
+      "condiciones": ["Plantilla estable", "Registro de la población asignada a cada consultorio"]
+    },
+    "sin_saturacion": {
+      "id": "R-10",
+      "problema": "Menos personas usuarias reportan clínicas y hospitales sin saturación.",
+      "practicas": ["cr_ebais", "th_red_distrital", "mx_imss_plan_2026"],
+      "primero": "Medir la ocupación diaria de consulta y urgencias y cuántos casos podrían resolverse en el primer nivel.",
+      "despues": "Fortalecer el primer nivel con población asignada y reglas de referencia, como los EBAIS y las unidades contratadas de Tailandia, y usar horarios extendidos donde haya capacidad, como las cirugías en turnos nocturnos del IMSS.",
+      "areas": ["Planeación de servicios", "Dirección médica", "Coordinación entre primer y segundo nivel"],
+      "indicador_operativo": "Porcentaje de ocupación de urgencias y consulta por unidad",
+      "condiciones": ["Capacidad del primer nivel para recibir pacientes", "Reglas de referencia y contrarreferencia", "Registro de pacientes en espera"]
+    },
+    "sin_pago_privado": {
+      "id": "R-11",
+      "problema": "Más personas usuarias tuvieron que pagar un servicio privado por deficiencias del servicio público.",
+      "practicas": ["th_proteccion_financiera", "cr_ebais"],
+      "primero": "Identificar por qué servicios pagan las personas en el sector privado (consulta, estudios, medicamentos) con una encuesta breve en la unidad.",
+      "despues": "Atender primero el servicio por el que más se paga y publicar qué servicios garantiza la institución, tomando como referencia el paquete definido del esquema tailandés.",
+      "areas": ["Dirección médica", "Planeación", "Finanzas"],
+      "indicador_operativo": "Porcentaje de personas usuarias que reportan haber pagado un servicio privado",
+      "condiciones": ["Financiamiento para ampliar el servicio más demandado", "Encuesta con registro por unidad"]
+    }
+  },
+  "sin_prioridad": {
+    "id": "R-00",
+    "problema": "Ningún aspecto comparable está por debajo de la referencia nacional.",
+    "primero": "Mantener la medición anual con la ENCIG y revisar el aspecto con el nivel más bajo aunque no tenga brecha.",
+    "areas": ["Planeación de servicios"]
+  },
+  "faltan_datos": {
+    "id": "R-99",
+    "problema": "No hay datos estatales comparables para priorizar.",
+    "primero": "Conseguir estimaciones estatales para esta institución: calcularlas con los microdatos de la ENCIG 2025 y revisar su coeficiente de variación, o solicitar registros administrativos de la institución por entidad.",
+    "despues": "Con esos datos, repetir la comparación contra la referencia nacional antes de elegir acciones.",
+    "areas": ["Planeación y estadística"]
+  }
+}

@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salud en Comparación</title>
+  <meta name="description" content="Tablero para comparar la satisfacción con los servicios públicos de salud por estado en México (ENCIG 2025, INEGI), la comparación internacional de cobertura y gasto en salud, y estrategias de mejora basadas en datos.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%230f5c73%27/%3E%3Cpath d=%27M7 3h2v4h4v2H9v4H7V9H3V7h4z%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+  <script>try { var t = localStorage.getItem('sec-tema'); if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="encabezado__interior">
+      <div class="marca">
+        <h1>Salud en Comparación</h1>
+        <p>Satisfacción con los servicios públicos de salud en México y prácticas internacionales que podrían adaptarse</p>
+      </div>
+      <button type="button" class="tema" id="btn-tema" aria-pressed="false">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
+        <span id="btn-tema-texto">Modo oscuro</span>
+      </button>
+    </div>
+    <nav class="navegacion" aria-label="Secciones">
+      <ul>
+        <li><a href="#resumen" data-seccion="resumen">Resumen</a></li>
+        <li><a href="#mexico" data-seccion="mexico">México por estado</a></li>
+        <li><a href="#mundial" data-seccion="mundial">Comparación mundial</a></li>
+        <li><a href="#estrategia" data-seccion="estrategia">Estrategia de mejora</a></li>
+        <li><a href="#metodo" data-seccion="metodo">Cómo se calculó</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="seleccion" id="barra-seleccion">
+    <form class="seleccion__interior" id="form-seleccion" aria-label="Selección de institución, estado y año">
+      <div class="campo campo--inst">
+        <label for="sel-inst">Institución</label>
+        <select id="sel-inst"></select>
+      </div>
+      <div class="campo campo--ent">
+        <label for="sel-ent">Estado</label>
+        <select id="sel-ent"></select>
+      </div>
+      <div class="campo campo--anio">
+        <label for="sel-anio">Año</label>
+        <select id="sel-anio"></select>
+      </div>
+      <p class="seleccion__nota" id="nota-seleccion" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <main id="contenido" tabindex="-1">
+    <!-- RESUMEN -->
+    <section class="seccion" id="resumen" aria-labelledby="t-resumen">
+      <h2 id="t-resumen">Resumen</h2>
+      <p class="seccion__intro">Este tablero responde cuatro preguntas con datos oficiales. Elija una institución y un estado en la barra superior; las gráficas, las tablas y la estrategia se actualizan solas. Las diferencias se expresan en puntos porcentuales (pp) y son <strong>brechas descriptivas</strong>: INEGI no publica una prueba estadística para comparar cada estado con el dato nacional.</p>
+
+      <ul class="preguntas" id="preguntas"></ul>
+
+      <article class="tarjeta mapa-mx" aria-labelledby="m1-t">
+        <div class="mapa-mx__mapa">
+          <div class="grafica__cab">
+            <div>
+              <h3 id="m1-t">Mapa de satisfacción por estado</h3>
+              <p class="grafica__sub" id="m1-sub"></p>
+            </div>
+          </div>
+          <ul class="leyenda leyenda--rampa" id="m1-leyenda"></ul>
+          <div class="grafica__lienzo" id="m1"></div>
+          <p class="fuente-nota" id="m1-fuente"></p>
+        </div>
+        <div class="mapa-mx__ficha" id="m1-ficha" aria-live="polite"></div>
+      </article>
+
+      <div class="rejilla-graficas">
+        <article class="tarjeta grafica" aria-labelledby="g1-t">
+          <div class="grafica__cab">
+            <div>
+              <h3 id="g1-t">Satisfacción por estado</h3>
+              <p class="grafica__sub" id="g1-sub"></p>
+            </div>
+          </div>
+          <ul class="leyenda" id="g1-leyenda"></ul>
+          <div class="grafica__lienzo" id="g1"></div>
+          <div class="hallazgo" id="g1-hallazgo" aria-live="polite"></div>
+          <p class="fuente-nota" id="g1-fuente"></p>
+        </article>
+
+        <article class="tarjeta grafica" aria-labelledby="g2-t">
+          <div class="grafica__cab">
+            <div>
+              <h3 id="g2-t">Aspectos del servicio en el estado elegido</h3>
+              <p class="grafica__sub" id="g2-sub"></p>
+            </div>
+          </div>
+          <ul class="leyenda" id="g2-leyenda"></ul>
+          <div class="grafica__lienzo" id="g2"></div>
+          <div class="hallazgo" id="g2-hallazgo" aria-live="polite"></div>
+          <p class="fuente-nota" id="g2-fuente"></p>
+        </article>
+
+        <article class="tarjeta grafica grafica--ancha" aria-labelledby="m2-t">
+          <div class="grafica__cab">
+            <div>
+              <h3 id="m2-t">Mapa del mundo, 2023</h3>
+              <p class="grafica__sub" id="m2-sub">Elija un indicador. Pulse un país para verlo en la dispersión y en la tabla internacional.</p>
+            </div>
+            <div class="campo">
+              <label for="m2-ind">Indicador del mapa</label>
+              <select id="m2-ind">
+                <option value="uhc">Cobertura de servicios esenciales</option>
+                <option value="gasto">Gasto en salud por habitante</option>
+                <option value="bolsillo">Gasto de bolsillo</option>
+              </select>
+            </div>
+          </div>
+          <ul class="leyenda leyenda--rampa" id="m2-leyenda"></ul>
+          <div class="grafica__lienzo mapa-mundo" id="m2"></div>
+          <div class="tooltip" id="m2-tip" role="status" hidden></div>
+          <p class="fuente-nota" id="m2-fuente"></p>
+        </article>
+
+        <article class="tarjeta grafica" aria-labelledby="g3-t">
+          <div class="grafica__cab">
+            <div>
+              <h3 id="g3-t">Cobertura y gasto en salud por país, 2023</h3>
+              <p class="grafica__sub">Gasto por habitante (eje horizontal, escala logarítmica) contra cobertura de servicios esenciales (eje vertical).</p>
+            </div>
+          </div>
+          <div class="grafica__controles">
+            <div class="campo">
+              <span class="etiqueta" id="g3-conj-et">Países</span>
+              <div class="grupo-botones" role="group" aria-labelledby="g3-conj-et">
+                <button type="button" data-conjunto="clase" aria-pressed="true">22 de clase</button>
+                <button type="button" data-conjunto="todos" aria-pressed="false">Todos (191)</button>
+              </div>
+            </div>
+            <div class="campo">
+              <label for="g3-region">Región</label>
+              <select id="g3-region"></select>
+            </div>
+            <div class="campo">
+              <label for="g3-pais">País</label>
+              <select id="g3-pais"></select>
+            </div>
+          </div>
+          <ul class="leyenda" id="g3-leyenda"></ul>
+          <div class="grafica__lienzo" id="g3"></div>
+          <div class="detalle-pais" id="g3-detalle" aria-live="polite"></div>
+          <div class="hallazgo" id="g3-hallazgo"></div>
+          <p class="fuente-nota" id="g3-fuente"></p>
+        </article>
+
+        <article class="tarjeta grafica" aria-labelledby="g4-t">
+          <div class="grafica__cab">
+            <div>
+              <h3 id="g4-t">Gasto de bolsillo por país, 2023</h3>
+              <p class="grafica__sub">Porcentaje del gasto corriente total en salud que pagan directamente los hogares. No es un porcentaje del ingreso de los hogares.</p>
+            </div>
+          </div>
+          <div class="grafica__controles">
+            <div class="campo">
+              <label for="g4-grupo">Comparar a México con</label>
+              <select id="g4-grupo">
+                <option value="clase">Países de clase (22)</option>
+                <option value="region">Su región: América Latina y el Caribe</option>
+                <option value="favorables">Países con cobertura igual o mayor y menor gasto (de los 191)</option>
+                <option value="filtro">Los países del filtro de la gráfica anterior</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="g4-orden">Ordenar</label>
+              <select id="g4-orden">
+                <option value="desc">De mayor a menor</option>
+                <option value="asc">De menor a mayor</option>
+                <option value="alfa">Alfabético</option>
+              </select>
+            </div>
+          </div>
+          <div class="grafica__lienzo grafica__lienzo--scroll" id="g4" tabindex="0" role="region" aria-label="Gráfica de gasto de bolsillo, se puede desplazar"></div>
+          <div class="hallazgo" id="g4-hallazgo"></div>
+          <p class="fuente-nota" id="g4-fuente"></p>
+        </article>
+      </div>
+
+      <div class="bloque" aria-labelledby="t-tabla-est">
+        <h3 id="t-tabla-est">Tabla estatal</h3>
+        <div class="tabla-herr">
+          <div class="campo">
+            <label for="buscar-est">Buscar estado</label>
+            <input type="search" id="buscar-est" placeholder="Escriba un estado" autocomplete="off">
+          </div>
+          <span class="contador" id="contador-est" aria-live="polite"></span>
+        </div>
+        <div class="tabla-cont tabla-cont--alta" id="tabla-est"></div>
+      </div>
+
+      <div class="bloque" aria-labelledby="t-tabla-int">
+        <h3 id="t-tabla-int">Tabla internacional</h3>
+        <div class="tabla-herr">
+          <div class="campo">
+            <label for="buscar-int">Buscar país o región</label>
+            <input type="search" id="buscar-int" placeholder="Escriba un país o región" autocomplete="off">
+          </div>
+          <div class="campo">
+            <label for="filtro-int">Mostrar</label>
+            <select id="filtro-int">
+              <option value="clase">Países de clase (22)</option>
+              <option value="todos">Todos (191)</option>
+            </select>
+          </div>
+          <span class="contador" id="contador-int" aria-live="polite"></span>
+        </div>
+        <div class="tabla-cont tabla-cont--alta" id="tabla-int"></div>
+      </div>
+    </section>
+
+    <!-- MEXICO POR ESTADO -->
+    <section class="seccion" id="mexico" aria-labelledby="t-mexico" hidden>
+      <h2 id="t-mexico">México por estado</h2>
+      <p class="seccion__intro" id="mexico-intro"></p>
+      <div class="cifras" id="mexico-cifras"></div>
+      <div class="aviso aviso--info" id="mexico-alcance"></div>
+
+      <div class="bloque">
+        <h3 id="t-aspectos">Aspectos del servicio comparados con la referencia nacional</h3>
+        <div class="tabla-cont" id="tabla-aspectos"></div>
+      </div>
+
+      <div class="dos-col bloque">
+        <div>
+          <h3 id="t-inst-estado">Todas las instituciones en el estado</h3>
+          <div class="tabla-cont" id="tabla-instituciones"></div>
+        </div>
+        <div>
+          <h3>Cambio entre 2023 y 2025</h3>
+          <div id="cambio-2023"></div>
+        </div>
+      </div>
+
+      <div class="bloque" aria-labelledby="t-contexto">
+        <h3 id="t-contexto">Contexto del estado</h3>
+        <p class="seccion__intro">Otros datos oficiales para entender la satisfacción. Son contexto: no entran en el cálculo de la brecha ni en la prioridad, y no explican por sí solos la causa.</p>
+        <div id="contexto"></div>
+      </div>
+
+      <div class="bloque">
+        <h2 id="t-imss">Caso IMSS en 2026</h2>
+        <div id="caso-imss"></div>
+      </div>
+    </section>
+
+    <!-- MUNDIAL -->
+    <section class="seccion" id="mundial" aria-labelledby="t-mundial" hidden>
+      <h2 id="t-mundial">Comparación mundial</h2>
+      <p class="seccion__intro">Compara a México con otros países en tres indicadores de 2023: cobertura de servicios esenciales, gasto en salud por habitante y gasto de bolsillo. Las gráficas interactivas están en Resumen.</p>
+      <div class="cifras" id="mundial-cifras"></div>
+      <div class="bloque">
+        <h3>Países con cobertura igual o mayor que México y menor gasto por habitante</h3>
+        <p id="mundial-favorables-intro"></p>
+        <div class="tabla-cont" id="tabla-favorables"></div>
+        <div class="aviso bloque">
+          <p><strong>Cómo leer este resultado.</strong> Estos países muestran un <strong>desempeño favorable en estos indicadores</strong>: alcanzan una cobertura igual o mayor que la de México con menos gasto por habitante. La gráfica por sí sola no demuestra eficiencia total ni causalidad: no considera la calidad clínica, la edad de la población, la carga de enfermedad, los precios ni cómo se organiza cada sistema.</p>
+        </div>
+      </div>
+      <div class="bloque">
+        <h2>Prácticas internacionales documentadas</h2>
+        <p class="seccion__intro">Cada práctica indica qué problema atiende, cómo funciona y qué haría falta para adaptarla en México. Se usan como referencia para formular propuestas, sin atribuirles los resultados completos de un país.</p>
+        <div class="practicas" id="practicas"></div>
+      </div>
+    </section>
+
+    <!-- ESTRATEGIA -->
+    <section class="seccion" id="estrategia" aria-labelledby="t-estrategia" hidden>
+      <h2 id="t-estrategia">Estrategia de mejora</h2>
+      <p class="seccion__intro">La estrategia se genera con reglas verificables: busca el aspecto con la mayor brecha desfavorable comparable en el estado e institución elegidos y lo relaciona con acciones y prácticas documentadas. Cambie el estado o la institución en la barra superior para generar otra.</p>
+      <div id="estrategia-cuerpo" class="estrategia" aria-live="polite"></div>
+    </section>
+
+    <!-- METODO -->
+    <section class="seccion metodo" id="metodo" aria-labelledby="t-metodo" hidden>
+      <h2 id="t-metodo">Cómo se calculó</h2>
+      <div id="metodo-cuerpo"></div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="pie__interior">
+      <p>Salud en Comparación. Proyecto escolar, CETI Plantel Colomos. Datos: INEGI (ENCIG 2023 y 2025), Banco Mundial y OMS, IMSS, DOF, CCSS y PHCPI. Fuentes consultadas el 18 de noviembre de 2026. <span id="pie-generado"></span></p>
+    </div>
+  </footer>
+
+  <noscript><p style="padding:1rem">Este tablero necesita JavaScript para dibujar las gráficas.</p></noscript>
+  <script src="datos/datos.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/analisis.js"></script>
+  <script src="js/graficas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
